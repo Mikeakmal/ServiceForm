@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TblBarang extends Migration
+class TblPengerjaankendaraan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class TblBarang extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_barang', function (Blueprint $table) {
-            $table->id('id_barang');
-            $table->string('nama_barang')->notNull();
-            $table->string('No_inventaris_peralatan')->notNull();
-            $table->string('lokasi_barang')->notNull();
-
-            $table->timestamps();
+        Schema::table('tbl_pengerjaan', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_kendaraan');
+            $table->foreign('id_kendaraan')->references('id_kendaraan')->on('tbl_kendaraan');
         });
-        
     }
 
     /**

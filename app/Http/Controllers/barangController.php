@@ -12,9 +12,10 @@ class barangController extends Controller
 {
     public function index()
     {   
-        $kendaraan = DB::table('tbl_barang')->get();
+        $barang = DB::table('tbl_barang')->get();
+        
         return view('/backend/barang/barang', [
-            'tbl_kendaraan' => $kendaraan, 
+            'tbl_barang' => $barang, 
         ]);
     }
 
@@ -29,7 +30,7 @@ class barangController extends Controller
     {
         Barang::insert([
             'nama_barang'=> $request->barang,
-            'no_inventaris_peralatan' => $request->inventaris,
+            'No_inventaris_peralatan' => $request->inventaris,
             'lokasi_barang' => $request-> lokasi,
         ]);
         return redirect()->back();

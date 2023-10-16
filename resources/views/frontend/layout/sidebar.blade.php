@@ -21,15 +21,11 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-car me-2"></i>Kendaraan</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="/kendaraan" class="dropdown-item">Kendaraan</a>
-                        <a href="{{url('form_pengerjaan')}}" class="dropdown-item">  Form Pengerjaan</a>
-                        <a href="{{url('detail-kendaraan')}}" class="dropdown-item">  Detail Kendaraan</a>
-
+                        <a href="/pengerjaan" class="dropdown-item">Form Service</a>
                     </div>
                 </div>
                 <a href="{{url('barang')}}" class="nav-item nav-link"><i class="bi bi-wrench me-2"></i>Barang</a>
-                <a href="{{url('form-peralatan')}}" class="nav-item nav-link"><i class="bi bi-tools me-2"></i>Peralatan</a>
-
-                
+                <a href="{{url('peralatan')}}" class="nav-item nav-link"><i class="bi bi-tools me-2"></i>Peralatan</a>              
             </div>
         </nav>
     </div>

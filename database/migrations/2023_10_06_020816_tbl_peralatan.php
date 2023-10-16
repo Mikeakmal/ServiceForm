@@ -19,7 +19,7 @@ class TblPeralatan extends Migration
             $table->string('No_inventaris_peralatan') ->notNull();
             $table->string('nama_karyawan');
             $table->string('alat_rusak') ->notNull();
-            $table->date('tanggal_dikerjakan') ->notNull();
+            $table->date('tanggal_digunakan') ->notNull();
             $table->string('nama_teknisi') ->notNull();
 
             $table->timestamps();

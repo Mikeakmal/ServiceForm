@@ -27,25 +27,34 @@ Route::get('/dashboard', [dashboardController::class, 'index']);
 
 //Kendaraan
 Route::get('/kendaraan', [KendaraanController::class, 'index']);
-Route::get('/formkendaraan/{id_kendaraan}', [KendaraanController::class, 'edit']);
+Route::get('/editkendaraan/{id_kendaraan}', [KendaraanController::class, 'edit']);
+Route::post('/form-kendaraan-update', [kendaraanController::class, 'update']);
 Route::post('/addkendaraan', [KendaraanController::class, 'store']);
 Route::get('/kendaraan/{id_kendaraan}', [KendaraanController::class, 'delete']);
+Route::get('/movekendaraan/{id_kendaraan}', [KendaraanController::class, 'move']);
+
 
 //pengerjaan
 Route::get('/pengerjaan', [PengerjaanController::class, 'index']);
-Route::get('/formkendaraan/{id_kendaraan}', [PengerjaanController::class, 'edit']);
-Route::get('/kendaraan/{id_kendaraan}', [PengerjaanController::class, 'delete']);
+Route::post('/addpengerjaan', [PengerjaanController::class, 'store']);
+Route::get('/editpengerjaan/{id_pengerjaan}', [PengerjaanController::class, 'edit']);
+Route::post('/form-pengerjaan-update', [PengerjaanController::class, 'update']);
+Route::get('/deletepengerjaan/{id_pengerjaan}', [PengerjaanController::class, 'delete']);
+Route::get('/formpengerjaan', [PengerjaanController::class, 'create']); 
 
-
-
-//Barang
-Route::get('/formbarang', [barangController::class, 'index']);
-Route::get('/tblbarang', [barangController::class, 'create']);
+// Barang
+Route::get('/barang', [barangController::class, 'index']);
+Route::get('/tblbarang', [barangController::class, 'create']); 
 Route::post('/addbarang', [barangController::class, 'store']);
-Route::get('/formbarang/{id_barang}', [barangController::class, 'edit']);
-Route::get('/barang/{id_barang}', [barangController::class, 'delete']);
+Route::post('/form-barang-update', [barangController::class, 'update']);
+Route::get('/editbarang/{id_barang}', [barangController::class, 'edit']); 
+Route::get('/deletebarang/{id_barang}', [barangController::class, 'delete']);
+
 
 //peralatan
-Route::get('/form-peralatan', [peralatanController::class, 'index']);
+Route::get('/peralatan', [peralatanController::class, 'index']);
+Route::post('/addperalatan', [peralatanController::class, 'store']);
+Route::get('/editperalatan/{id_peralatan}',[peralatanController::class, 'edit']);
+Route::get('/deleteperalatan/{id_peralatan}', [peralatanController::class, 'delete']);
 
 Route::get('/login', [LoginController::class, 'index']);

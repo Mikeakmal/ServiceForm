@@ -18,6 +18,6 @@ class Peralatan extends Model
         'nama_karyawan',
         'alat_rusak',
         'tanggal_digunakan',
-        'teknisi'
+        'nama_teknisi'
     ];
 }
