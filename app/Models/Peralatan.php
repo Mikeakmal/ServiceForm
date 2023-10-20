@@ -20,4 +20,10 @@ class Peralatan extends Model
         'tanggal_digunakan',
         'nama_teknisi'
     ];
+
+    public function barang()
+    {
+        return $this-> hasOne(Barang::class, 'id_barang');
+    }
+
 }

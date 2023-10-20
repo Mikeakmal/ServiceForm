@@ -6,6 +6,7 @@ use App\Models\Pengerjaan;
 use App\Models\Kendaraan;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
+use PDF;
 
 class PengerjaanController extends Controller
 {
@@ -71,5 +72,17 @@ class PengerjaanController extends Controller
         return view('/backend/kendaraan/pengerjaan', compact('pengerjaan','kendaraan', 'logErrors'));
     }
 
+    public function print(Request $request)
+    {
+        $pengerjaan = Pengerjaan::all();
+        $datakendaraan = Kendaraan::pluck('no_polisi', 'id_kendaraan');
+
+        $pdf = PDF::loadView('/backend/kendaraan/pdf_pengerjaan', [
+            'tbl_pengerjaan' =>  $pengerjaan,
+            'nopolis' => $datakendaraan
+        ]);
+
+        return $pdf->download('Data Pengerjaan.pdf');
+    }
    
 }

@@ -17,4 +17,10 @@ class Kendaraan extends Model
         'tanggal_masuk_bengkel',
         'tanggal_selesai',
     ];
+
+    public function pengerjaan()
+    {
+        return $this->hasMany(Pengerjaan::class, 'id_kendaraan', 'id_kendaraan');
+    }
+
 }

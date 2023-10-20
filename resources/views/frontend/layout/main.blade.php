@@ -39,15 +39,8 @@
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
-        {{--  <!-- Spinner End -->  --}}
-
-        {{--  <!-- Sidebar Start -->  --}}
 		@include('frontend.layout.sidebar')
-        {{--  <!-- Sidebar End -->  --}}
-
-		{{--  <!-- content -->  --}}
         <div class="content">
-            {{--  <!-- content -->  --}}
             @yield('content')
         </div>
 

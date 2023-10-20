@@ -7,6 +7,7 @@ use App\Models\Barang;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class peralatanController extends Controller
 {
@@ -16,10 +17,9 @@ class peralatanController extends Controller
         $barang = Barang::all();
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
 
-
         return view('/backend/peralatan/peralatan', [
             'tbl_peralatan' => $peralatan,
-            'inventaris' => $barang,
+            'inventarisNo' => $barang,
             'noinventaris' => $databarang
         ]);
     }
@@ -27,23 +27,46 @@ class peralatanController extends Controller
     public function store(Request $request)
     {
         Peralatan::insert([
+            'id_barang' => $request-> inventaris,
             'merek' => $request-> merek,
             'nama_karyawan' => $request-> karyawan,
             'alat_rusak'=> $request-> alat,
             'tanggal_digunakan'=> $request-> tgldigunakan,
             'nama_teknisi' => $request-> teknisi,
-            'id_barang' => $request-> inventaris
-    
         ]);
         return redirect()->back();
     }
 
-    public function edit($id_peralatan)
+    public function create()
+    {
+        $peralatan = '';
+        $inventarisNo = Barang::all();
+        return view('backend.peralatan.peralatan', compact('peralatan','inventarisNo')          
+        );
+    }
+
+    public function edit($id_tbl)
     {   
-        $id = Crypt::decrypt($id_peralatan);
-        
-        Peralatan::where('id_peralatan', $id)->first();
-        return view('/backend/peralatan/peralatan', compact('peralatan'));
+        // Dekripsi ID
+        $id = Crypt::decrypt($id_tbl);
+
+        // mengambil data asset berdasarkan ID
+        $barang = Barang::where('id_barang', $id)->first();
+        $logErrors = '';
+        $peralatan = Peralatan::all();
+        return view('/backend/peralatan/peralatan', compact('peralatan','barang', 'logErrors'));
+    }
+
+    public function update(Request $request)
+    {
+        Peralatan::where('id_peralatan', $request->id_peralatan)->update([
+            'merek' => $request->val_merek,
+            'nama_karyawan' => $request->val_karyawan,
+            'alat_rusak' => $request->val_alatrusak,
+            'tanggal_digunakan' => $request->val_tgldigunakan,
+            'nama_teknisi' => $request->val_teknisi,
+        ]);
+        return redirect()->back();
     }
     
     public function delete($id_peralatan)
@@ -51,7 +74,32 @@ class peralatanController extends Controller
         Peralatan::where('id_peralatan', $id_peralatan)->delete();
         return redirect()->back();
     }
-
-
     
+
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword'); 
+    
+        $results = Peralatan::with('barang')
+            ->where('merek', 'like', "%$keyword%")
+            ->orWhere('No_inventaris_peralatan', 'like', "%$keyword%")
+            ->orWhere('alat_rusak', 'like', "%$keyword%")
+            ->get();
+    
+        return view('/backend/peralatan/peralatan', compact('results'));
+    }
+
+    public function print(Request $request)
+    {
+        $peralatan = Peralatan::all();
+        $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
+
+        $pdf = PDF::loadView('/backend/peralatan/pdf', [
+            'tbl_peralatan' => $peralatan, 
+            'noinventaris' => $databarang,
+        ]);
+
+        return $pdf->download('Data Peralatan.pdf');
+    }
+
 }

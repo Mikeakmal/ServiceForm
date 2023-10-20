@@ -12,10 +12,13 @@ class Barang extends Model
     protected $primaryKey ='id_barang';
 
     protected $fillable = [
-        'id_barang',
         'nama_barang',
         'No_inventaris_peralatan',
         'lokasi_barang',
     ];
 
+    public function peralatan()
+    {
+        return $this->hasOne(Peralatan::class, 'id_peralatan');
+    }
 }

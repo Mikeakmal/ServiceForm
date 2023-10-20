@@ -1,34 +1,43 @@
 @extends('frontend.layout.main')
 @section('content')
 {{--  <!-- Navbar Start -->  --}}
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-3">
-                    <h2 class="text-primary mb-15"><i class="fa fa-user-edit"></i></h2>
+    <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+            <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+        </a>
+        <a href="#" class="sidebar-toggler flex-shrink-0">
+            <i class="fa fa-bars"></i>
+        </a>
+        <form class="d-none d-md-flex ms-4">
+            <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+        </form>
+        <div class="navbar-nav align-items-center ms-auto">
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <span class="d-none d-lg-inline-flex">John Doe</span>
                 </a>
-                
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Mike Akmal</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
-                    </div>
+                <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                    <a href="#" class="dropdown-item">My Profile</a>
+                    <a href="#" class="dropdown-item">Settings</a>
+                    <a href="#" class="dropdown-item">Log Out</a>
                 </div>
-            </nav>
+            </div>
+        </div>
+    </nav>
 {{--  <!-- Navbar End -->  --}}
 
+<style>
+    /* CSS untuk mengatur tata letak menggunakan flexbox */
+    .button-container {
+        display: flex;
+        align-items: center;
+    }
+
+    #new-pengerjaan {
+        margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
+    }
+</style>
 
 {{--  LIST PENGERJAAN  --}}
     <div class="container-fluid pt-4 px-4">
@@ -36,10 +45,20 @@
             <div class="col-12">
                 <div class="bg-secondary rounded h-100 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h6 class="mb-0">Daftar Pengerjaan </h6> 
-                        @if (count($tbl_pengerjaan) > 0)
-                            <button type="submit" class="btn btn-primary" id="new-pengerjaan"> + Pengerjaan</button>
-                        @endif
+                        <h6 class="mb-0">Daftar Pengerjaan</h6>                       
+                        <div class="button-container">
+                            <button type="submit" class="btn btn-custom"  id="new-pengerjaan" ><i class="bi bi-plus"></i>  Pengerjaan</button>
+                            <div id="download-pdf" style="display: block;">
+                                <form action="{{ url('list-pengerjaan-print') }}" method="POST" id="pdf-form">
+                                    @csrf
+                                    <button type="submit" id="button-download-pdf" class="btn btn-custom">
+                                        <span class="btn-icon-left text-primary">
+                                            <i class="fa fa-download color-primary"></i>
+                                        </span>Download PDF
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-header">
                         <div class="table-responsive">
@@ -65,8 +84,9 @@
                                             <td class="sparepart-selected">{{$j->sparepart}}</td>
                                             <td class="keterangan-selected">{{$j->keterangan_pengerjaan}}</td>
                                             <td>
-                                                <a href="{{ url('/editpengerjaan/' . $j->id_pengerjaan) }}" id="edit-button" class="edit-button"><i class="fa fa-edit"> edit |</i></a>
-                                                <a href="{{ url('/deletepengerjaan/' . $j->id_pengerjaan) }}"><i class="fa fa-trash"> delete </i></a>
+                                                <a href="{{ url('/editpengerjaan/' . $j->id_pengerjaan) }}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ url('/deletepengerjaan/' . $j->id_pengerjaan) }}" title="Hapus" class="delete-button"
+                                                     onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"> </i></a>
                                             </td>
                                         </tr>
                                     @endforeach 
@@ -114,7 +134,7 @@
                             <label for="pengerjaan">Keterangan Pengerjaan</label>
                         </div>
                         <div class=" form-floating ">
-                            <button type="submit" class="btn btn-primary" id="close-form-new-pengerjaan">Simpan</button>
+                            <button type="submit" class="btn btn-warning btn-custom" id="close-form-new-pengerjaan">Simpan</button>
                         </div>
                     </div>        
                 </div>
@@ -161,9 +181,9 @@
                                         <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;"></textarea>
                                     </div>
                                 </div>
-                                <div class="row mb-3 mt-3"> <!-- Tambahkan kelas mt-3 di sini -->
-                                    <div class="col-sm-10 offset-sm-2"> <!-- Gunakan offset untuk meletakkan tombol pada kolom yang sesuai -->
-                                        <button id="close-form-edit-pengerjaan" type="submit" class="btn btn-primary">Perbarui</button>
+                                <div class="row mb-3 mt-3"> 
+                                    <div class="col-sm-10 offset-sm-2"> 
+                                        <button id="close-form-edit-pengerjaan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
                                     </div>
                                 </div>
                         </div>

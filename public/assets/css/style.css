@@ -1,3 +1,59 @@
+.btn-custom {
+    background-color: rgb(255, 171, 2);
+    color:rgb(8, 8, 8); 
+}
+
+.submit-button{
+    background-color: rgb(255, 171, 2);
+    color:rgb(8, 8, 8); 
+
+}
+
+.edit-button {
+    border-radius: 3px;
+    margin: 1mm;
+    padding: 2px; 
+    background:rgb(255, 171, 2); 
+    color: rgb(8, 8, 8);  
+}
+
+.detail-button {
+    border-radius: 3px;
+    margin: 1mm;
+    padding: 2px; 
+    background:rgb(25, 195, 125); 
+    color: rgb(8, 8, 8);  
+}
+.delete-button{
+    border-radius: 3px;
+    padding: 2px; 
+    background:rgb(200, 19, 19); 
+    color: rgb(8, 8, 8);  
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%; 
+    z-index: 999; 
+    background-color: rgb(255, 171, 2);  
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-toggler{
+    color: rgb(255, 171, 2);  
+    background-color: rgb(255, 171, 2);  
+
+}
+
+
+
+
+
 /********** Template CSS **********/
 :root {
     --primary: #FFAB02;

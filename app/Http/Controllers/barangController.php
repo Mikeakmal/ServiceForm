@@ -6,7 +6,7 @@ use App\Models\Barang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-
+use PDF;
 
 class barangController extends Controller
 {
@@ -15,7 +15,7 @@ class barangController extends Controller
         $barang = DB::table('tbl_barang')->get();
         
         return view('/backend/barang/barang', [
-            'tbl_barang' => $barang, 
+            'barang' => $barang, 
         ]);
     }
 
@@ -50,4 +50,40 @@ class barangController extends Controller
         return view('/backend/barang/barang', compact('barang'));
     }
 
+    public function update(Request $request)
+    {
+        Barang::where('id_barang', $request-> id_barang)-> update([
+
+            'nama_barang' => $request -> val_barang,
+            'No_inventaris_peralatan' => $request -> val_inventaris,
+            'lokasi_barang' => $request -> val_lokasi,
+        ]);
+        return redirect()->back();
+    }
+
+    public function print(Request $request)
+    {
+        $barang = Barang::all();
+        $pdf = PDF::loadView('/backend/barang/pdf_barang', [
+            'tbl_barang' => $barang, 
+        ]);
+
+        return $pdf->download('Data Barang.pdf');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $barang = Barang::
+            where('nama_barang', 'like', "%$search%")
+            ->orWhere('No_inventaris_peralatan', 'like', "%$search%")
+            ->get();
+
+        if ($barang->count() === 0) {
+            $barang = Barang::all();
+            return view('/backend/barang/barang', compact('barang'));
+        } else {
+            return view('/backend/barang/barang', compact('barang'));
+        }
+    }
 }
