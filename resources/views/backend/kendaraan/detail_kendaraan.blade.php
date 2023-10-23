@@ -27,7 +27,10 @@
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                    <a href="#" class="dropdown-item">Log Out</a>
+                    <form method="POST" action="{{ url('/logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">Log Out</button>
+                    </form>                
                 </div>
             </div>
         </div>

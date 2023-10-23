@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Peralatan;
 use App\Models\Barang;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -13,6 +14,10 @@ class peralatanController extends Controller
 {
     public function index()
     {   
+        $data = [
+            'user' => Auth::user(), 
+        ];
+
         $peralatan = Peralatan::all();
         $barang = Barang::all();
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');

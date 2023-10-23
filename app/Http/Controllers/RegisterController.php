@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,9 +11,12 @@ class RegisterController extends Controller
 {
     public function index()
     {   
+        $data = [
+            'user' => Auth::user(), 
+        ];
+
         $register = '';
         return view('register.index', compact('register')
-             
         );
     }
 
@@ -31,7 +35,7 @@ class RegisterController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
     
-        return redirect('/loginform')->with('success', 'Registrasi berhasil! Silakan login.');
+        return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
 }

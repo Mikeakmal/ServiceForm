@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="{{url('dashboard')}}" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i class="fa fa-home me-2"></i>Home</a>
+                <a href="{{url('dashboard')}}" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i <i class="fa fa-car me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-car me-2"></i>Kendaraan</a>
                     <div class="dropdown-menu bg-transparent border-0">
@@ -31,7 +31,7 @@
                 </div>                
                 <a href="{{url('barang')}}" class="nav-item nav-link {{ Request::is('barang') ? 'active' : '' }}"><i class="bi bi-wrench me-2"></i>Barang</a>
                 <a href="{{url('peralatan')}}" class="nav-item nav-link {{ Request::is('peralatan') ? 'active' : '' }}"><i class="bi bi-tools me-2"></i>Peralatan</a>
-                <a href="{{url('/registerform')}}" class="nav-item nav-link"><i class="bi bi-tools me-2"></i>Register</a>              
+                <a href="{{url('register')}}" class="nav-item nav-link"><i class="bi bi-tools me-2"></i>Register</a>              
             </div>
         </nav>
     </div>

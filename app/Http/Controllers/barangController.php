@@ -6,12 +6,17 @@ use App\Models\Barang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class barangController extends Controller
 {
     public function index()
     {   
+        $data = [
+            'user' => Auth::user(), 
+        ];
+
         $barang = DB::table('tbl_barang')->get();
         
         return view('/backend/barang/barang', [

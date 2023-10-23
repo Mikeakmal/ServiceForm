@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Kendaraan;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pengerjaan;
 use PDF;
 
@@ -14,6 +15,10 @@ class kendaraanController extends Controller
    
     public function index()
     {
+        $data = [
+            'user' => Auth::user(), 
+        ];
+
         $kendaraan = DB::table('tbl_kendaraan')->get();
         
         return view('/backend/kendaraan/kendaraan', [
