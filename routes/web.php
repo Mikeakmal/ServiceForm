@@ -37,7 +37,7 @@ Route::post('/addregister', [RegisterController::class, 'store']);
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware('auth');
 
 //Kendaraan
-Route::get('/kendaraan', [KendaraanController::class, 'index']);
+Route::get('/kendaraan', [KendaraanController::class, 'index'])->middleware('auth');
 Route::get('/editkendaraan/{id_kendaraan}', [KendaraanController::class, 'edit']);
 Route::post('/form-kendaraan-update', [kendaraanController::class, 'update']);
 Route::post('/addkendaraan', [KendaraanController::class, 'store']);
@@ -50,7 +50,7 @@ Route::get('list-pengerjaan-search', [kendaraanController::class, 'search2']);
 
 
 //pengerjaan
-Route::get('/pengerjaan', [PengerjaanController::class, 'index']);
+Route::get('/pengerjaan', [PengerjaanController::class, 'index'])->middleware('auth');
 Route::post('/addpengerjaan', [PengerjaanController::class, 'store']);
 Route::get('/editpengerjaan/{id_pengerjaan}', [PengerjaanController::class, 'edit']);
 Route::post('/form-pengerjaan-update', [PengerjaanController::class, 'update']);
@@ -61,7 +61,7 @@ Route::get('list-pengerjaan-search', [PengerjaanController::class, 'search']);
 
 
 // Barang
-Route::get('/barang', [barangController::class, 'index']);
+Route::get('/barang', [barangController::class, 'index'])->middleware('auth');
 Route::get('/tblbarang', [barangController::class, 'create']); 
 Route::post('/addbarang', [barangController::class, 'store']);
 Route::post('/form-barang-update', [barangController::class, 'update']);
@@ -72,7 +72,7 @@ Route::get('list-barang-search', [barangController::class, 'search']);
 
 
 //peralatan
-Route::get('/peralatan', [peralatanController::class, 'index']);
+Route::get('/peralatan', [peralatanController::class, 'index'])->middleware('auth');
 Route::get('/formperalatan', [peralatanController::class, 'create']); 
 Route::post('/addperalatan', [peralatanController::class, 'store']);
 Route::get('/editperalatan/{id_peralatan}',[peralatanController::class, 'edit']);

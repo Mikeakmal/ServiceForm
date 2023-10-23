@@ -16,7 +16,7 @@ class TblBarang extends Migration
         Schema::create('tbl_barang', function (Blueprint $table) {
             $table->id('id_barang');
             $table->string('nama_barang')->notNull();
-            $table->string('No_inventaris_peralatan')->notNull();
+            $table->string('No_inventaris_peralatan')->unique();
             $table->string('lokasi_barang')->notNull();
 
             $table->timestamps();

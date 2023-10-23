@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Kendaraan;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 use App\Models\Pengerjaan;
 use PDF;
 
@@ -67,10 +68,21 @@ class kendaraanController extends Controller
 
     public function delete($id_kendaraan)
     {
-        // Kendaraan::destroy($id_kendaraan);
-        // return redirect()->back();
-        Kendaraan::where('id_kendaraan', $id_kendaraan)->delete();
-        return redirect()->back();
+        try {
+            $kendaraan = Kendaraan::find($id_kendaraan);
+    
+            if (!$kendaraan) {
+                return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            }
+            // Periksa apakah ada relasi terkait sebelum menghapus
+            if ($kendaraan->pengerjaan()->count() > 0) {
+                return redirect()->back()->with('error', 'Tidak dapat menghapus data ini karena masih terkait dengan data lain.');
+            }
+            $kendaraan->delete();
+            return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus data. Pastikan data ini tidak terkait dengan data lain.');
+        }
     }
 
     public function print(Request $request)

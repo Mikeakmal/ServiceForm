@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 use PDF;
 
 class barangController extends Controller
@@ -43,9 +44,23 @@ class barangController extends Controller
 
     public function delete($id_barang)
     {
-        Barang::where('id_barang', $id_barang)->delete();
-        return redirect()->back();
+        try {
+            $barang = Barang::find($id_barang);
+    
+            if (!$barang) {
+                return redirect()->back()->with('error', 'Data barang tidak ditemukan.');
+            }
+            // Periksa apakah ada relasi terkait sebelum menghapus
+            if ($barang->peralatan()->count() > 0) {
+                return redirect()->back()->with('error', 'Tidak dapat menghapus data barang ini karena masih terkait dengan data lain.');
+            }
+            $barang->delete();
+            return redirect()->back()->with('success', 'Data barang berhasil dihapus.');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus data barang. Pastikan data ini tidak terkait dengan data lain.');
+        }
     }
+    
 
     public function edit($id_barang)
     {   
