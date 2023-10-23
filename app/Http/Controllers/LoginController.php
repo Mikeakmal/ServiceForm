@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // public function index()
-    // {
-    //   return view('login.index',[
-    //     'title' => 'login'
-    //     ]);  
-    // }
-
     public function index()
     {   
         $login = '';
@@ -22,32 +15,39 @@ class LoginController extends Controller
              
         );
     }
-    // public function authenticate(Request $request)
-    // {
-    //     $credentials = $request->validate([
-    //         'email' =>'required|email:dns',
-    //         'password' => 'required'
-    //     ]);
 
-    //     if(Auth::attempt($credentials)) {
-    //         $request->session()->regenerate();
-    //         return redirect()->intended('/frontend');
-    //     }
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'name' =>'required',
+            'password' => 'required'
+        ]);
 
-    //     return back()->with('loginError', 'Login failed');
-    //     // dd('berhasil login');
-    // }
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            if ($user) {
+                return redirect()->intended('/dashboard');
+            }
+            return redirect()->intended('/loginform');
+        }
 
-    // public function logout()
-    // {
-    //     Auth::logout();
+        return back()->with('loginError', 'Login failed');
+    }
  
-    //     request()->session()->invalidate();
+    public function logout()
+    {
+        Auth::logout();
+ 
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
      
-    //     request()->session()->regenerateToken();
-     
-    //     return redirect('/login');
-    // }
+        return redirect('/loginform');
+    }
 
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
     
 }

@@ -113,7 +113,7 @@ class kendaraanController extends Controller
         }
     }  
     
-    public function search2(Request $request, )
+    public function search2(Request $request)
     {
         $search = $request->input('search2');
         
@@ -124,14 +124,14 @@ class kendaraanController extends Controller
         if ($pengerjaan->count() === 0) {
             $pengerjaan = Pengerjaan::all();
         }
-        dd($pengerjaan);
-        $kendaraan = Kendaraan::where('id_kendaraan', $pengerjaan->id_kendaraan)->first();
-        dd($kendaraan);
+        
+        $kendaraan = Kendaraan::all();
+        $idPerngerjaan = $pengerjaan->pluck('id_kendaraan');
+        $kendaraan = Kendaraan::where('id_kendaraan', $idPerngerjaan)->first();
+
         if (!$kendaraan) {
-            return abort(404); 
+            return abort(404);
         }
         return view('/backend/kendaraan/detail_kendaraan', compact('pengerjaan', 'kendaraan'));
-        
     }
-
 }

@@ -17,7 +17,7 @@ class PengerjaanController extends Controller
         $datakendaraan = Kendaraan::pluck('no_polisi', 'id_kendaraan');
 
         return view('/backend/kendaraan/pengerjaan', [
-            'tbl_pengerjaan' =>  $pengerjaan,
+            'pengerjaan' =>  $pengerjaan,
             'nomorpolis' => $kendaraaan,
             'nopolis' => $datakendaraan
         ]);
@@ -30,6 +30,25 @@ class PengerjaanController extends Controller
         return view('backend.kendaraan.pengerjaan', compact('pengerjaan','nomorpolis')          
         );
     }
+    
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $pengerjaan = Pengerjaan::
+            where('nama_mekanik', 'like', "%$search%")
+            ->orWhere('sparepart', 'like', "%$search%")
+            ->get();
+    
+        $nomorpolis = Kendaraan::all();
+        $nopolis = Kendaraan::pluck('no_polisi', 'id_kendaraan');
+    
+        if ($pengerjaan->count() === 0) {
+            $pengerjaan = Pengerjaan::all();
+        }
+    
+        return view('/backend/kendaraan/pengerjaan', compact('pengerjaan', 'nomorpolis', 'nopolis'));
+    }
+    
 
     public function store(Request $request)
     {
@@ -84,5 +103,6 @@ class PengerjaanController extends Controller
 
         return $pdf->download('Data Pengerjaan.pdf');
     }
-   
+
+
 }

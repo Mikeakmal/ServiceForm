@@ -12,7 +12,7 @@
                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0">Mike Akmal</h6>
+                    <h6 class="mb-0">{{ auth()->user()->name}}</h6>
                     <span>Admin</span>
                 </div>
             </div>
@@ -31,7 +31,6 @@
                 </div>                
                 <a href="{{url('barang')}}" class="nav-item nav-link {{ Request::is('barang') ? 'active' : '' }}"><i class="bi bi-wrench me-2"></i>Barang</a>
                 <a href="{{url('peralatan')}}" class="nav-item nav-link {{ Request::is('peralatan') ? 'active' : '' }}"><i class="bi bi-tools me-2"></i>Peralatan</a>
-                <a href="{{url('/loginform')}}" class="nav-item nav-link"><i class="bi bi-tools me-2"></i>login</a>              
                 <a href="{{url('/registerform')}}" class="nav-item nav-link"><i class="bi bi-tools me-2"></i>Register</a>              
             </div>
         </nav>

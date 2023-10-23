@@ -9,17 +9,23 @@
             <i class="fa fa-bars"></i>
         </a>
         <form class="d-none d-md-flex ms-4">
-            <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+            @if (count($pengerjaan) > 0)
+            <form action="{{ url('list-pengerjaan-search') }}" method="GET">
+                @csrf
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" 
+                    placeholder="Search Nama Mekanik" value="{{ Request::get('search') }}">
+                </div>
+            </form>
+            @endif
         </form>
         <div class="navbar-nav align-items-center ms-auto">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <span class="d-none d-lg-inline-flex">John Doe</span>
+                    <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                    <a href="#" class="dropdown-item">My Profile</a>
-                    <a href="#" class="dropdown-item">Settings</a>
                     <a href="#" class="dropdown-item">Log Out</a>
                 </div>
             </div>
@@ -75,7 +81,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($tbl_pengerjaan as $j)
+                                    @foreach($pengerjaan as $j)
                                         <tr data-id="{{$j->id_pengerjaan}}">
                                             <th>{{ $loop->iteration }}</th>
                                             <td class="nopol-selected">{{ $nopolis[$j->id_kendaraan] }}</td>
@@ -193,7 +199,20 @@
         </form>
     
     <script>
-     
+        // search
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.querySelector('input[name="search"]');
+    
+            searchInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Mencegah submit form default
+                    // Ambil nilai input
+                    const searchValue = searchInput.value;
+                    window.location.href = "{{ url('list-pengerjaan-search') }}?search=" + searchValue;
+                }
+            });
+        });
+
         // script to show/hide form add new company
         const toggleFormButton = document.getElementById('new-pengerjaan'); 
         const toggleCloseFormButton = document.getElementById('close-form-new-pengerjaan');

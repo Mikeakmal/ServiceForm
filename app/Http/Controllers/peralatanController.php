@@ -18,7 +18,7 @@ class peralatanController extends Controller
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
 
         return view('/backend/peralatan/peralatan', [
-            'tbl_peralatan' => $peralatan,
+            'peralatan' => $peralatan,
             'inventarisNo' => $barang,
             'noinventaris' => $databarang
         ]);
@@ -74,20 +74,25 @@ class peralatanController extends Controller
         Peralatan::where('id_peralatan', $id_peralatan)->delete();
         return redirect()->back();
     }
-    
-
+   
     public function search(Request $request)
     {
-        $keyword = $request->get('keyword'); 
-    
-        $results = Peralatan::with('barang')
-            ->where('merek', 'like', "%$keyword%")
-            ->orWhere('No_inventaris_peralatan', 'like', "%$keyword%")
-            ->orWhere('alat_rusak', 'like', "%$keyword%")
+        $search = $request->input('search');
+        $peralatan = Peralatan::
+            where('merek', 'like', "%$search%")
+            ->orWhere('alat_rusak', 'like', "%$search%")
             ->get();
     
-        return view('/backend/peralatan/peralatan', compact('results'));
+        $inventarisNo = Barang::all();
+        $noinventaris = Barang::pluck('No_inventaris_peralatan', 'id_barang');
+    
+        if ($peralatan->count() === 0) {
+            $peralatan = Peralatan::all();
+        }
+    
+        return view('/backend/peralatan/peralatan', compact('peralatan', 'inventarisNo', 'noinventaris'));
     }
+
 
     public function print(Request $request)
     {

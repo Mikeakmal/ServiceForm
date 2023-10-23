@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 
 //dashboard
-Route::get('/dashboard', [dashboardController::class, 'index']);
+Route::get('/dashboard', [dashboardController::class, 'index'])->middleware('guest');
 
 //Kendaraan
 Route::get('/kendaraan', [KendaraanController::class, 'index']);
@@ -48,6 +48,7 @@ Route::post('/form-pengerjaan-update', [PengerjaanController::class, 'update']);
 Route::get('/deletepengerjaan/{id_pengerjaan}', [PengerjaanController::class, 'delete']);
 Route::get('/formpengerjaan', [PengerjaanController::class, 'create']);
 Route::post('list-pengerjaan-print', [PengerjaanController::class, 'print']);
+Route::get('list-pengerjaan-search', [PengerjaanController::class, 'search']);
 
 
 // Barang
@@ -69,17 +70,16 @@ Route::get('/editperalatan/{id_peralatan}',[peralatanController::class, 'edit'])
 Route::post('/form-peralatan-update', [peralatanController::class, 'update']);
 Route::get('/deleteperalatan/{id_peralatan}', [peralatanController::class, 'delete']);
 Route::post('list-peralatan-print', [peralatanController::class, 'print']);
+Route::get('list-peralatan-search', [peralatanController::class, 'search']);
 
 
 //login
-// Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::get('/loginform', [LoginController::class, 'index']);
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/loginform', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login-auth', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 //Register
-// Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
-Route::get('/registerform', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/registerform', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/addregister', [RegisterController::class, 'store']);
 
 
