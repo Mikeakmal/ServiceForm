@@ -1,7 +1,7 @@
 
 
 {{--  <!-- Sidebar Start -->  --}}
-    <div class="sidebar pe-4 pb-3">
+    <div class="sidebar pe-6 pb-3">
         <nav class="navbar bg-secondary navbar-dark">
             <a href="index.html" class="navbar-brand mx-4 mb-3">
                 <h3 class="" style="color: rgb(255, 111, 0);" >Service Form</h3>
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="{{url('dashboard')}}" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i <i class="fa fa-home me-2"></i>home</a>
+                <a href="{{url('dashboard')}}" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i <i class="fa fa-home me-2"></i>Home</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-car me-2"></i>Kendaraan</a>
                     <div class="dropdown-menu bg-transparent border-0">
@@ -29,9 +29,9 @@
                         </a>
                     </div>
                 </div>                
-                <a href="{{url('barang')}}" class="nav-item nav-link {{ Request::is('barang') ? 'active' : '' }}"><i class="bi bi-wrench me-2"></i>Daftar Peralatan Inventaris</a>
+                <a href="{{url('barang')}}" class="nav-item nav-link {{ Request::is('barang') ? 'active' : '' }}"><i class="bi bi-gear me-2"></i>Peralatan Inventaris</a>
                 <a href="{{url('peralatan')}}" class="nav-item nav-link {{ Request::is('peralatan') ? 'active' : '' }}"><i class="bi bi-tools me-2"></i>Peralatan Rusak</a>
-                <a href="{{url('register')}}" class="nav-item nav-link"><i class="bi bi-pen me-2"></i>Register</a>              
+                {{--  <a href="{{url('register')}}" class="nav-item nav-link"><i class="bi bi-pen me-2"></i>Register</a>                --}}
             </div>
         </nav>
     </div>

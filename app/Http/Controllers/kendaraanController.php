@@ -93,7 +93,7 @@ class kendaraanController extends Controller
             'tbl_kendaraan' => $kendaraan, 
         ]);
 
-        return $pdf->download('Data Kendaraan.pdf');
+        return $pdf->download('Daftar Kendaraan.pdf');
     }
 
     public function cetak( $id)

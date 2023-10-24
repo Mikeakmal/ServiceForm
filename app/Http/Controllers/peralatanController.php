@@ -19,13 +19,16 @@ class peralatanController extends Controller
         ];
 
         $peralatan = Peralatan::all();
-        $barang = Barang::all();
+        $barang = Barang::where('kondisi','RUSAK')->get();
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
+        $kondisibarang = Barang::pluck('kondisi', 'id_barang');
 
         return view('/backend/peralatan/peralatan', [
             'peralatan' => $peralatan,
             'inventarisNo' => $barang,
-            'noinventaris' => $databarang
+            'noinventaris' => $databarang,
+            'kondisibarang' => $kondisibarang,
+
         ]);
     }
 
@@ -36,7 +39,7 @@ class peralatanController extends Controller
             'merek' => $request-> merek,
             'nama_karyawan' => $request-> karyawan,
             'alat_rusak'=> $request-> alat,
-            'tanggal_digunakan'=> $request-> tgldigunakan,
+            'tanggal_diperbaiki'=> $request-> tgldiperbaiki,
             'nama_teknisi' => $request-> teknisi,
         ]);
         return redirect()->back();
@@ -55,7 +58,7 @@ class peralatanController extends Controller
         // Dekripsi ID
         $id = Crypt::decrypt($id_tbl);
 
-        // mengambil data asset berdasarkan ID
+        // mengambil data inventaris peralatan berdasarkan ID
         $barang = Barang::where('id_barang', $id)->first();
         $logErrors = '';
         $peralatan = Peralatan::all();
@@ -64,13 +67,16 @@ class peralatanController extends Controller
 
     public function update(Request $request)
     {
+        Barang::where('id_barang', $request->id_barang)->update([
+            'kondisi' => $request->val_kondisi
+        ]);
         Peralatan::where('id_peralatan', $request->id_peralatan)->update([
             'merek' => $request->val_merek,
             'nama_karyawan' => $request->val_karyawan,
             'alat_rusak' => $request->val_alatrusak,
-            'tanggal_digunakan' => $request->val_tgldigunakan,
+            'tanggal_diperbaiki' => $request->val_tgldiperbaiki,
             'nama_teknisi' => $request->val_teknisi,
-        ]);
+          ]);
         return redirect()->back();
     }
     
@@ -105,11 +111,11 @@ class peralatanController extends Controller
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
 
         $pdf = PDF::loadView('/backend/peralatan/pdf', [
-            'tbl_peralatan' => $peralatan, 
+            'tbl_peralatanrusak' => $peralatan, 
             'noinventaris' => $databarang,
         ]);
 
-        return $pdf->download('Data Peralatan.pdf');
+        return $pdf->download('Daftar Peralatan Rusak.pdf');
     }
 
 }

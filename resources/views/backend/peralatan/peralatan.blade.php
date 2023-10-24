@@ -55,10 +55,10 @@
             <div class="col-12">
                 <div class="bg-secondary rounded h-100 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h6 class="mb-0">Daftar Peralatan </h6>                       
+                        <h6 class="mb-0">Daftar Peralatan Rusak </h6>                       
                         <div class="button-container">
                             <button type="submit" class="btn btn-custom"  id="new-peralatan" ><i class="bi bi-plus"></i>  Peralatan</button>
-                            <div id="download-pdf" style="display: block;">
+                            {{--  <div id="download-pdf" style="display: block;">
                                 <form action="{{ url('list-peralatan-print') }}" method="POST" id="pdf-form">
                                     @csrf
                                     <button type="submit" id="button-download-pdf" class="btn btn-custom">
@@ -67,7 +67,7 @@
                                         </span>Download PDF
                                     </button>
                                 </form>
-                            </div>
+                            </div>  --}}
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -79,21 +79,23 @@
                                     <th scope="col">No. Inventaris Peralatan</th>
                                     <th scope="col">Nama Karyawan</th>
                                     <th scope="col">Alat Rusak</th>
-                                    <th scope="col">Tanggal Digunakan</th>
+                                    <th scope="col">Tanggal Diperbaiki</th>
                                     <th scope="col">Teknisi</th>
-                                    <th scope="col">Perbarui</th>
+                                    <th scope="col">Kondisi</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($peralatan as $j) 
-                                    <tr data-id="{{$j->id_peralatan}}">
+                                    <tr data-id="{{$j->id_peralatan}}" data-id_barang="{{$j->id_barang}}">
                                         <th>{{ $loop->iteration }}</th>
                                         <td class="merek-selected">{{$j->merek}}</td>
                                         <td class="inventaris-selected">{{ $noinventaris[$j->id_barang] }}</td>
                                         <td class="karyawan-selected">{{$j->nama_karyawan}}</td>
                                         <td class="alat-rusak-selected">{{$j->alat_rusak}}</td>
-                                        <td class="tgl-digunakan-selected">{{$j->tanggal_digunakan}}</td>
+                                        <td class="tgl-diperbaiki-selected">{{$j->tanggal_diperbaiki}}</td>
                                         <td class="teknisi-selected">{{$j->nama_teknisi}}</td>
+                                        <td class="kondisi-selected">{{ $kondisibarang[$j->id_barang] }}</td>
                                         <td>
                                             <a href="{{ url('/editperalatan/' . $j->id_peralatan) }}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
                                             <a href="{{ url('/deleteperalatan/' . $j->id_peralatan) }}" class="delete-button" title="Hapus" 
@@ -117,7 +119,7 @@
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-12">
                     <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Form Peralatan</h6>
+                        <h6 class="mb-4">Form Peralatan Rusak</h6>
                         <div class="form-floating mb-3">
                             <input name="merek" type="text" class="form-control" id="merek"
                                 placeholder="">
@@ -141,8 +143,8 @@
                             <label for="alat">Alat Rusak</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input name="tgldigunakan" type="date" class="form-control" id="tgldigunakan" placeholder="" required>
-                            <label for="tgldigunakan">Tanggal Digunakan</label>
+                            <input name="tgldiperbaiki" type="date" class="form-control" id="tgldiperbaiki" placeholder="" required>
+                            <label for="tgldiperbaiki">Tanggal Diperbaiki</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input name="teknisi" type="text" class="form-control" id="teknisi" placeholder="" required>
@@ -166,6 +168,7 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Form Edit Peralatan</h6>
                         <input type="hidden" id="edit-id" name="id_peralatan">
+                        <input type="hidden" id="edit-id_barang" name="id_barang">
                         <div class="row mb-3">
                             <label for="merek" class="col-sm-2 col-form-label">Merek</label>
                             <div class="col-sm-10">
@@ -191,9 +194,9 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="tgldigunakan" class="col-sm-2 col-form-label">Tanggal Digunakan</label>
+                            <label for="tgldiperbaiki" class="col-sm-2 col-form-label">Tanggal Diperbaiki</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="val_tgldigunakan" id="edit-tgldigunakan" required>
+                                <input type="date" class="form-control" name="val_tgldiperbaiki" id="edit-tgldiperbaiki" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -201,6 +204,15 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="val_teknisi" id="edit-teknisi" required>
                             </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select name="val_kondisi" class="form-select" id="edit-kondisi"
+                                aria-label="Floating label select example">
+                                <option selected>Kondisi</option>
+                                <option value="BAGUS">Bagus</option>
+                                <option value="RUSAK">Rusak</option>
+                            </select>
+                            <label for="edit-kondisi">Works with selects</label>
                         </div>
                         <div class="row mb-3 mt-3"> 
                             <div class="col-sm-10 offset-sm-2"> 
@@ -260,21 +272,25 @@
                 // Mengambil data dari baris yang dipilih
                 var row = this.closest("tr");
                 var id = row.getAttribute("data-id");
+                var id_barang = row.getAttribute("data-id_barang");
                 var merek = row.querySelector(".merek-selected").textContent;
                 var NoInventaris = row.querySelector(".inventaris-selected").textContent;
                 var namaKaryawan = row.querySelector(".karyawan-selected").textContent;
                 var alatRusak = row.querySelector(".alat-rusak-selected").textContent;
-                var tglDigunakan = row.querySelector(".tgl-digunakan-selected").textContent;
+                var tglDiperbaiki = row.querySelector(".tgl-diperbaiki-selected").textContent;
                 var teknisi = row.querySelector(".teknisi-selected").textContent;
+                var kondisiBarang = row.querySelector(".kondisi-selected").textContent;
 
                 // Mengisi data ke dalam formulir
                 document.getElementById("edit-id").value = id;
+                document.getElementById("edit-id_barang").value = id_barang;
                 document.getElementById("edit-merek").value = merek;
                 document.getElementById("edit-inventaris").value = NoInventaris;
                 document.getElementById("edit-karyawan").value = namaKaryawan;
                 document.getElementById("edit-alatrusak").value = alatRusak;
-                document.getElementById("edit-tgldigunakan").value = tglDigunakan;
+                document.getElementById("edit-tgldiperbaiki").value = tglDiperbaiki;
                 document.getElementById("edit-teknisi").value = teknisi;
+                document.getElementById("edit-kondisi").value = kondisiBarang;
 
 
                 if (myEditForm.style.display === 'none') {
@@ -295,6 +311,4 @@
             }
         });
     </script>
-
-    
 @endsection

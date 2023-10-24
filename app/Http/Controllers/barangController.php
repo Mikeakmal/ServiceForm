@@ -38,6 +38,8 @@ class barangController extends Controller
             'nama_barang'=> $request->barang,
             'No_inventaris_peralatan' => $request->inventaris,
             'lokasi_barang' => $request-> lokasi,
+            'kondisi' => $request -> kondisi,
+            'tanggal_pengambilan' => $request -> tglpengambilan,
         ]);
         return redirect()->back();
     }
@@ -77,6 +79,8 @@ class barangController extends Controller
             'nama_barang' => $request -> val_barang,
             'No_inventaris_peralatan' => $request -> val_inventaris,
             'lokasi_barang' => $request -> val_lokasi,
+            'kondisi' => $request -> val_kondisi,
+            'tanggal_pengambilan' => $request -> val_tglpengambilan,
         ]);
         return redirect()->back();
     }
@@ -88,7 +92,7 @@ class barangController extends Controller
             'tbl_barang' => $barang, 
         ]);
 
-        return $pdf->download('Data Barang.pdf');
+        return $pdf->download('Daftar Peralatan Inventaris.pdf');
     }
 
     public function search(Request $request)

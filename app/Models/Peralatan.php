@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Peralatan extends Model
 {
     use HasFactory;
-    protected $table = 'tbl_peralatan';
+    protected $table = 'tbl_peralatanrusak';
     protected $primaryKey ='id_peralatan';
 
     protected $fillable = [
@@ -17,8 +17,8 @@ class Peralatan extends Model
         'No_inventaris_peralatan',
         'nama_karyawan',
         'alat_rusak',
-        'tanggal_digunakan',
-        'nama_teknisi'
+        'tanggal_diperbaiki',
+        'nama_teknisi',
     ];
 
     public function barang()

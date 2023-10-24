@@ -15,6 +15,8 @@ class Barang extends Model
         'nama_barang',
         'No_inventaris_peralatan',
         'lokasi_barang',
+        'kondisi',
+        'tanggal_pengambilan',
     ];
 
     public function peralatan()

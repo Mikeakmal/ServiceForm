@@ -54,9 +54,9 @@
         <div class="col-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h6 class="mb-0">Daftar Barang </h6> 
+                    <h6 class="mb-0">Daftar Peralatan Inventaris </h6> 
                     <div class="button-container">
-                        <button type="submit" class="btn btn-warning btn-custom" id="new-barang"><i class="bi bi-plus"></i>Barang</button>
+                        <button type="submit" class="btn btn-warning btn-custom" id="new-barang"><i class="bi bi-plus"></i>Inventaris</button>
                         <div id="download-pdf" style="display: block;">
                             <form action="{{ url('list-barang-print') }}" method="POST" id="pdf-form">
                                 @csrf
@@ -77,6 +77,8 @@
                                 <th scope="col">Nama Barang</th>
                                 <th scope="col">No. Inventaris Peralatan</th>
                                 <th scope="col">Lokasi Barang</th>
+                                <th scope="col">Kondisi</th>
+                                <th scope="col">Tanggal Pengambilan</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -87,6 +89,8 @@
                                 <td class="barang-selected">{{$j->nama_barang}}</td>
                                 <td class="inventaris-selected">{{$j->No_inventaris_peralatan}}</td>
                                 <td class="lokasi-selected">{{$j->lokasi_barang}}</td>
+                                <td class="kondisi-selected">{{$j->kondisi}}</td>
+                                <td class="tglpengambilan-selected">{{$j->tanggal_pengambilan}}</td>
                                 <td>
                                     <a href="/editbarang/{{$j->id_barang}}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
                                     <a href="/deletebarang/{{$j->id_barang}}" class="delete-button" title="Hapus"
@@ -102,14 +106,14 @@
     </div>
 </div>
 
-{{-- Form Tambah Barang --}}
+{{-- Form Tambah Barang/inventaris --}}
 <form action="{{url('/addbarang')}}" method="POST" id="form-new-barang" style="display: none;">
     @csrf
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">Formulir Barang</h6>
+                    <h6 class="mb-4">Formulir Peralatan Inventaris</h6>
                     <div class="form-floating mb-3">
                         <input name="barang" type="text" class="form-control" id="barang" placeholder="" required>
                         <label for="barang">Nama Barang</label>
@@ -122,6 +126,19 @@
                         <input name="lokasi" type="text" class="form-control" id="lokasi" placeholder="" required>
                         <label for="lokasi">Lokasi</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <select name="kondisi" class="form-select" id="kondisi"
+                            aria-label="Floating label select example">
+                            <option selected>Kondisi</option>
+                            <option value="BAGUS">Bagus</option>
+                            <option value="RUSAK">Rusak</option>
+                        </select>
+                        <label for="kondisi">Works with selects</label>
+                    </div>
+                    {{--  <div class="form-floating mb-3">
+                        <input name="tglpengambilan" type="date" class="form-control" id="tglpengambilan" placeholder="" required>
+                        <label for="tgl-pengambilan">Tanggal Pengambilan</label>
+                    </div>  --}}
                     <div class="form-floating">
                         <button type="submit" id="close-form-new-barang" class="btn btn-warning btn-custom">Simpan</button>
                     </div>
@@ -139,7 +156,7 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">Formulir Edit Barang</h6>
+                    <h6 class="mb-4">Formulir Edit Peralatan Inventaris</h6>
                     <input type="hidden" id="edit-id" name="id_barang">
                     <div class="form-floating mb-3">
                         <input name="val_barang" type="text" class="form-control" id="edit-barang" placeholder="" required>
@@ -153,6 +170,14 @@
                         <input name="val_lokasi" type="text" class="form-control" id="edit-lokasi" placeholder="" required>
                         <label for="lokasi">Lokasi</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input name="val_kondisi" type="text" class="form-control" id="edit-kondisi" placeholder="" required>
+                        <label for="kondisi">Lokasi</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="val_tglpengambilan" type="date" class="form-control" id="edit-tgl-pengambilan" placeholder="" required>
+                        <label for="edit-tgl-pengambilan">Tanggal Pengambilan</label>
+                    </div>
                     <div class="form-floating">
                         <button type="submit" id="close-form-edit-barang" class="btn btn-warning btn-custom">Perbarui</button>
                     </div>
@@ -164,6 +189,12 @@
 
 
 <script>
+    {{--  capslock  --}}
+    var nopolInput = document.getElementById('edit-kondisi');
+    nopolInput.addEventListener('input', function() {
+        this.value = this.value.toUpperCase(); 
+    });
+
      {{--  search  --}}
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.querySelector('input[name="search"]');
@@ -179,7 +210,7 @@
         });
     });
 
-    // script to show/hide form add new company
+    // script to show/hide form add new Peralatan Inventaris
     const toggleFormButton = document.getElementById('new-barang'); 
     const toggleCloseFormButton = document.getElementById('close-form-new-barang');
     const myForm = document.getElementById('form-new-barang'); 
@@ -222,6 +253,8 @@
             var namaBarang = row.querySelector(".barang-selected").textContent;
             var noInventaris = row.querySelector(".inventaris-selected").textContent;
             var lokasiBarang = row.querySelector(".lokasi-selected").textContent;
+            var kondisiBarang = row.querySelector(".kondisi-selected").textContent;
+            var tglAmbil = row.querySelector(".tglpengambilan-selected").textContent;
 
 
             // Mengisi data ke dalam formulir
@@ -229,6 +262,8 @@
             document.getElementById("edit-barang").value = namaBarang;
             document.getElementById("edit-inventaris").value = noInventaris;
             document.getElementById("edit-lokasi").value = lokasiBarang;
+            document.getElementById("edit-kondisi").value = kondisiBarang;
+            document.getElementById("edit-tgl-pengambilan").value = tglAmbil;
 
             if (myEditForm.style.display === 'none') {
                 myEditForm.style.display = 'block';

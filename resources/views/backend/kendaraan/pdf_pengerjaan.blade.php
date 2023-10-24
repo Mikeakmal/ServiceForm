@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Data Pengerjaan</title>
+        <title>Daftar Pengerjaan</title>
 
         <style>
             table {
@@ -40,7 +40,7 @@
 
         <div style="width: 95%; margin: 0 auto;">
             <div style="float: left; margin-left:-17px;">
-                <h4>Data Pengerjaan</h4>
+                <h4>Daftar Pengerjaan</h4>
             </div>
             <div style="float:right;margin-top:-10px;">
                 <b>PT. SATRIA UTAMA GROUP </b>

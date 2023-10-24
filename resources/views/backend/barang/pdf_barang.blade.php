@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Data Barang</title>
+        <title>Daftar Peralatan Inventaris</title>
 
         <style>
             table {
@@ -40,7 +40,7 @@
 
         <div style="width: 95%; margin: 0 auto;">
             <div style="float: left; margin-left:-17px;">
-                <h4>Data Barang</h4>
+                <h4>Daftar Peralatan Inventaris</h4>
             </div>
             <div style="float:right;margin-top:-10px;">
                 <b>PT. SATRIA UTAMA GROUP</b>
@@ -54,6 +54,8 @@
                     <th>Nama Barang</th>
                     <th>No. Inventaris Peralatan</th>
                     <th>Lokasi Barang</th>
+                    <th>Kondisi</th>
+                    <th>Tanggal Pengambilan</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +65,8 @@
                         <td>{{$j->nama_barang}}</td>
                         <td>{{$j->No_inventaris_peralatan}}</td>
                         <td>{{$j->lokasi_barang}}</td>
+                        <td>{{$j->kondisi}}</td>
+                        <td>{{$j->tanggal_pengambilan}}</td>
                     </tr>
                 @endforeach 
             </tbody>

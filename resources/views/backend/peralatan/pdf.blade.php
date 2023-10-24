@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Data Peralatan</title>
+        <title>Daftar Peralatan Rusak</title>
 
         <style>
             table {
@@ -38,7 +38,7 @@
     <body>
         <div style="width: 95%; margin: 0 auto;">
             <div style="float: left; margin-left:-17px;">
-                <h4>Data Peralatan</h4>
+                <h4>Daftar Peralatan Rusak</h4>
             </div>
             <div style="float:right;margin-top:-10px;">
                 <b>PT. SATRIA UTAMA GROUP</b>
