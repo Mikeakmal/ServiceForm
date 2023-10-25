@@ -171,11 +171,16 @@
                         <label for="lokasi">Lokasi</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="val_kondisi" type="text" class="form-control" id="edit-kondisi" placeholder="" required>
-                        <label for="kondisi">Lokasi</label>
+                        <select name="val_kondisi" class="form-select" id="edit-kondisi"
+                            aria-label="Floating label select example">
+                            <option selected>Kondisi</option>
+                            <option value="BAGUS">Bagus</option>
+                            <option value="RUSAK">Rusak</option>
+                        </select>
+                        <label for="edit-kondisi">Works with selects</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="val_tglpengambilan" type="date" class="form-control" id="edit-tgl-pengambilan" placeholder="" required>
+                        <input name="val_tglpengambilan" type="date" class="form-control" id="edit-tgl-pengambilan" placeholder="">
                         <label for="edit-tgl-pengambilan">Tanggal Pengambilan</label>
                     </div>
                     <div class="form-floating">

@@ -18,17 +18,28 @@ class peralatanController extends Controller
             'user' => Auth::user(), 
         ];
 
+        $dataRusak = Peralatan::join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
+            ->where('tbl_barang.kondisi', 'RUSAK')
+            ->select('tbl_peralatanrusak.*')
+            ->get();
+
         $peralatan = Peralatan::all();
-        $barang = Barang::where('kondisi','RUSAK')->get();
+        $barang = Barang::where('kondisi','RUSAK')->orWhere('No_inventaris_peralatan')
+            ->whereNotIn('id_barang', function ($query) {
+                $query->select('id_barang')
+                    ->from('tbl_kendaraan');
+            })
+            ->get();
+            
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
         $kondisibarang = Barang::pluck('kondisi', 'id_barang');
 
-        return view('/backend/peralatan/peralatan', [
+        return view('backend.peralatan.peralatan', [
             'peralatan' => $peralatan,
             'inventarisNo' => $barang,
             'noinventaris' => $databarang,
             'kondisibarang' => $kondisibarang,
-
+            'dataRusak' => $dataRusak,
         ]);
     }
 

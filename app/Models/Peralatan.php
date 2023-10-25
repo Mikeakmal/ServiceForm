@@ -19,6 +19,7 @@ class Peralatan extends Model
         'alat_rusak',
         'tanggal_diperbaiki',
         'nama_teknisi',
+        'kondisi',
     ];
 
     public function barang()

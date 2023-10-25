@@ -19,6 +19,7 @@
                 </form>
             @endif
         </form>
+
         <div class="navbar-nav align-items-center ms-auto">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -26,6 +27,8 @@
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                    <a href="#" class="dropdown-item">History</a>
+                    <a href="#" class="dropdown-item">Settings</a>
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item">Log Out</button>
@@ -48,6 +51,7 @@
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
 </style>
+
 
 {{--  LIST PERALATAN  --}}
     <div class="container-fluid pt-4 px-4">
@@ -86,7 +90,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($peralatan as $j) 
+                                @foreach($dataRusak as $j) 
                                     <tr data-id="{{$j->id_peralatan}}" data-id_barang="{{$j->id_barang}}">
                                         <th>{{ $loop->iteration }}</th>
                                         <td class="merek-selected">{{$j->merek}}</td>
@@ -122,7 +126,7 @@
                         <h6 class="mb-4">Form Peralatan Rusak</h6>
                         <div class="form-floating mb-3">
                             <input name="merek" type="text" class="form-control" id="merek"
-                                placeholder="">
+                                placeholder="" required>
                             <label for="merek">Merek</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -205,14 +209,16 @@
                                 <input type="text" class="form-control" name="val_teknisi" id="edit-teknisi" required>
                             </div>
                         </div>
-                        <div class="form-floating mb-3">
-                            <select name="val_kondisi" class="form-select" id="edit-kondisi"
-                                aria-label="Floating label select example">
-                                <option selected>Kondisi</option>
-                                <option value="BAGUS">Bagus</option>
-                                <option value="RUSAK">Rusak</option>
-                            </select>
-                            <label for="edit-kondisi">Works with selects</label>
+                        <div class="row mb-3">
+                            <label for="kondisi" class="col-sm-2 col-form-label">Kondisi</label>
+                            <div class="col-sm-10">
+                                <select name="val_kondisi" class="form-select" id="edit-kondisi"
+                                    aria-label="Floating label select example">
+                                    <option selected>Kondisi</option>
+                                    <option value="BAGUS">Bagus</option>
+                                    <option value="RUSAK">Rusak</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="row mb-3 mt-3"> 
                             <div class="col-sm-10 offset-sm-2"> 
