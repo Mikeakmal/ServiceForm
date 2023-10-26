@@ -106,7 +106,7 @@ class PengerjaanController extends Controller
             'nopolis' => $datakendaraan
         ]);
 
-        return $pdf->download('Daftar Pengerjaan.pdf');
+        return $pdf->stream('Daftar Pengerjaan.pdf');
     }
 
 

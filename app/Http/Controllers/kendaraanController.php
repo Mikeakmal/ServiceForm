@@ -93,7 +93,7 @@ class kendaraanController extends Controller
             'tbl_kendaraan' => $kendaraan, 
         ]);
 
-        return $pdf->download('Daftar Kendaraan.pdf');
+        return $pdf->stream('Daftar Kendaraan.pdf');
     }
 
     public function cetak( $id)
@@ -111,7 +111,7 @@ class kendaraanController extends Controller
             'pengerjaan' => $pengerjaan,
         ]);
     
-        return $pdf->download('Data Pengerjaan Kendaraan.pdf');
+        return $pdf->stream('Data Pengerjaan Kendaraan.pdf');
     }
 
     public function search(Request $request)

@@ -22,7 +22,8 @@ class peralatanController extends Controller
             ->where('tbl_barang.kondisi', 'RUSAK')
             ->select('tbl_peralatanrusak.*')
             ->get();
-
+            
+        // MENGATUR PILIHAN PADA COMBOBOX
         $peralatan = Peralatan::all();
         $barang = Barang::where('kondisi','RUSAK')->orWhere('No_inventaris_peralatan')
             ->whereNotIn('id_barang', function ($query) {
@@ -127,6 +128,29 @@ class peralatanController extends Controller
         ]);
 
         return $pdf->download('Daftar Peralatan Rusak.pdf');
+    }
+
+    public function cetakPertanggal(Request $request)
+    {
+        $dari_tanggal = $request->dari_tanggal;
+        $sampai_tanggal = $request->sampai_tanggal;
+
+        $cetakPertanggal = Peralatan::whereDate('tanggal_diperbaiki', '>=', $dari_tanggal)
+            ->whereDate('tanggal_diperbaiki', '<=', $sampai_tanggal)
+            ->get();
+
+        // Sekarang, Anda hanya mengambil data yang sesuai dengan rentang tanggal yang dipilih.
+
+        $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
+        $kondisibarang = Barang::pluck('kondisi', 'id_barang');
+
+        $pdf = PDF::loadView('/backend/peralatan/pdf_cetakpertanggal', [
+            'tbl_peralatan' => $cetakPertanggal, // Menggunakan data yang sesuai dengan tanggal
+            'noinventaris' => $databarang,
+            'kondisi' => $kondisibarang,
+        ]);
+
+        return $pdf->stream('Data-Service-pertanggal.pdf');
     }
 
 }

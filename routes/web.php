@@ -69,6 +69,9 @@ Route::get('/editbarang/{id_barang}', [barangController::class, 'edit']);
 Route::get('/deletebarang/{id_barang}', [barangController::class, 'delete']);
 Route::post('list-barang-print', [barangController::class, 'print']);
 Route::get('list-barang-search', [barangController::class, 'search']);
+Route::post('list-barang-rusak-print', [barangController::class, 'cetak']);
+Route::post('list-barang-bagus-print', [barangController::class, 'cetakbagus']);
+
 
 
 //peralatan
@@ -80,6 +83,7 @@ Route::post('/form-peralatan-update', [peralatanController::class, 'update']);
 Route::get('/deleteperalatan/{id_peralatan}', [peralatanController::class, 'delete']);
 Route::post('list-peralatan-print', [peralatanController::class, 'print']);
 Route::get('list-peralatan-search', [peralatanController::class, 'search']);
+Route::get('/peralatan/cetakPertanggal', [peralatanController::class, 'cetakPertanggal']);
 
 
 

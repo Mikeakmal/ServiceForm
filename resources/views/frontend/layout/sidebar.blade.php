@@ -30,7 +30,7 @@
                     </div>
                 </div>                
                 <a href="{{url('barang')}}" class="nav-item nav-link {{ Request::is('barang') ? 'active' : '' }}"><i class="bi bi-gear me-2"></i>Peralatan Inventaris</a>
-                <a href="{{url('peralatan')}}" class="nav-item nav-link {{ Request::is('peralatan') ? 'active' : '' }}"><i class="bi bi-tools me-2"></i>Peralatan Rusak</a>
+                <a href="{{url('peralatan')}}" class="nav-item nav-link {{ Request::is('peralatan') ? 'active' : '' }}" id="close-list-history"><i class="bi bi-tools me-2"></i>Peralatan Rusak</a>
                 {{--  <a href="{{url('register')}}" class="nav-item nav-link"><i class="bi bi-pen me-2"></i>Register</a>                --}}
             </div>
         </nav>

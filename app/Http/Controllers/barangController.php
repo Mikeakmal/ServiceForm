@@ -92,8 +92,33 @@ class barangController extends Controller
             'tbl_barang' => $barang, 
         ]);
 
-        return $pdf->download('Daftar Peralatan Inventaris.pdf');
+        return $pdf->stream('Daftar Peralatan Inventaris.pdf');
     }
+
+    public function cetak(Request $request)
+    {
+        // Ambil hanya data dengan kondisi "RUSAK"
+        $barangRusak = Barang::where('kondisi', 'RUSAK')->get();
+    
+        $pdf = PDF::loadView('/backend/barang/pdf_barang_rusak', [
+            'barangrusak' => $barangRusak,
+        ]);
+    
+        return $pdf->stream('DaftarPeralatanInventaris(RUSAK).pdf');
+    }
+
+    public function cetakbagus(Request $request)
+    {
+        // Ambil hanya data dengan kondisi "BAGUS"
+        $barangBagus = Barang::where('kondisi', 'BAGUS')->get();
+    
+        $pdf = PDF::loadView('/backend/barang/pdf_barang_bagus', [
+            'barangbagus' => $barangBagus,
+        ]);
+    
+        return $pdf->stream('DaftarPeralatanInventaris(RUSAK).pdf');
+    }
+
 
     public function search(Request $request)
     {

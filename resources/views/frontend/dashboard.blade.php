@@ -25,47 +25,21 @@
 </nav>
 {{--  <!-- Navbar End -->  --}}
 
-        {{--  <!-- Sale & Revenue Start -->  --}}
-        <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-line fa-3x text-warning"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Today</p>
-                            <h6 class="mb-0">1234</h6>
-                        </div>
-                    </div>
+<div class="container-fluid pt-4 px-4" id="list-peralatan">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="display-6 mb-0">PT. SATRIA UTAMA</h1>
                 </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-bar fa-3x text-warning"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Total</p>
-                            <h6 class="mb-0">1234</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-area fa-3x text-warning"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Today </p>
-                            <h6 class="mb-0">1234</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-pie fa-3x text-warning"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Total </p>
-                            <h6 class="mb-0">1234</h6>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
+    </div>
+</div>
+
+
+     
 {{--  kalender  --}}
     <div class="container-fluid pt-4 px-4" style="min-height: 80vh;">
         <div class="row g-4">
@@ -78,7 +52,6 @@
                     <div id="calender"></div>
                 </div>
             </div>
-            {{--  TO DO LIST  --}}
             <div class="col-sm-12 col-md-6 col-xl-4">
                 <div class="h-100 bg-secondary rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">

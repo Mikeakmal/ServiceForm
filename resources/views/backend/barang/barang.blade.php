@@ -46,6 +46,10 @@
     #new-barang {
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
+
+    .button-container .btn {
+        margin-right: 1mm; /* Atur margin sekitar 2mm ke kanan untuk menciptakan jarak antara tombol */
+    }
 </style>
 
 {{-- List Barang --}}
@@ -61,13 +65,33 @@
                             <form action="{{ url('list-barang-print') }}" method="POST" id="pdf-form">
                                 @csrf
                                 <button type="submit" id="button-download-pdf" class="btn btn-warning btn-custom">
-                                    <span class="btn-icon-left text-primary">
-                                        <i class="fa fa-download color-primary"></i>
-                                    </span>Download PDF
+                                    <span class="btn-icon-left ">
+                                        <i class="bi bi-printer-fill color-primary"></i>
+                                    </span> Bagus & Rusak
                                 </button>
                             </form>
                         </div>
-                    </div>                       
+                        <div id="download-pdf-bagus" style="display: block;">
+                            <form action="{{ url('list-barang-bagus-print') }}" method="POST" id="pdf-form-bagus">
+                                @csrf
+                                <button type="submit" id="button-download-pdf-bagus" class="btn btn-warning btn-custom">
+                                    <span class="btn-icon-left ">
+                                        <i class="bi bi-printer-fill color-primary"></i>
+                                    </span> Bagus
+                                </button>
+                            </form>
+                        </div>
+                        <div id="download-pdf-rusak" style="display: block;">
+                            <form action="{{ url('list-barang-rusak-print') }}" method="POST" id="pdf-form-rusak">
+                                @csrf
+                                <button type="submit" id="button-download-pdf-rusak" class="btn btn-warning btn-custom">
+                                    <span class="btn-icon-left ">
+                                        <i class="bi bi-printer-fill color-primary"></i>
+                                    </span> Rusak
+                                </button>
+                            </form>
+                        </div>
+                    </div>                                        
                 </div>
                 <div class="table-responsive">
                     <table class="table">

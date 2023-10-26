@@ -21,13 +21,16 @@
         </form>
 
         <div class="navbar-nav align-items-center ms-auto">
+            <a href="#" class="nav-link" id="history-list-button">
+                <i class="fa fa-history me-lg-2"></i>
+                <span class="d-none d-lg-inline-flex">History</span>
+            </a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                    <a href="#" class="dropdown-item">History</a>
                     <a href="#" class="dropdown-item">Settings</a>
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
@@ -38,6 +41,7 @@
         </div>
     </nav>
 {{--  <!-- Navbar End -->  --}}
+
 
 
 <style>
@@ -52,16 +56,101 @@
     }
 </style>
 
+{{--  LIST HISTORY PERALATAN  --}}
+<div class="container-fluid pt-4 px-4" id="history-list" style="display: none;">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="mb-0">History Peralatan Rusak </h6>                       
+                    <div class="button-container">
+                        <button type="button" class="btn btn-warning btn-custom" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-printer-fill color-primary"></i> History
+                        </button>
+                    </div>
+                </div>
+                {{--  <!-- Modal -->  --}}
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="GET" action="/peralatan/cetakPertanggal">
+                                <label for="label">Pilih tanggal yang ingin anda tampilkan</label>
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="row mb-3">
+                                            <label for="label">Dari Tanggal :</label>
+                                            <div class="col-sm-12">
+                                                <input name="dari_tanggal" type="date" class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="label">Sampai Tanggal :</label>
+                                            <div class="col-sm-12">
+                                                <input name="sampai_tanggal" type="date" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-warning btn-custom">Tampilkan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Merek</th>
+                                <th scope="col">No. Inventaris Peralatan</th>
+                                <th scope="col">Nama Karyawan</th>
+                                <th scope="col">Alat Rusak</th>
+                                <th scope="col">Tanggal Diperbaiki</th>
+                                <th scope="col">Teknisi</th>
+                                <th scope="col">Kondisi</th>
+                                <th scope="col">Diperbarui </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($peralatan as $j) 
+                                <tr data-id="{{$j->id_peralatan}}" data-id_barang="{{$j->id_barang}}">
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td class="merek-selected">{{$j->merek}}</td>
+                                    <td class="inventaris-selected">{{ $noinventaris[$j->id_barang] }}</td>
+                                    <td class="karyawan-selected">{{$j->nama_karyawan}}</td>
+                                    <td class="alat-rusak-selected">{{$j->alat_rusak}}</td>
+                                    <td class="tgl-diperbaiki-selected">{{$j->tanggal_diperbaiki}}</td>
+                                    <td class="teknisi-selected">{{$j->nama_teknisi}}</td>
+                                    <td class="kondisi-selected">{{ $kondisibarang[$j->id_barang] }}</td>
+                                    <td >{{$j->updated_at}}</td>
+                                </tr>
+                            @endforeach             
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {{--  LIST PERALATAN  --}}
-    <div class="container-fluid pt-4 px-4">
+    <div class="container-fluid pt-4 px-4" id="list-peralatan">
         <div class="row g-4">
             <div class="col-12">
                 <div class="bg-secondary rounded h-100 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h6 class="mb-0">Daftar Peralatan Rusak </h6>                       
                         <div class="button-container">
-                            <button type="submit" class="btn btn-custom"  id="new-peralatan" ><i class="bi bi-plus"></i>  Peralatan</button>
+                            <button type="submit" class="btn btn-warning btn-custom"  id="new-peralatan" ><i class="bi bi-plus"></i>  Peralatan</button>
                             {{--  <div id="download-pdf" style="display: block;">
                                 <form action="{{ url('list-peralatan-print') }}" method="POST" id="pdf-form">
                                     @csrf
@@ -232,6 +321,23 @@
     </form>   
 
     <script>
+
+        // Mengambil referensi elemen-elemen
+        const historyListButton = document.getElementById('history-list-button');
+        const historyList = document.getElementById('history-list');
+
+        // Menambahkan event listener untuk tombol "History"
+        historyListButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Mencegah tindakan default dari tautan
+
+            // Memeriksa apakah history-list sedang ditampilkan atau disembunyikan
+            if (historyList.style.display === 'none') {
+                historyList.style.display = 'block'; // Menampilkan history-list
+            } else {
+                historyList.style.display = 'none'; // Menyembunyikan history-list
+            }
+        });
+
         // search
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.querySelector('input[name="search"]');
@@ -246,7 +352,7 @@
             });
         });
 
-        // script to show/hide form add new company
+        // script to show/hide form
         const toggleFormButton = document.getElementById('new-peralatan'); 
         const toggleCloseFormButton = document.getElementById('close-form-new-peralatan');
         const myForm = document.getElementById('form-new-peralatan'); 
@@ -269,7 +375,7 @@
         const toggleCloseFormEditButton = document.getElementById('close-form-edit-peralatan');
         const myEditForm = document.getElementById('form-edit-peralatan');
 
-        // show edit form
+        // show edit form edit
         var editButtons = document.querySelectorAll(".edit-button");
         editButtons.forEach(function (button) {
             button.addEventListener("click", function (event) {
