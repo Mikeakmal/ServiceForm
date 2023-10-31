@@ -102,31 +102,28 @@ class peralatanController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $peralatan = Peralatan::
-            where('merek', 'like', "%$search%")
-            ->get();
-
+        
+        $peralatan = Peralatan::where('merek', 'like', "%$search%")->get();
+        
+        // Cek apakah ada hasil pencarian yang sesuai dengan status 'RUSAK'
         $dataRusak = Peralatan::join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
             ->where('tbl_barang.kondisi', 'RUSAK')
             ->where('tbl_peralatanrusak.merek', 'like', "%$search%")
             ->select('tbl_peralatanrusak.*')
             ->get();
         
+        // Jika tidak ada hasil pencarian yang sesuai dengan status 'RUSAK', atur dataRusak ke koleksi kosong
+        if ($dataRusak->isEmpty()) {
+            $dataRusak = collect();
+        }
+    
         $inventarisNo = Barang::all();
         $noinventaris = Barang::pluck('No_inventaris_peralatan', 'id_barang');
         $kondisibarang = Barang::pluck('kondisi', 'id_barang');
     
-        if ($peralatan->count() === 0) {
-            $peralatan = Peralatan::all();
-        }
-
-        if ($dataRusak->count() === 0) {
-            $dataRusak = Peralatan::all();
-        }
-        
         return view('/backend/peralatan/peralatan', compact('peralatan', 'inventarisNo', 'noinventaris', 'kondisibarang', 'dataRusak'));
-
     }
+    
     
 
 

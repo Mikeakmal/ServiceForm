@@ -24,6 +24,19 @@
     </div>
 </nav>
 {{--  <!-- Navbar End -->  --}}
+<style>
+
+    .label {
+        color: rgb(255, 111, 0); /* Warna asli */
+        transition: color 0.3s; /* Animasi perubahan warna */
+    
+    }
+    
+    .label:hover {
+        color: rgb(255, 193, 7); /* Warna saat hover */
+    }
+    
+</style>
 
 <div class="container-fluid pt-4 px-4" id="list-peralatan">
     <div class="row g-4">
@@ -43,8 +56,8 @@
         <div class="col-sm-12 col-md-2 col-xl-6">
             <div class="h-100 bg-secondary rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Kendaraan ON PROGRESS</h6>
-                    <a href="{{url('kendaraan')}}">Show All</a>
+                    <h6 class="mb-0 ">Kendaraan ON PROGRESS</h6>
+                    <a href="{{url('kendaraan')}}" class="label">Show All</a>
                 </div>
                 <table class="table table-bordered">
                     <thead>
@@ -74,7 +87,7 @@
             <div class="h-100 bg-secondary rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Peralatan RUSAK</h6>
-                    <a href="{{url('peralatan')}}">Show All</a>
+                    <a href="{{url('peralatan')}}" class="label">Show All</a>
                 </div>
                 <table class="table table-bordered">
                     <thead>
