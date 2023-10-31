@@ -10,13 +10,13 @@
         </a>
         <form class="d-none d-md-flex ms-4">
             @if (count($pengerjaan) > 0)
-            <form action="{{ url('list-pengerjaan-search') }}" method="GET">
-                @csrf
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" 
-                    placeholder="Search Nama Mekanik" value="{{ Request::get('search') }}">
-                </div>
-            </form>
+                <form action="{{ url('list-pengerjaan-search') }}" method="GET">
+                    @csrf
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" 
+                        placeholder="Search Nama Mekanik" value="{{ Request::get('search') }}">
+                    </div>
+                </form>
             @endif
         </form>
         <div class="navbar-nav align-items-center ms-auto">
@@ -58,20 +58,72 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h6 class="mb-0">Daftar Pengerjaan</h6>                       
                         <div class="button-container">
-                            <button type="submit" class="btn btn-custom"  id="new-pengerjaan" ><i class="bi bi-plus"></i>  Pengerjaan</button>
-                            <div id="download-pdf" style="display: block;">
-                                <form action="{{ url('list-pengerjaan-print') }}" method="POST" id="pdf-form">
-                                    @csrf
-                                    <button type="submit" id="button-download-pdf" class="btn btn-custom">
-                                        <span class="btn-icon-left text-primary">
-                                            <i class="fa fa-download color-primary"></i>
-                                        </span>Download PDF
-                                    </button>
-                                </form>
+                            <div class="button-container">
+                                <div class="nav-item btnPrint">
+                                    <a href="#" class="nav-link" >
+                                        <i class="fa fa-download"></i>
+                                        <span class="d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#Pengerjaan"> PDF</span>
+                                    </a>
+                                </div> 
+                                <button type="submit" class="btn btn-custom"  id="new-pengerjaan" ><i class="bi bi-plus"></i>  Pengerjaan</button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-header">
+                    {{--  MODAL PENGERJAAN  --}}
+                    <div class="modal fade" id="Pengerjaan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="max-width: 80%;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div style="width: 95%; margin: 0 auto;">
+                                        <div style="text-align: center;">
+                                            <h4 style="color: black;">Daftar Pengerjaan</h4>
+                                        </div>
+                                    </div>  
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                              
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th >No.</th>
+                                                            <th >Nomor Polisi</th>
+                                                            <th >Nama Mekanik</th>
+                                                            <th >Tanggal Dikerjakan</th>
+                                                            <th >Sparepart</th>
+                                                            <th >Keterangan Pengerjaan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-black">
+                                                        @foreach($pengerjaan as $j)
+                                                            <tr data-id="{{$j->id_pengerjaan}}">
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $nopolis[$j->id_kendaraan] }}</td>
+                                                                <td>{{$j->nama_mekanik}}</td>
+                                                                <td>{{$j->tanggal_dikerjakan}}</td>
+                                                                <td>{{$j->sparepart}}</td>
+                                                                <td>{{$j->keterangan_pengerjaan}}</td>
+                                                            </tr>
+                                                        @endforeach 
+                                                    </tbody>
+                                                </table>
+                                                <div class="modal-footer">
+                                                    <form method="POST" action="{{ url('list-pengerjaan-print') }}" id="pdf-form-bagus">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                                    </form>
+                                                </div>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{--  LIST PENGERJAAN  --}}
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -104,7 +156,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -165,7 +216,7 @@
                                 <div class="row mb-3">
                                     <label for="nopol" class="col-sm-2 col-form-label">Nomor Polisi</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="kendaraan" class="form-control" id="edit-nopol" required>
+                                        <input type="text" name="kendaraan" class="form-control" id="edit-nopol"  readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3">

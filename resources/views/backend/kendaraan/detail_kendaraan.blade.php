@@ -9,15 +9,13 @@
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
+        <form class="d-none d-md-flex ms-4" action="{{ url('list-pengerjaan-detail-search') }}" method="GET">
+            @csrf
             @if (count($pengerjaan) > 0)
-            <form action="{{ url('list-pengerjaan-search') }}" method="GET">
-                @csrf
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control" 
+                    <input type="text" name="search2" class="form-control" 
                     placeholder="Search Mekanik or Sparepart" value="{{ Request::get('search2') }}">
                 </div>
-            </form>
             @endif
         </form>
         <div class="navbar-nav align-items-center ms-auto">
@@ -37,6 +35,14 @@
     </nav>
 {{--  <!-- Navbar End -->  --}}
 
+<style>
+    .tbl-thead {
+        background-color: rgba(25, 28, 36);
+    }
+    
+
+</style>
+
 {{--  LIST PENGERJAAN BERDASARKAN KENDARAAN  --}}
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -50,7 +56,7 @@
                                 <button type="submit" id="button-download-pdf" class="btn btn-custom">
                                     <span class="btn-icon-left text-primary">
                                         <i class="fa fa-download color-primary"></i>
-                                    </span>Download PDF
+                                    </span> Download PDF
                                 </button>
                             </form>
                         </div>
@@ -60,7 +66,7 @@
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-secondary rounded h-100 p-4">
                         <table class="table table-borderless" style="width: 70%">
-                            <thead>
+                            <thead class="tbl-thead">
                                 <tr>
                                     <td>Nomor Polisi</td>
                                     <td>: {{ $kendaraan->no_polisi }}</td>

@@ -93,7 +93,7 @@ class kendaraanController extends Controller
             'tbl_kendaraan' => $kendaraan, 
         ]);
 
-        return $pdf->stream('Daftar Kendaraan.pdf');
+        return $pdf->download('Daftar Kendaraan.pdf');
     }
 
     public function cetak( $id)
@@ -133,7 +133,6 @@ class kendaraanController extends Controller
     public function search2(Request $request)
     {
         $search = $request->input('search2');
-        
         $pengerjaan = Pengerjaan::where('nama_mekanik', 'like', "%$search%")
         ->orWhere('sparepart', 'like', "%$search%")
         ->get();

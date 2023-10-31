@@ -38,82 +38,88 @@
     </div>
 </div>
 
-
-     
-{{--  kalender  --}}
-    <div class="container-fluid pt-4 px-4" style="min-height: 80vh;">
-        <div class="row g-4">
-            <div class="col-sm-12 col-md-6 col-xl-4">
-                <div class="h-100 bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Calender</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div id="calender"></div>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-md-2 col-xl-6">
+            <div class="h-100 bg-secondary rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Kendaraan ON PROGRESS</h6>
+                    <a href="{{url('kendaraan')}}">Show All</a>
                 </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">No. Polisi</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach($kendaraanOnprogress as $j)
+                                <tr data-id="{{$j->id_kendaraan}}">
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td class="nopol-selected">{{$j->no_polisi}}</td>
+                                    <td class="status-selected @if ($j->tanggal_selesai === null) on-progress-text @else finish-text @endif">
+                                        {{ $j->tanggal_selesai === null ? 'ON PROGRESS' : 'FINISH' }}
+                                    </td>
+                                </tr>
+                            @endforeach 
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-sm-12 col-md-6 col-xl-4">
-                <div class="h-100 bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">To Do List</h6>
-                        <a href="">Show All</a>
-                    </div>
-
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox" checked>
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Kendaraan</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox" checked>
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Pengerjaan Kendaraan</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox" >
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Peralatan Inventaris</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Peralatan Rusak</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center pt-2">
-                        <input class="form-check-input m-0" type="checkbox">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>History</span>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <div class="col-sm-12 col-md-2 col-xl-6">
+            <div class="h-100 bg-secondary rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Peralatan RUSAK</h6>
+                    <a href="{{url('peralatan')}}">Show All</a>
                 </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Inventaris</th>
+                            <th scope="col">Karyawan</th>
+                            <th scope="col">Kondisi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach($dataRusak as $j) 
+                                <tr data-id="{{$j->id_peralatan}}" data-id_barang="{{$j->id_barang}}">
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td class="inv-selected">{{ $noinventaris[$j->id_barang] }}</td>
+                                    <td class="nama-karyawan-selected">{{$j->nama_karyawan}}</td>
+                                    <td class="kondisibarang-selected">{{ $kondisibarang[$j->id_barang] }}</td>
+                                </tr>
+                            @endforeach             
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
+</div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     {{--  <!-- Footer Start -->  --}}
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary rounded-top p-4">
             <div class="row">
                 <div class="col-12 col-sm-6 text-center text-sm-start">
-                    &copy; <a href="">PT.SU</a>, All Right Reserved. 
+                    {{--  &copy; <a href="">PT.SATRIA UTAMA</a>, All Right Reserved.   --}}
                 </div>
                 <div class="col-12 col-sm-6 text-center text-sm-end">
-                    <br>Distributed By: PT.SU</a>
+                    {{--  <br>Distributed By: PT.SATRIA UTAMA</a>  --}}
                 </div>
             </div>
         </div>

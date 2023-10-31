@@ -8,44 +8,33 @@
         <title>Data Pengerjaan Kendaraan</title>
 
         <style>
-            /* Gaya untuk tabel kendaraan */
-            .kendaraan {
-                width: 50%;
-                border: none; /* Menghapus border */
-                margin: 0 auto;
+            table {
+                width: 95%;
+                border-collapse: collapse;
+                margin: 50px auto;
             }
-        
-            /* Gaya untuk tabel pengerjaan */
-            .pengerjaan {
-                width: 100%;
-                border-collapse: collapse; 
-                margin-top: -10px;
-                width: 100%; 
-                margin-top: 10px;
+
+            /* Zebra striping */
+            tr:nth-of-type(odd) {
+                background: #eee;
             }
-        
-            /* Gaya untuk header tabel pengerjaan */
-            .pengerjaan th {
-                background: #055fb4; /* Warna latar belakang header */
-                color: white; /* Warna teks header */
+
+            th {
+                background:  #e2b34c;
+                color: white;
                 font-weight: bold;
-                border: 1px solid #ccc; /* Border header */
+            }
+
+            td,
+            th {
+                padding: 5px;
+                border: 1px solid #ccc;
                 text-align: left;
                 font-size: 12px;
-                padding: 5px;
             }
-        
-            /* Gaya untuk sel data pada tabel pengerjaan */
-            .pengerjaan td {
-                border: 1px solid #ccc; /* Border sel data */
-                text-align: left;
-                font-size: 12px;
-                padding: 5px;
-            }
-        
-            /* Gaya zebra striping pada tabel pengerjaan */
-            .pengerjaan tr:nth-child(odd) {
-                background: #eee; /* Warna latar belakang baris ganjil */
+
+            th, td {
+                color: black; /* Warna teks hitam */
             }
         </style>
         

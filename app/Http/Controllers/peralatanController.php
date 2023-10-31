@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Peralatan;
 use App\Models\Barang;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use PDF;
 
 class peralatanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
         $data = [
             'user' => Auth::user(), 
@@ -25,10 +26,10 @@ class peralatanController extends Controller
             
         // MENGATUR PILIHAN PADA COMBOBOX
         $peralatan = Peralatan::all();
-        $barang = Barang::where('kondisi','RUSAK')->orWhere('No_inventaris_peralatan')
+        $barang = Barang::where('kondisi', 'RUSAK')
             ->whereNotIn('id_barang', function ($query) {
                 $query->select('id_barang')
-                    ->from('tbl_kendaraan');
+                    ->from('tbl_peralatanrusak');
             })
             ->get();
             
@@ -103,18 +104,30 @@ class peralatanController extends Controller
         $search = $request->input('search');
         $peralatan = Peralatan::
             where('merek', 'like', "%$search%")
-            ->orWhere('alat_rusak', 'like', "%$search%")
             ->get();
-    
+
+        $dataRusak = Peralatan::join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
+            ->where('tbl_barang.kondisi', 'RUSAK')
+            ->where('tbl_peralatanrusak.merek', 'like', "%$search%")
+            ->select('tbl_peralatanrusak.*')
+            ->get();
+        
         $inventarisNo = Barang::all();
         $noinventaris = Barang::pluck('No_inventaris_peralatan', 'id_barang');
+        $kondisibarang = Barang::pluck('kondisi', 'id_barang');
     
         if ($peralatan->count() === 0) {
             $peralatan = Peralatan::all();
         }
-    
-        return view('/backend/peralatan/peralatan', compact('peralatan', 'inventarisNo', 'noinventaris'));
+
+        if ($dataRusak->count() === 0) {
+            $dataRusak = Peralatan::all();
+        }
+        
+        return view('/backend/peralatan/peralatan', compact('peralatan', 'inventarisNo', 'noinventaris', 'kondisibarang', 'dataRusak'));
+
     }
+    
 
 
     public function print(Request $request)
@@ -132,25 +145,33 @@ class peralatanController extends Controller
 
     public function cetakPertanggal(Request $request)
     {
-        $dari_tanggal = $request->dari_tanggal;
-        $sampai_tanggal = $request->sampai_tanggal;
-
+        // Inisialisasi variabel $dari_tanggal dan $sampai_tanggal
+        $dari_tanggal = $request->input('dari_tanggal');
+        $sampai_tanggal = $request->input('sampai_tanggal');
+    
+        // Periksa format tanggal
+        if (!strtotime($dari_tanggal) || !strtotime($sampai_tanggal)) {
+            'Periksa kembali tanggal yang Anda masukkan.';
+        }
+    
+        // Lanjutkan dengan query database
         $cetakPertanggal = Peralatan::whereDate('tanggal_diperbaiki', '>=', $dari_tanggal)
             ->whereDate('tanggal_diperbaiki', '<=', $sampai_tanggal)
             ->get();
-
+    
         // Sekarang, Anda hanya mengambil data yang sesuai dengan rentang tanggal yang dipilih.
-
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
         $kondisibarang = Barang::pluck('kondisi', 'id_barang');
-
+    
         $pdf = PDF::loadView('/backend/peralatan/pdf_cetakpertanggal', [
-            'tbl_peralatan' => $cetakPertanggal, // Menggunakan data yang sesuai dengan tanggal
+            'tbl_peralatan' => $cetakPertanggal, 
             'noinventaris' => $databarang,
             'kondisi' => $kondisibarang,
         ]);
-
-        return $pdf->stream('Data-Service-pertanggal.pdf');
+    
+        return $pdf->download('Data-Service-pertanggal.pdf');
     }
+    
+    
 
 }

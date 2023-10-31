@@ -19,9 +19,14 @@ class barangController extends Controller
         ];
 
         $barang = DB::table('tbl_barang')->get();
+        $barangBagus = Barang::where('kondisi', 'BAGUS')->get();
+        $barangRusak = Barang::where('kondisi', 'RUSAK')->get();
+
         
         return view('/backend/barang/barang', [
             'barang' => $barang, 
+            'barangbagus' => $barangBagus,
+            'barangrusak' => $barangRusak,
         ]);
     }
 
@@ -92,7 +97,7 @@ class barangController extends Controller
             'tbl_barang' => $barang, 
         ]);
 
-        return $pdf->stream('Daftar Peralatan Inventaris.pdf');
+        return $pdf->download('Daftar Peralatan Inventaris.pdf');
     }
 
     public function cetak(Request $request)
@@ -104,7 +109,7 @@ class barangController extends Controller
             'barangrusak' => $barangRusak,
         ]);
     
-        return $pdf->stream('DaftarPeralatanInventaris(RUSAK).pdf');
+        return $pdf->download('DaftarPeralatanInventaris(RUSAK).pdf');
     }
 
     public function cetakbagus(Request $request)
@@ -116,23 +121,26 @@ class barangController extends Controller
             'barangbagus' => $barangBagus,
         ]);
     
-        return $pdf->stream('DaftarPeralatanInventaris(RUSAK).pdf');
+        return $pdf->download('DaftarPeralatanInventaris(RUSAK).pdf');
     }
 
 
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $barang = Barang::
-            where('nama_barang', 'like', "%$search%")
-            ->orWhere('No_inventaris_peralatan', 'like', "%$search%")
-            ->get();
-
+        $barang = Barang::where('nama_barang', 'like', "%$search%")->get();
+        
+        // Mengambil semua barang yang sesuai dengan pencarian
         if ($barang->count() === 0) {
             $barang = Barang::all();
-            return view('/backend/barang/barang', compact('barang'));
-        } else {
-            return view('/backend/barang/barang', compact('barang'));
         }
-    }
+    
+        $barangBagus = Barang::where('kondisi', 'BAGUS')->get();
+        $barangRusak = Barang::where('kondisi', 'RUSAK')->get();
+    
+        return view('/backend/barang/barang', [
+            'barang' => $barang,
+            'barangbagus' => $barangBagus,
+            'barangrusak' => $barangRusak,
+        ]);    }
 }

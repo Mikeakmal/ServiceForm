@@ -46,7 +46,7 @@ Route::get('/movekendaraan/{id_kendaraan}', [KendaraanController::class, 'move']
 Route::post('list-kendaraan-print', [kendaraanController::class, 'print']);
 Route::get('list-detail-print/{id}', [kendaraanController::class, 'cetak']);
 Route::get('list-kendaraan-search', [kendaraanController::class, 'search']);
-Route::get('list-pengerjaan-search', [kendaraanController::class, 'search2']);
+Route::get('list-pengerjaan-detail-search', [kendaraanController::class, 'search2']);
 
 
 //pengerjaan
@@ -83,7 +83,7 @@ Route::post('/form-peralatan-update', [peralatanController::class, 'update']);
 Route::get('/deleteperalatan/{id_peralatan}', [peralatanController::class, 'delete']);
 Route::post('list-peralatan-print', [peralatanController::class, 'print']);
 Route::get('list-peralatan-search', [peralatanController::class, 'search']);
-Route::get('/peralatan/cetakPertanggal', [peralatanController::class, 'cetakPertanggal']);
+Route::post('/peralatan/cetakPertanggal', [peralatanController::class, 'cetakPertanggal']);
 
 
 

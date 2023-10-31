@@ -8,18 +8,17 @@
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
+        <div class="d-none d-md-flex ms-4">
             @if (count($peralatan) > 0)
                 <form action="{{ url('list-peralatan-search') }}" method="GET">
                     @csrf
                     <div class="input-group">
                         <input type="text" name="search" class="form-control" 
-                        placeholder="Search" value="{{ Request::get('search') }}">
+                        placeholder="Search Merek" value="{{ Request::get('search') }}">
                     </div>
                 </form>
             @endif
-        </form>
-
+        </div>
         <div class="navbar-nav align-items-center ms-auto">
             <a href="#" class="nav-link" id="history-list-button">
                 <i class="fa fa-history me-lg-2"></i>
@@ -57,55 +56,52 @@
 </style>
 
 {{--  LIST HISTORY PERALATAN  --}}
-<div class="container-fluid pt-4 px-4" id="history-list" style="display: none;">
+<div class="container-fluid pt-4 px-4" id="history-list" style="display: none; position: relative;" >
     <div class="row g-4">
         <div class="col-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h6 class="mb-0">History Peralatan Rusak </h6>                       
-                    <div class="button-container">
-                        <button type="button" class="btn btn-warning btn-custom" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="bi bi-printer-fill color-primary"></i> History
-                        </button>
-                    </div>
-                </div>
-                {{--  <!-- Modal -->  --}}
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="GET" action="/peralatan/cetakPertanggal">
-                                <label for="label">Pilih tanggal yang ingin anda tampilkan</label>
-                                <div class="card-body">
-                                    <div class="form-row">
-                                        <div class="row mb-3">
-                                            <label for="label">Dari Tanggal :</label>
-                                            <div class="col-sm-12">
-                                                <input name="dari_tanggal" type="date" class="form-control" required />
+                    <div id="download-pdf" style="display: block;">
+                        <form action="{{ url('/peralatan/cetakPertanggal') }}" method="POST" id="pdf-form">
+                            @csrf
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-0">History Peralatan Rusak </h6>
+                                    <br> 
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row mb-3">
+                                                <label for="label">Dari Tanggal :</label>
+                                                <div class="col-sm-12">
+                                                    <input id="dari_tanggal" name="dari_tanggal" type="date" class="form-control" required />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="label">Sampai Tanggal :</label>
-                                            <div class="col-sm-12">
-                                                <input name="sampai_tanggal" type="date" class="form-control" required />
+                                        <div class="col-sm-6">
+                                            <div class="row mb-3">
+                                                <label for="label">Sampai Tanggal : </label>
+                                                <div class="col-sm-12">
+                                                    <input id="sampai_tanggal" name="sampai_tanggal" type="date" class="form-control" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-warning btn-custom">Tampilkan</button>
+                                <div class="w-50 text-end" style="margin-left: 10cm; margin-top: 1.5cm;">
+                                    <button type="submit" id="button-download-pdf" class="btn btn-warning btn-custom">
+                                        <span class="btn-icon-left text-black">
+                                            <i class="fa fa-download color-primary"></i>
+                                        </span>Download PDF
+                                    </button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                        
                     </div>
                 </div>
-                </div>
+
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table tblHistory" id="tbl-History">
                         <thead>
                             <tr>
                                 <th scope="col">No.</th>
@@ -123,13 +119,13 @@
                             @foreach($peralatan as $j) 
                                 <tr data-id="{{$j->id_peralatan}}" data-id_barang="{{$j->id_barang}}">
                                     <th>{{ $loop->iteration }}</th>
-                                    <td class="merek-selected">{{$j->merek}}</td>
-                                    <td class="inventaris-selected">{{ $noinventaris[$j->id_barang] }}</td>
-                                    <td class="karyawan-selected">{{$j->nama_karyawan}}</td>
-                                    <td class="alat-rusak-selected">{{$j->alat_rusak}}</td>
-                                    <td class="tgl-diperbaiki-selected">{{$j->tanggal_diperbaiki}}</td>
-                                    <td class="teknisi-selected">{{$j->nama_teknisi}}</td>
-                                    <td class="kondisi-selected">{{ $kondisibarang[$j->id_barang] }}</td>
+                                    <td >{{$j->merek}}</td>
+                                    <td >{{ $noinventaris[$j->id_barang] }}</td>
+                                    <td >{{$j->nama_karyawan}}</td>
+                                    <td >{{$j->alat_rusak}}</td>
+                                    <td >{{$j->tanggal_diperbaiki}}</td>
+                                    <td >{{$j->nama_teknisi}}</td>
+                                    <td >{{ $kondisibarang[$j->id_barang] }}</td>
                                     <td >{{$j->updated_at}}</td>
                                 </tr>
                             @endforeach             
@@ -163,7 +159,7 @@
                             </div>  --}}
                         </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive tblListPeralatan">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -321,6 +317,39 @@
     </form>   
 
     <script>
+        //TAMPILAN PERTANGGAL
+            document.addEventListener("DOMContentLoaded", function() {
+                // Pilih input tanggal
+                const dariTanggalInput = document.getElementById("dari_tanggal");
+                const sampaiTanggalInput = document.getElementById("sampai_tanggal");
+            
+                // Pilih tabel
+                const historyTable = document.getElementById("tbl-History");
+                const tableRows = historyTable.querySelectorAll("tbody tr");
+            
+                // Tambahkan event listener ke input tanggal
+                dariTanggalInput.addEventListener("change", filterTable);
+                sampaiTanggalInput.addEventListener("change", filterTable);
+            
+                function filterTable() {
+                    const dariTanggal = dariTanggalInput.value;
+                    const sampaiTanggal = sampaiTanggalInput.value;
+            
+                    tableRows.forEach(function(row) {
+                        const tanggalDiperbaiki = row.querySelector(".tgldiperbaiki-selected").textContent;
+                        
+                        if (tanggalDiperbaiki >= dariTanggal && tanggalDiperbaiki <= sampaiTanggal) {
+                            row.style.display = ""; // Tampilkan baris
+                        } else {
+                            row.style.display = "none"; // Sembunyikan baris
+                        }
+                    });
+                }
+            });
+            
+        
+
+
 
         // Mengambil referensi elemen-elemen
         const historyListButton = document.getElementById('history-list-button');

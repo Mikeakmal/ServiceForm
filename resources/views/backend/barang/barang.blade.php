@@ -14,7 +14,7 @@
                 @csrf
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" 
-                    placeholder="Search" value="{{ Request::get('search') }}">
+                    placeholder="Search Nama Barang" value="{{ Request::get('search') }}">
                 </div>
             </form>
             @endif
@@ -28,7 +28,7 @@
                 <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
-                        <button type="submit" class="dropdown-item">Log Out</button>
+                        <button type="submit" class="dropdown-item text-white">Log Out</button>
                     </form>
                 </div>
             </div>
@@ -43,13 +43,6 @@
         align-items: center;
     }
 
-    #new-barang {
-        margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
-    }
-
-    .button-container .btn {
-        margin-right: 1mm; /* Atur margin sekitar 2mm ke kanan untuk menciptakan jarak antara tombol */
-    }
 </style>
 
 {{-- List Barang --}}
@@ -60,39 +53,189 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h6 class="mb-0">Daftar Peralatan Inventaris </h6> 
                     <div class="button-container">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-download"></i>
+                                <span class="d-none d-lg-inline-flex"> PDF</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                    <button type="submit" id="popup-all" class="dropdown-item text-white" 
+                                    data-bs-toggle="modal" data-bs-target="#PeralatanSemua">Semua</button>
+
+                                    <button type="submit" id="popup-good" class="dropdown-item text-white" 
+                                    data-bs-toggle="modal" data-bs-target="#PeralatanBagus">Bagus</button>
+                 
+                                    <button type="submit" id="popup-damage" class="dropdown-item text-white" 
+                                    data-bs-toggle="modal" data-bs-target="#PeralatanRusak">Rusak</button>
+                            </div>  
+                        </div>
                         <button type="submit" class="btn btn-warning btn-custom" id="new-barang"><i class="bi bi-plus"></i>Inventaris</button>
-                        <div id="download-pdf" style="display: block;">
-                            <form action="{{ url('list-barang-print') }}" method="POST" id="pdf-form">
-                                @csrf
-                                <button type="submit" id="button-download-pdf" class="btn btn-warning btn-custom">
-                                    <span class="btn-icon-left ">
-                                        <i class="bi bi-printer-fill color-primary"></i>
-                                    </span> Bagus & Rusak
-                                </button>
-                            </form>
-                        </div>
-                        <div id="download-pdf-bagus" style="display: block;">
-                            <form action="{{ url('list-barang-bagus-print') }}" method="POST" id="pdf-form-bagus">
-                                @csrf
-                                <button type="submit" id="button-download-pdf-bagus" class="btn btn-warning btn-custom">
-                                    <span class="btn-icon-left ">
-                                        <i class="bi bi-printer-fill color-primary"></i>
-                                    </span> Bagus
-                                </button>
-                            </form>
-                        </div>
-                        <div id="download-pdf-rusak" style="display: block;">
-                            <form action="{{ url('list-barang-rusak-print') }}" method="POST" id="pdf-form-rusak">
-                                @csrf
-                                <button type="submit" id="button-download-pdf-rusak" class="btn btn-warning btn-custom">
-                                    <span class="btn-icon-left ">
-                                        <i class="bi bi-printer-fill color-primary"></i>
-                                    </span> Rusak
-                                </button>
-                            </form>
-                        </div>
                     </div>                                        
                 </div>
+                {{--  <!-- Modal Semua Peralatan  -->  --}}
+                <div class="modal fade" id="PeralatanSemua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 80%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div style="width: 95%; margin: 0 auto;">
+                                    <div style="text-align: center;">
+                                        <h4 style="color: black;">Daftar Peralatan Inventaris</h4>
+                                    </div>
+                                </div>  
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                              
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nomor</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>No. Inventaris Peralatan</th>
+                                                        <th>Lokasi Barang</th>
+                                                        <th>Kondisi</th>
+                                                        <th>Tanggal Pengambilan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($barang as $j)
+                                                        <tr data-id="{{$j->id_barang}}">
+                                                            <td class="text-black">{{ $loop->iteration }}</td>
+                                                            <td class="text-black">{{$j->nama_barang}}</td>
+                                                            <td class="text-black">{{$j->No_inventaris_peralatan}}</td>
+                                                            <td class="text-black">{{$j->lokasi_barang}}</td>
+                                                            <td class="text-black">{{$j->kondisi}}</td>
+                                                            <td class="text-black">{{$j->tanggal_pengambilan}}</td>
+                                                        </tr>
+                                                    @endforeach 
+                                                </tbody>
+                                            </table>
+                                            <div class="modal-footer">
+                                               <form method="POST" action="{{ url('list-barang-print') }}" id="pdf-form">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                               </form>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {{--  <!-- Modal Peralatan BAGUS  -->  --}}
+                <div class="modal fade" id="PeralatanBagus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 80%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div style="width: 95%; margin: 0 auto;">
+                                    <div style="text-align: center;">
+                                        <h4 style="color: black;">Daftar Peralatan BAGUS</h4>
+                                    </div>
+                                </div>  
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                              
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nomor</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>No. Inventaris Peralatan</th>
+                                                        <th>Lokasi Barang</th>
+                                                        <th>Kondisi</th>
+                                                        <th>Tanggal Pengambilan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($barangbagus as $j)
+                                                        <tr data-id="{{$j->id_barang}}">
+                                                            <td class="text-black">{{ $loop->iteration }}</td>
+                                                            <td class="text-black">{{$j->nama_barang}}</td>
+                                                            <td class="text-black">{{$j->No_inventaris_peralatan}}</td>
+                                                            <td class="text-black">{{$j->lokasi_barang}}</td>
+                                                            <td class="text-black">{{$j->kondisi}}</td>
+                                                            <td class="text-black">{{$j->tanggal_pengambilan}}</td>
+                                                        </tr>
+                                                    @endforeach 
+                                                </tbody>
+                                            </table>
+                                            <div class="modal-footer">
+                                               <form method="POST" action="{{ url('list-barang-bagus-print') }}" id="pdf-form-bagus">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                               </form>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {{--  <!-- Modal Peralatan RUSAK  -->  --}}
+                <div class="modal fade" id="PeralatanRusak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="max-width: 80%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div style="width: 95%; margin: 0 auto;">
+                                    <div style="text-align: center;">
+                                        <h4 style="color: black;">Daftar Peralatan RUSAK</h4>
+                                    </div>
+                                </div>  
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                              
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nomor</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>No. Inventaris Peralatan</th>
+                                                        <th>Lokasi Barang</th>
+                                                        <th>Kondisi</th>
+                                                        <th>Tanggal Pengambilan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-black">
+                                                    @foreach($barangrusak as $j)
+                                                        <tr data-id="{{$j->id_barang}}">
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{$j->nama_barang}}</td>
+                                                            <td>{{$j->No_inventaris_peralatan}}</td>
+                                                            <td>{{$j->lokasi_barang}}</td>
+                                                            <td>{{$j->kondisi}}</td>
+                                                            <td>{{$j->tanggal_pengambilan}}</td>
+                                                        </tr>
+                                                    @endforeach 
+                                                </tbody>
+                                            </table>
+                                            <div class="modal-footer">
+                                               <form method="POST" action="{{ url('list-barang-rusak-print') }}" id="pdf-form-bagus">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                               </form>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                {{--  TABLE PERALATAN INVENTARIS  --}}
                 <div class="table-responsive">
                     <table class="table">
                         <thead>

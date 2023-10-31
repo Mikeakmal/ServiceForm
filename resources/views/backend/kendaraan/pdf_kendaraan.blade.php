@@ -20,7 +20,7 @@
             }
 
             th {
-                background: #055fb4;
+                background:  #e2b34c;
                 color: white;
                 font-weight: bold;
             }
@@ -31,6 +31,18 @@
                 border: 1px solid #ccc;
                 text-align: left;
                 font-size: 12px;
+            }
+
+            th, td {
+                color: black; /* Warna teks hitam */
+            }
+
+            .on-progress-text {
+                color: red; /* Warna teks merah untuk status "ON PROGRESS" */
+            }
+            
+            .finish-text {
+                color: #008000; /* Warna teks hijau untuk status "Finish" */
             }
         </style>
 
@@ -54,6 +66,7 @@
                     <th>No. Polisi</th>
                     <th>Tanggal Masuk Bengkel</th>
                     <th>Tanggal Selesai</th>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +76,9 @@
                         <td>{{$j->no_polisi}}</td>
                         <td>{{$j->tanggal_masuk_bengkel}}</td>
                         <td>{{$j->tanggal_selesai}}</td>
+                        <td class="status-selected @if ($j->tanggal_selesai === null) on-progress-text @else finish-text @endif">
+                            {{ $j->tanggal_selesai === null ? 'ON PROGRESS' : 'FINISH' }}
+                        </td> 
                     </tr>
                 @endforeach 
             </tbody>

@@ -46,6 +46,15 @@
     #new-kendaraan {
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
+
+    .on-progress-text {
+        color: red; /* Warna teks merah untuk status "ON PROGRESS" */
+    }
+    
+    .finish-text {
+        color: #008000; /* Warna teks hijau untuk status "Finish" */
+    }
+    
 </style>
 
 {{--  LIST KENDARAAN  --}}
@@ -56,19 +65,69 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h6 class="mb-0">Daftar Kendaraan </h6> 
                         <div class="button-container">
+                            <div class="nav-item btnPrint">
+                                <a href="#" class="nav-link" >
+                                    <i class="fa fa-download"></i>
+                                    <span class="d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#Kendaraan"> PDF</span>
+                                </a>
+                            </div> 
                             <button type="submit" class="btn btn-custom"  id="new-kendaraan" ><i class="bi bi-plus"></i>  Kendaraan</button>
-                            <div id="download-pdf" style="display: block;">
-                                <form action="{{ url('list-kendaraan-print') }}" method="POST" id="pdf-form">
-                                    @csrf
-                                    <button type="submit" id="button-download-pdf" class="btn btn-custom">
-                                        <span class="btn-icon-left text-primary">
-                                            <i class="fa fa-download color-primary"></i>
-                                        </span>Download PDF
-                                    </button>
-                                </form>
+                        </div>
+                    </div>
+                {{--  <!-- Modal Kendaraan  -->  --}}
+                    <div class="modal fade" id="Kendaraan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="max-width: 80%;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div style="width: 95%; margin: 0 auto;">
+                                        <div style="text-align: center;">
+                                            <h4 style="color: black;">Daftar Kendaraan</h4>
+                                        </div>
+                                    </div>  
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                              
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">No.</th>
+                                                            <th scope="col">No. Polisi</th>
+                                                            <th scope="col">Tanggal Masuk Bengkel</th>
+                                                            <th scope="col">Tanggal Selesai</th>
+                                                            <th scope="col">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-black">
+                                                        @foreach($kendaraan as $j)
+                                                            <tr data-id="{{$j->id_kendaraan}}">
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{$j->no_polisi}}</td>
+                                                                <td>{{$j->tanggal_masuk_bengkel}}</td>
+                                                                <td>{{$j->tanggal_selesai}}</td>
+                                                                <td class="status-selected @if ($j->tanggal_selesai === null) on-progress-text @else finish-text @endif">
+                                                                    {{ $j->tanggal_selesai === null ? 'ON PROGRESS' : 'FINISH' }}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach 
+                                                    </tbody>
+                                                </table>
+                                                <div class="modal-footer">
+                                                    <form method="POST" action="{{ url('list-kendaraan-print') }}" id="pdf-form-bagus">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                                    </form>
+                                                </div>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {{--  LIST KENDARAAN  --}}
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -77,6 +136,7 @@
                                     <th scope="col">No. Polisi</th>
                                     <th scope="col">Tanggal Masuk Bengkel</th>
                                     <th scope="col">Tanggal Selesai</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -87,6 +147,9 @@
                                         <td class="nopol-selected">{{$j->no_polisi}}</td>
                                         <td class="tgl-kerja-selected">{{$j->tanggal_masuk_bengkel}}</td>
                                         <td class="tgl-selesai-selected">{{$j->tanggal_selesai}}</td>
+                                        <td class="status-selected @if ($j->tanggal_selesai === null) on-progress-text @else finish-text @endif">
+                                            {{ $j->tanggal_selesai === null ? 'ON PROGRESS' : 'FINISH' }}
+                                        </td>                                        
                                         <td>
                                             <a href="{{ url('movekendaraan', ['id_kendaraan' => Crypt::encrypt($j->id_kendaraan)]) }}" 
                                                 class="detail-button" id="detail-button" title="Lihat Detail"><i class="bi bi-eye-fill"></i>
@@ -117,7 +180,7 @@
                             <h6 class="mb-4">Form Edit Kendaraan</h6>
                             <input type="hidden" id="edit-id" name="id_kendaraan">
                             <div class="form-floating mb-3">
-                                <input name="val_nopol" type="text" class="form-control" id="edit-nopol" placeholder="" required>
+                                <input  name="val_nopol" type="text" class="form-control" id="edit-nopol" placeholder="" required>
                                 <label for="no-pol">Nomor Polisi</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -150,7 +213,7 @@
                                 <label for="nopol">Nomor Polisi</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="tglmasuk" type="date" class="form-control" id="tglmasuk" placeholder="" required>
+                                <input style="" name="tglmasuk" type="date" class="form-control" id="tglmasuk" placeholder="" required>
                                 <label for="tglmasuk">Tanggal Masuk Bengkel</label>
                             </div>
                             <div class=" form-floating ">

@@ -20,7 +20,7 @@
             }
 
             th {
-                background: #055fb4;
+                background:  #e2b34c;
                 color: white;
                 font-weight: bold;
             }
@@ -31,6 +31,10 @@
                 border: 1px solid #ccc;
                 text-align: left;
                 font-size: 12px;
+            }
+
+            th, td {
+                color: black; /* Warna teks hitam */
             }
         </style>
     </head>

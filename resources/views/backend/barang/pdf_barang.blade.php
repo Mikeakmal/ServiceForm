@@ -20,7 +20,7 @@
             }
 
             th {
-                background: #055fb4;
+                background:  #e2b34c;
                 color: white;
                 font-weight: bold;
             }
@@ -32,12 +32,15 @@
                 text-align: left;
                 font-size: 12px;
             }
+
+            th, td {
+                color: black; /* Warna teks hitam */
+            }
         </style>
 
     </head>
 
     <body>
-
         <div style="width: 95%; margin: 0 auto;">
             <div style="float: left; margin-left:-17px;">
                 <h4>Daftar Peralatan Inventaris</h4>
@@ -46,7 +49,6 @@
                 <b>PT. SATRIA UTAMA GROUP</b>
             </div>
         </div>
-
         <table class="table table-responsive-sm" id="data-table-Pengerjaan" class="display" style="width:100%">
             <thead>
                 <tr>

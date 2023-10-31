@@ -31,6 +31,15 @@
     <link href="{{ asset('') }}assets/css/style.css" rel="stylesheet">
 </head>
 
+<style>
+    /* Mengubah warna ikon tanggal */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1); /* Ubah warna ikon menjadi warna terbalik (misalnya, dari putih menjadi hitam) */
+        /* Atau Anda dapat mengatur warna sesuai dengan preferensi Anda */
+        color: white; /* Ganti dengan warna yang Anda inginkan */
+    }
+</style>
+
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
