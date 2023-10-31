@@ -27,7 +27,7 @@
 <style>
 
     .label {
-        color: rgb(255, 111, 0); /* Warna asli */
+        color: rgb(255, 160, 0); /* Warna asli */
         transition: color 0.3s; /* Animasi perubahan warna */
     
     }
