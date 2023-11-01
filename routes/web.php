@@ -30,7 +30,7 @@ Route::post('/login-auth', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 //Register
-Route::get('/register', [RegisterController::class, 'index'])->middleware('auth');
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/addregister', [RegisterController::class, 'store']);
 
 //dashboard

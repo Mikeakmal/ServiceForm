@@ -46,15 +46,15 @@
                 <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                     <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                         <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                            <form action="{{url('/addregister')}}" method="POST" id="form-register" >
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h3>Register</h3>
+                            </div>
+                            <form method="POST" action="{{url('/addregister')}}"  id="form-register" >
                                 @csrf
-                                <div class="d-flex align-items-center justify-content-between mb-3">
-                                    <h3>Register</h3>
-                                </div>
                                 <div class="form-floating mb-3">
                                     <input type="text" name="name" class="form-control @error('name') 
-                                    is-invalid @enderror" id="name" placeholder="" required>
-                                    <label for="floatingText">Username</label>
+                                    is-invalid @enderror" id="name" placeholder="username" value="{{ old('name')}}" required>
+                                    <label for="name">Username</label>
                                     @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -63,8 +63,8 @@
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control @error('email')
-                                    is-invalid @enderror" name="email" id="email" placeholder="name@gmail.com" value="{{ old('email')}}" required>
-                                    <label for="floatingInput">Email address</label>
+                                    is-invalid @enderror" name="email" id="email" placeholder="example@gmail.com" value="{{ old('email')}}" required>
+                                    <label for="email">Alamat Email</label>
                                     @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -72,8 +72,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-floating mb-4">
-                                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                                    <label for="floatingPassword">Password</label>
+                                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password" required>
+                                    <label for="password">Password</label>
                                     @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
