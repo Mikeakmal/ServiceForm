@@ -26,17 +26,27 @@ class dashboardController extends Controller
         ->where('tbl_barang.kondisi', 'RUSAK')
         ->select('tbl_peralatanrusak.*')
         ->get();
-        
+        $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
+        $kondisibarang = Barang::pluck('kondisi', 'id_barang');
+        $kendaraanOnprogress = Kendaraan::whereNull('tanggal_selesai')->get();
+        $countOnprogress = Kendaraan::whereNull('tanggal_selesai')->count();
+        $countKendaraan = Kendaraan::count();
+        $countdataRusak = Peralatan::join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
+        ->where('tbl_barang.kondisi', 'RUSAK')
+        ->select('tbl_peralatanrusak.*')
+        ->count();
+        $countBarangRusak = Barang::where('kondisi', 'RUSAK')->count();
 
-    $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
-    $kondisibarang = Barang::pluck('kondisi', 'id_barang');
-    $kendaraanOnprogress = Kendaraan::whereNull('tanggal_selesai')->get();
-    
-    return view('frontend.dashboard', [
-        'noinventaris' => $databarang,
-        'kondisibarang' => $kondisibarang,
-        'dataRusak' => $dataRusak,
-        'kendaraanOnprogress' => $kendaraanOnprogress,
-    ]);
+        
+        return view('frontend.dashboard', [
+            'dataRusak' => $dataRusak,
+            'noinventaris' => $databarang,
+            'kondisibarang' => $kondisibarang,
+            'kendaraanOnprogress' => $kendaraanOnprogress,
+            'countOnprogress' => $countOnprogress,
+            'countKendaraan' => $countKendaraan,
+            'countdataRusak' => $countdataRusak,
+            'countBarangRusak' => $countBarangRusak,
+        ]);
     }
 }
