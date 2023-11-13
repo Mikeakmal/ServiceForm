@@ -67,7 +67,8 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-    }</style>
+    }
+</style>
 
 <div class="container-fluid pt-4 px-4" id="list-peralatan">
     <div class="row g-4">

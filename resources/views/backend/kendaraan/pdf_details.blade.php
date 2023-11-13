@@ -8,35 +8,41 @@
         <title>Data Pengerjaan Kendaraan</title>
 
         <style>
-            table {
+            /* General Table Styles */
+            table.pengerjaan {
                 width: 95%;
                 border-collapse: collapse;
-                margin: 50px auto;
+                margin: 10px auto;
             }
-
-            /* Zebra striping */
-            tr:nth-of-type(odd) {
-                background: #eee;
+        
+            table.kendaraan {
+                width: 30%; 
             }
-
-            th {
-                background:  #e2b34c;
+        
+            table.kendaraan td, table.kendaraan th {
+                padding: 3px; 
+                font-size: 12px; 
+            }
+            
+           
+            table.pengerjaan {
+                border: 1px solid #ccc; 
+                background-color: white; 
+            }
+        
+            table.pengerjaan th {
+                background: #e2b34c;
                 color: white;
                 font-weight: bold;
             }
-
-            td,
-            th {
+        
+            table.pengerjaan td, table.pengerjaan th {
                 padding: 5px;
                 border: 1px solid #ccc;
-                text-align: left;
                 font-size: 12px;
+                color: black;
             }
-
-            th, td {
-                color: black; /* Warna teks hitam */
-            }
-        </style>
+        </style>        
         
     </head>
 
@@ -49,7 +55,7 @@
         <div>
             <h4>Data Pengerjaan Kendaraan</h4>
         </div>
-        <table class="table table-responsive-sm  kendaraan" >
+        <table class="table kendaraan">
             <tr>
                 <td>Nomor Polisi</td>
                 <td>: {{ $kendaraan->no_polisi }}</td>
@@ -64,7 +70,8 @@
             </tr>
         </table>
 
-        <table class="table table-responsive-sm pengerjaan" id="data-table-Pengerjaan" >
+        <!-- Table Pengerjaan -->
+        <table class="table table-responsive-sm pengerjaan" id="data-table-Pengerjaan">
             <thead>
                 <tr>
                     <th>No.</th>

@@ -111,7 +111,7 @@ class kendaraanController extends Controller
             'pengerjaan' => $pengerjaan,
         ]);
     
-        return $pdf->stream('Data Pengerjaan Kendaraan.pdf');
+        return $pdf->download('Data Pengerjaan Kendaraan.pdf');
     }
 
     public function search(Request $request)
