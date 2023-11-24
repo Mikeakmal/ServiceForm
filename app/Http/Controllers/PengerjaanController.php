@@ -71,31 +71,33 @@ class PengerjaanController extends Controller
     {
         // Validasi request 
         $request->validate([
-            'id_kendaraan' => 'required',
-            'nama_mekanik' =>'required',
-            'tanggal_dikerjakan' => 'required',
+            'kendaraan' => 'required', 
+            'mekanik' =>'required',
+            'tglkerja' => 'required',
             'sparepart' => 'required',
-            'keterangan_pengerjaan' => 'required',
+            'keterangan' => 'required',
         ]);
-
-        $selectedInventaris = $request->inventaris;
-
-        // Cek apakah nomor inventaris sudah dipilih
-        if ($selectedInventaris == 'No. Inventarsi Peralatan') {
-            return redirect()->back()->with('error', 'Silakan pilih nomor inventaris terlebih dahulu.');
+    
+        $selectedNopol = $request->kendaraan;
+    
+        // Cek apakah nomor polisi sudah dipilih
+        if ($selectedNopol == 'no_polisi') {
+            return redirect()->back()->with('error', 'Silakan pilih nomor Polisi terlebih dahulu.');
         } else {
-            
-            // Simpan data 
+
+            // Simpan data ke dalam tbl_pengerjaan
             Pengerjaan::insert([
-                'id_kendaraan' => $request -> kendaraan,
-                'nama_mekanik' => $request -> mekanik,
-                'tanggal_dikerjakan' => $request -> tglkerja,
-                'sparepart' => $request -> sparepart,
-                'keterangan_pengerjaan' => $request -> keterangan
+                'id_kendaraan' => $request->kendaraan,
+                'nama_mekanik' => $request->mekanik,
+                'tanggal_dikerjakan' => $request->tglkerja,
+                'sparepart' => $request->sparepart,
+                'keterangan_pengerjaan' => $request->keterangan
             ]);
-            return redirect()->back();
+    
+            return redirect()->back()->with('success', 'Data pengerjaan berhasil disimpan.');
         }
     }
+    
 
     public function update(Request $request)
     {

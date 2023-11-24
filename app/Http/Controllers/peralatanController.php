@@ -60,7 +60,7 @@ class peralatanController extends Controller
         $selectedInventaris = $request->inventaris;
 
         // Cek apakah nomor inventaris sudah dipilih
-        if ($selectedInventaris == 'No. Inventarsi Peralatan') {
+        if ($selectedInventaris == 'No_inventaris_peralatan') {
             return redirect()->back()->with('error', 'Silakan pilih nomor inventaris terlebih dahulu.');
         } else {
             // Simpan data 

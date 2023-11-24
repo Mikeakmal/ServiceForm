@@ -171,12 +171,12 @@
                         <h6 class="mb-4">Formulir Pengerjaan</h6>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="nopol" name="kendaraan" required>
-                                <option selected>Nomor Polisi</option>
+                                <option selected disabled> Nomor Polisi</option>
                                 @foreach ($nomorpolis as $c)
                                     <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
                                 @endforeach
                             </select>
-                            <label for="inventaris">Works with selects</label>
+                            <label for="nopol">Works with selects</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input name="mekanik" type="text" class="form-control" id="mekanik" placeholder="" required>

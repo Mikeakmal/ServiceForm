@@ -14,12 +14,11 @@ class Peralatan extends Model
     protected $fillable = [
         'id_peralatan',
         'merek',
-        'No_inventaris_peralatan',
         'nama_karyawan',
         'alat_rusak',
         'tanggal_diperbaiki',
         'nama_teknisi',
-        'kondisi',
+        'id_barang'
     ];
 
     public function barang()
