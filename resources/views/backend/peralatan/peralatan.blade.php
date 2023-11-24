@@ -215,7 +215,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="inventaris" name="inventaris" required>
-                                <option selected>No. Inventarsi Peralatan</option>
+                                <option selected disabled>No. Inventarsi Peralatan</option>
                                 @foreach ($inventarisNo as $c)
                                     <option value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
                                 @endforeach

@@ -47,16 +47,36 @@ class peralatanController extends Controller
 
     public function store(Request $request)
     {
-        Peralatan::insert([
-            'id_barang' => $request-> inventaris,
-            'merek' => $request-> merek,
-            'nama_karyawan' => $request-> karyawan,
-            'alat_rusak'=> $request-> alat,
-            'tanggal_diperbaiki'=> $request-> tgldiperbaiki,
-            'nama_teknisi' => $request-> teknisi,
+        // Validasi request 
+        $request->validate([
+            'inventaris' => 'required',
+            'merek' => 'required',
+            'karyawan' => 'required',
+            'alat' => 'required',
+            'tgldiperbaiki' => 'required',
+            'teknisi' => 'required',
         ]);
-        return redirect()->back();
+
+        $selectedInventaris = $request->inventaris;
+
+        // Cek apakah nomor inventaris sudah dipilih
+        if ($selectedInventaris == 'No. Inventarsi Peralatan') {
+            return redirect()->back()->with('error', 'Silakan pilih nomor inventaris terlebih dahulu.');
+        } else {
+            // Simpan data 
+            Peralatan::insert([
+                'id_barang' => $request-> inventaris,
+                'merek' => $request->merek,
+                'nama_karyawan' => $request->karyawan,
+                'alat_rusak' => $request->alat,
+                'tanggal_diperbaiki' => $request->tgldiperbaiki,
+                'nama_teknisi' => $request->teknisi,
+            ]);
+
+            return redirect()->back()->with('success', 'Data peralatan berhasil disimpan.');
+        }
     }
+
 
     public function create()
     {

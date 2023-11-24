@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddKondisiToTblPeralatanrusak extends Migration
+class RemoveKomdisiFromTblPeralatanrusak extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddKondisiToTblPeralatanrusak extends Migration
      */
     public function up()
     {
-        Schema::table('tbl_peralatanrusak', function (Blueprint $barang) {    
-            // Menambah kolom baru
-            $barang->string('kondisi');
+        Schema::table('tbl_peralatanrusak', function (Blueprint $table) {
+            $table->dropColumn('kondisi');
         });
     }
 
