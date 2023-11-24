@@ -16,7 +16,6 @@ class TblPeralatanrusak extends Migration
         Schema::create('tbl_peralatanrusak', function (Blueprint $table) {
             $table->id('id_peralatan');
             $table->string('merek') ->notNull();
-            $table->string('No_inventaris_peralatan') ->notNull();
             $table->string('nama_karyawan');
             $table->string('alat_rusak') ->notNull();
             $table->date('tanggal_diperbaiki') ->notNull();
