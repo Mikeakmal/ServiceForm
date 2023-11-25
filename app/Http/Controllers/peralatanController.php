@@ -1,14 +1,13 @@
 <?php
-use Illuminate\Support\Facades\DB;
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Peralatan;
 use App\Models\Barang;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use PDF;
 
 class peralatanController extends Controller
@@ -93,7 +92,7 @@ class peralatanController extends Controller
 
         // mengambil data inventaris peralatan berdasarkan ID
         $barang = Barang::where('id_barang', $id)->first();
-        $logErrors = '';
+        // $logErrors = '';
         $peralatan = Peralatan::all();
         return view('/backend/peralatan/peralatan', compact('peralatan','barang', 'logErrors'));
     }
