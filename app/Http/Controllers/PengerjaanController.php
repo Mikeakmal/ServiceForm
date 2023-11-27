@@ -54,7 +54,6 @@ class PengerjaanController extends Controller
         return view('/backend/kendaraan/pengerjaan', compact('pengerjaan', 'nomorpolis', 'nopolis'));
     }
     
-
     // public function store(Request $request)
     // {
     //     Pengerjaan::insert([
@@ -71,23 +70,23 @@ class PengerjaanController extends Controller
     {
         // Validasi request 
         $request->validate([
-            'kendaraan' => 'required', 
+            'nopol' => 'required', 
             'mekanik' =>'required',
             'tglkerja' => 'required',
             'sparepart' => 'required',
             'keterangan' => 'required',
         ]);
     
-        $selectedNopol = $request->kendaraan;
+        $selectedNopol = $request->nopol;
     
         // Cek apakah nomor polisi sudah dipilih
         if ($selectedNopol == 'no_polisi') {
-            return redirect()->back()->with('error', 'Silakan pilih nomor Polisi terlebih dahulu.');
+            return redirect()->back()->withErrors(['Silakan pilih nomor Polisi terlebih dahulu.'])->withInput();
         } else {
 
             // Simpan data ke dalam tbl_pengerjaan
             Pengerjaan::insert([
-                'id_kendaraan' => $request->kendaraan,
+                'id_kendaraan' => $request->nopol,
                 'nama_mekanik' => $request->mekanik,
                 'tanggal_dikerjakan' => $request->tglkerja,
                 'sparepart' => $request->sparepart,

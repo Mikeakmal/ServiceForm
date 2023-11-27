@@ -209,13 +209,12 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Form Peralatan Rusak</h6>
                         <div class="form-floating mb-3">
-                            <input name="merek" type="text" class="form-control" id="merek"
-                                placeholder="" required>
+                            <input name="merek" type="text" class="form-control" id="merek" placeholder="" required>
                             <label for="merek">Merek</label>
                         </div>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="inventaris" name="inventaris" required>
-                                <option selected disabled>No. Inventarsi Peralatan</option>
+                                <option value="">No. Inventarsi Peralatan</option>
                                 @foreach ($inventarisNo as $c)
                                     <option value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
                                 @endforeach
@@ -260,49 +259,83 @@
                         <div class="row mb-3">
                             <label for="merek" class="col-sm-2 col-form-label">Merek</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="val_merek" id="edit-merek" required>
+                                <input type="text" class="form-control @error('merek') is-invalid @enderror" name="val_merek" id="edit-merek" required>
                             </div>
+                            @error('merek')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="row mb-3">
                             <label for="inventaris" class="col-sm-2 col-form-label">No. Inventaris Peralatan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="barang" id="edit-inventaris" required>
+                                <input type="text" class="form-control @error('inventaris') is-invalid @enderror" name="barang" id="edit-inventaris" required>
                             </div>
+                            @error('inventaris')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="row mb-3">
                             <label for="karyawan" class="col-sm-2 col-form-label">Nama Karyawan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="val_karyawan" id="edit-karyawan" required>
+                                <input type="text" class="form-control @error('karyawan') is-invalid @enderror" name="val_karyawan" id="edit-karyawan" required>
                             </div>
+                            @error('karyawan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="row mb-3">
                             <label for="alat" class="col-sm-2 col-form-label">Alat Rusak</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="val_alatrusak" id="edit-alatrusak" required>
+                                <input type="text" class="form-control @error('alat') is-invalid @enderror" name="val_alatrusak" id="edit-alatrusak" required>
                             </div>
                         </div>
+                        @error('alat')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         <div class="row mb-3">
                             <label for="tgldiperbaiki" class="col-sm-2 col-form-label">Tanggal Diperbaiki</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" name="val_tgldiperbaiki" id="edit-tgldiperbaiki" required>
+                                <input type="date" class="form-control @error('tgldiperbaiki') is-invalid @enderror" name="val_tgldiperbaiki" id="edit-tgldiperbaiki" required>
                             </div>
+                            @error('tgldiperbaiki')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="row mb-3">
                             <label for="teknisi" class="col-sm-2 col-form-label">Nama Teknisi</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="val_teknisi" id="edit-teknisi" required>
+                                <input type="text" class="form-control @error('teknisi') is-invalid @enderror" name="val_teknisi" id="edit-teknisi" required>
                             </div>
+                            @error('teknisi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="row mb-3">
                             <label for="kondisi" class="col-sm-2 col-form-label">Kondisi</label>
                             <div class="col-sm-10">
-                                <select name="val_kondisi" class="form-select" id="edit-kondisi"
+                                <select name="val_kondisi" class="form-select @error('kondisi') is-invalid @enderror" id="edit-kondisi"
                                     aria-label="Floating label select example">
-                                    <option selected>Kondisi</option>
                                     <option value="BAGUS">Bagus</option>
                                     <option value="RUSAK">Rusak</option>
                                 </select>
                             </div>
+                            @error('kondisi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="row mb-3 mt-3"> 
                             <div class="col-sm-10 offset-sm-2"> 
@@ -346,10 +379,7 @@
                 }
             });
             
-        
-
-
-
+    
         // Mengambil referensi elemen-elemen
         const historyListButton = document.getElementById('history-list-button');
         const historyList = document.getElementById('history-list');
@@ -395,7 +425,6 @@
                 myEditForm.style.display = 'none';
             }
         });
-
 
 
         // script to show/hide edit form
@@ -444,11 +473,6 @@
             });
         });
 
-        // close edit form
-        toggleCloseFormEditButton.addEventListener('click', function() {
-            if (myEditForm.style.display === 'block') {
-                myEditForm.style.display = 'none';
-            }
-        });
+
     </script>
 @endsection

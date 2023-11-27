@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use PDF;
+use PhpParser\Node\Stmt\Else_;
 
 class barangController extends Controller
 {
@@ -39,16 +40,25 @@ class barangController extends Controller
 
     public function store(Request $request)
     {
-        Barang::insert([
-            'nama_barang'=> $request->barang,
-            'No_inventaris_peralatan' => $request->inventaris,
-            'lokasi_barang' => $request-> lokasi,
-            'kondisi' => $request -> kondisi,
-            'tanggal_pengambilan' => $request -> tglpengambilan,
+        $request->validate([
+            'barang' => 'required',
+            'inventaris' => 'required|unique:tbl_barang,No_inventaris_peralatan',
+            'lokasi' => 'required',
+            'kondisi' => 'required',
+            // 'tglpengambilan' => 'required',
         ]);
-        return redirect()->back();
-    }
 
+            Barang::insert([
+                'nama_barang'=> $request->barang,
+                'No_inventaris_peralatan' => $request->inventaris,
+                'lokasi_barang' => $request-> lokasi,
+                'kondisi' => $request -> kondisi,
+                // 'tanggal_pengambilan' => $request -> tglpengambilan,
+            ]);
+            return redirect()->back();
+        
+    }
+    
     public function delete($id_barang)
     {
         try {

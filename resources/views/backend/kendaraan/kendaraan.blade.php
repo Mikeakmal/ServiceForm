@@ -213,7 +213,7 @@
                                 <label for="nopol">Nomor Polisi</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input style="" name="tglmasuk" type="date" class="form-control" id="tglmasuk" placeholder="" required>
+                                <input name="tglmasuk" type="date" class="form-control" id="tglmasuk" placeholder required>
                                 <label for="tglmasuk">Tanggal Masuk Bengkel</label>
                             </div>
                             <div class=" form-floating ">
@@ -226,33 +226,33 @@
         </form>       
 
 <script>
-{{--  search  --}}
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.querySelector('input[name="search"]');
+    {{--  search  --}}
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.querySelector('input[name="search"]');
 
-        searchInput.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Mencegah submit form default
-                // Ambil nilai input
-                const searchValue = searchInput.value;
-                // Redirect ke URL pencarian dengan kata kunci
-                window.location.href = "{{ url('list-kendaraan-search') }}?search=" + searchValue;
-            }
+            searchInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Mencegah submit form default
+                    // Ambil nilai input
+                    const searchValue = searchInput.value;
+                    // Redirect ke URL pencarian dengan kata kunci
+                    window.location.href = "{{ url('list-kendaraan-search') }}?search=" + searchValue;
+                }
+            });
         });
-    });
 
-{{--  capslock  --}}
-    var nopolInput = document.getElementById('nopol');
-    nopolInput.addEventListener('input', function() {
-        this.value = this.value.toUpperCase(); 
-    });
-
-    var noPolInput = document.getElementById('edit-nopol');
-    if (noPolInput) {
-        noPolInput.addEventListener('input', function() {
-            this.value = this.value.toUpperCase();
+    {{--  capslock  --}}
+        var nopolInput = document.getElementById('nopol');
+        nopolInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase(); 
         });
-    }
+
+        var noPolInput = document.getElementById('edit-nopol');
+        if (noPolInput) {
+            noPolInput.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+            });
+        }
 
     // script to show/hide form add new company
     const toggleFormButton = document.getElementById('new-kendaraan'); 
@@ -270,7 +270,7 @@
         }
     });
 
-    toggleCloseFormButton.addEventListener('click', function() {
+    {{--  toggleCloseFormButton.addEventListener('click', function() {
         var nopolInput = document.getElementById("nopol");
         var nopolValue = nopolInput.value;
         if (nopolValue){
@@ -278,7 +278,7 @@
                 myForm.style.display = 'none';
             }
         }
-    });
+    });  --}}
 
     // script to show/hide edit form
     const toggleFormEditButton = document.getElementById('edit-button');
@@ -316,11 +316,11 @@
     });
 
     // close edit form
-    toggleCloseFormEditButton.addEventListener('click', function() {
+    {{--  toggleCloseFormEditButton.addEventListener('click', function() {
         if (myEditForm.style.display === 'block') {
             myEditForm.style.display = 'none';
         }
-    });
+    });  --}}
 
 </script>
 

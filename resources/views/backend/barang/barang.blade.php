@@ -286,7 +286,10 @@
                         <label for="barang">Nama Barang</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="inventaris" type="text" class="form-control" id="inventaris" placeholder="" required>
+                        <input name="inventaris" type="text" class="form-control @error('inventaris') is-invalid @enderror" id="inventaris" placeholder="" required>
+                        @error('inventaris')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                         <label for "inventaris">No. Inventaris Peralatan</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -294,9 +297,9 @@
                         <label for="lokasi">Lokasi</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <select name="kondisi" class="form-select" id="kondisi"
+                        <select name="kondisi" class="form-select" id="kondisi" required
                             aria-label="Floating label select example">
-                            <option selected>Kondisi</option>
+                            <option value="">Kondisi</option>
                             <option value="BAGUS">Bagus</option>
                             <option value="RUSAK">Rusak</option>
                         </select>
@@ -338,9 +341,9 @@
                         <label for="lokasi">Lokasi</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <select name="val_kondisi" class="form-select" id="edit-kondisi"
+                        <select name="val_kondisi" class="form-select" id="edit-kondisi" required
                             aria-label="Floating label select example">
-                            <option selected>Kondisi</option>
+                            <option value="">Kondisi</option>
                             <option value="BAGUS">Bagus</option>
                             <option value="RUSAK">Rusak</option>
                         </select>
@@ -398,7 +401,7 @@
         }
     });
 
-    toggleCloseFormButton.addEventListener('click', function() {
+    {{--  toggleCloseFormButton.addEventListener('click', function() {
         var barangInput = document.getElementById("barang");
         var barangValue = barangInput.value;
         if (barangValue){
@@ -406,7 +409,7 @@
                 myForm.style.display = 'none';
             }
         }
-    });
+    });  --}}
 
     // script to show/hide edit form
     const toggleFormEditButton = document.getElementById('edit-button');
@@ -449,10 +452,10 @@
     });
 
     // close edit form
-    toggleCloseFormEditButton.addEventListener('click', function() {
+    {{--  toggleCloseFormEditButton.addEventListener('click', function() {
         if (myEditForm.style.display === 'block') {
             myEditForm.style.display = 'none';
         }
-    });
+    });  --}}
 </script>
 @endsection

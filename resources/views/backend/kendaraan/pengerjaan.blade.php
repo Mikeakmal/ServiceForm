@@ -170,8 +170,8 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Formulir Pengerjaan</h6>
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="nopol" name="kendaraan" required>
-                                <option selected disabled> Nomor Polisi</option>
+                            <select class="form-select" id="nopol" name="nopol" required>
+                                <option value="">Nomor Polisi</option>
                                 @foreach ($nomorpolis as $c)
                                     <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
                                 @endforeach
@@ -240,7 +240,7 @@
                                 <div class="row mb-3">
                                     <label for="keterangan" class="col-sm-2 col-form-label">Keterangan Pengerjaan</label>
                                     <div class="col-sm-10">
-                                        <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;"></textarea>
+                                        <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;" required></textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3"> 
@@ -255,6 +255,9 @@
         </form>
     
     <script>
+    
+
+
         // search
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.querySelector('input[name="search"]');
@@ -285,7 +288,7 @@
             }
         });
 
-        toggleCloseFormButton.addEventListener('click', function() {
+        {{--  toggleCloseFormButton.addEventListener('click', function() {
             var namekanikInput = document.getElementById("mekanik");
             var namekanikValue = namekanikInput.value;
             if (namekanikValue){
@@ -293,7 +296,7 @@
                     myForm.style.display = 'none';
                 }
             }
-        });
+        });  --}}
 
         // script to show/hide edit form
         const toggleFormEditButton = document.getElementById('edit-button');
@@ -335,11 +338,11 @@
         });
 
         // close edit form
-        toggleCloseFormEditButton.addEventListener('click', function() {
+        {{--  toggleCloseFormEditButton.addEventListener('click', function() {
             if (myEditForm.style.display === 'block') {
                 myEditForm.style.display = 'none';
             }
-        });
+        });  --}}
     </script>
 
 @endsection
