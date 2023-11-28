@@ -46,16 +46,6 @@ class peralatanController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi request 
-        $request->validate([
-            'inventaris' => 'required',
-            'merek' => 'required',
-            'karyawan' => 'required',
-            'alat' => 'required',
-            'tgldiperbaiki' => 'required',
-            'teknisi' => 'required',
-        ]);
-
         $selectedInventaris = $request->inventaris;
 
         // Cek apakah nomor inventaris sudah dipilih
@@ -92,7 +82,6 @@ class peralatanController extends Controller
 
         // mengambil data inventaris peralatan berdasarkan ID
         $barang = Barang::where('id_barang', $id)->first();
-        // $logErrors = '';
         $peralatan = Peralatan::all();
         return view('/backend/peralatan/peralatan', compact('peralatan','barang', 'logErrors'));
     }
@@ -142,9 +131,6 @@ class peralatanController extends Controller
     
         return view('/backend/peralatan/peralatan', compact('peralatan', 'inventarisNo', 'noinventaris', 'kondisibarang', 'dataRusak'));
     }
-    
-    
-
 
     public function print(Request $request)
     {
@@ -187,7 +173,4 @@ class peralatanController extends Controller
     
         return $pdf->download('Data-Service-pertanggal.pdf');
     }
-    
-    
-
 }

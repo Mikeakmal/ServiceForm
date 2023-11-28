@@ -255,9 +255,6 @@
         </form>
     
     <script>
-    
-
-
         // search
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.querySelector('input[name="search"]');
@@ -288,15 +285,7 @@
             }
         });
 
-        {{--  toggleCloseFormButton.addEventListener('click', function() {
-            var namekanikInput = document.getElementById("mekanik");
-            var namekanikValue = namekanikInput.value;
-            if (namekanikValue){
-                if (myForm.style.display === 'block') {
-                    myForm.style.display = 'none';
-                }
-            }
-        });  --}}
+
 
         // script to show/hide edit form
         const toggleFormEditButton = document.getElementById('edit-button');
@@ -337,12 +326,7 @@
             });
         });
 
-        // close edit form
-        {{--  toggleCloseFormEditButton.addEventListener('click', function() {
-            if (myEditForm.style.display === 'block') {
-                myEditForm.style.display = 'none';
-            }
-        });  --}}
+
     </script>
 
 @endsection

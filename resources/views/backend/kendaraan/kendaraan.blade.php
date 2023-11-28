@@ -270,16 +270,6 @@
         }
     });
 
-    {{--  toggleCloseFormButton.addEventListener('click', function() {
-        var nopolInput = document.getElementById("nopol");
-        var nopolValue = nopolInput.value;
-        if (nopolValue){
-            if (myForm.style.display === 'block') {
-                myForm.style.display = 'none';
-            }
-        }
-    });  --}}
-
     // script to show/hide edit form
     const toggleFormEditButton = document.getElementById('edit-button');
     const toggleCloseFormEditButton = document.getElementById('close-form-edit-kendaraan');
@@ -315,12 +305,6 @@
         });
     });
 
-    // close edit form
-    {{--  toggleCloseFormEditButton.addEventListener('click', function() {
-        if (myEditForm.style.display === 'block') {
-            myEditForm.style.display = 'none';
-        }
-    });  --}}
 
 </script>
 

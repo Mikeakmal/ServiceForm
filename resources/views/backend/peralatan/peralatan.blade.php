@@ -86,7 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-50 text-end" style="margin-left: 10cm; margin-top: 1.5cm;">
+                                <div class="w-50 text-end" style="margin-left: 20cm; margin-top: 1.5cm;">
                                     <button type="submit" id="button-download-pdf" class="btn btn-warning btn-custom">
                                         <span class="btn-icon-left text-black">
                                             <i class="fa fa-download color-primary"></i>
@@ -472,7 +472,5 @@
                 }
             });
         });
-
-
     </script>
 @endsection

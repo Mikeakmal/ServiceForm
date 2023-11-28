@@ -30,6 +30,14 @@
     {{--  <!-- Template Stylesheet -->  --}}
     <link href="{{ asset('') }}assets/css/style.css" rel="stylesheet">
 </head>
+<style>
+
+    input[type="password"]::-webkit-text-security {
+        color: rgb(255, 255, 255);
+    }
+
+</style>
+
 
 <body>
     <div class="container-fluid position-relative d-flex p-0">

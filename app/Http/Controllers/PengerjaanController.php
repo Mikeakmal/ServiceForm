@@ -68,15 +68,6 @@ class PengerjaanController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi request 
-        $request->validate([
-            'nopol' => 'required', 
-            'mekanik' =>'required',
-            'tglkerja' => 'required',
-            'sparepart' => 'required',
-            'keterangan' => 'required',
-        ]);
-    
         $selectedNopol = $request->nopol;
     
         // Cek apakah nomor polisi sudah dipilih

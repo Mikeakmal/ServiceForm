@@ -72,7 +72,7 @@
                         <button type="submit" class="btn btn-warning btn-custom" id="new-barang"><i class="bi bi-plus"></i>Inventaris</button>
                     </div>                                        
                 </div>
-                {{--  <!-- Modal Semua Peralatan  -->  --}}
+                {{--  <!-- Modal All of Peralatan  -->  --}}
                 <div class="modal fade" id="PeralatanSemua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" style="max-width: 80%;">
                         <div class="modal-content">
@@ -305,10 +305,6 @@
                         </select>
                         <label for="kondisi">Works with selects</label>
                     </div>
-                    {{--  <div class="form-floating mb-3">
-                        <input name="tglpengambilan" type="date" class="form-control" id="tglpengambilan" placeholder="" required>
-                        <label for="tgl-pengambilan">Tanggal Pengambilan</label>
-                    </div>  --}}
                     <div class="form-floating">
                         <button type="submit" id="close-form-new-barang" class="btn btn-warning btn-custom">Simpan</button>
                     </div>
@@ -401,15 +397,7 @@
         }
     });
 
-    {{--  toggleCloseFormButton.addEventListener('click', function() {
-        var barangInput = document.getElementById("barang");
-        var barangValue = barangInput.value;
-        if (barangValue){
-            if (myForm.style.display === 'block') {
-                myForm.style.display = 'none';
-            }
-        }
-    });  --}}
+
 
     // script to show/hide edit form
     const toggleFormEditButton = document.getElementById('edit-button');
@@ -451,11 +439,5 @@
         });
     });
 
-    // close edit form
-    {{--  toggleCloseFormEditButton.addEventListener('click', function() {
-        if (myEditForm.style.display === 'block') {
-            myEditForm.style.display = 'none';
-        }
-    });  --}}
 </script>
 @endsection

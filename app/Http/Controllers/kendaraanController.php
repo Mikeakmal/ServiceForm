@@ -25,7 +25,6 @@ class kendaraanController extends Controller
         return view('/backend/kendaraan/kendaraan', [
             'kendaraan' => $kendaraan, 
         ]);
-
     }
  
     public function move($id_kendaraan)

@@ -40,14 +40,6 @@ class barangController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'barang' => 'required',
-            'inventaris' => 'required|unique:tbl_barang,No_inventaris_peralatan',
-            'lokasi' => 'required',
-            'kondisi' => 'required',
-            // 'tglpengambilan' => 'required',
-        ]);
-
             Barang::insert([
                 'nama_barang'=> $request->barang,
                 'No_inventaris_peralatan' => $request->inventaris,
@@ -56,7 +48,6 @@ class barangController extends Controller
                 // 'tanggal_pengambilan' => $request -> tglpengambilan,
             ]);
             return redirect()->back();
-        
     }
     
     public function delete($id_barang)
