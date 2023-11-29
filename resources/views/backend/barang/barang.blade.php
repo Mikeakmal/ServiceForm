@@ -260,7 +260,7 @@
                                 <td class="tglpengambilan-selected">{{$j->tanggal_pengambilan}}</td>
                                 <td>
                                     <a href="/editbarang/{{$j->id_barang}}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
-                                    <a href="/deletebarang/{{$j->id_barang}}" class="delete-button" title="Hapus"
+                                    <a href="{{ url('/deletebarang/' . $j->id_barang) }}" class="delete-button" title="Hapus"
                                         onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"> </i></a>
                                 </td>
                             </tr>

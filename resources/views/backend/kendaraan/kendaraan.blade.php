@@ -156,7 +156,7 @@
                                             </a>
                                             <a href="/editkendaraan/{{$j->id_kendaraan}}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
                                             </a>
-                                            <a href="/kendaraan/{{$j->id_kendaraan}}" title="Hapus Data" class="delete-button" 
+                                            <a href="{{ url('/kendaraan/' . $j->id_kendaraan) }}" class="delete-button" 
                                                 onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"></i>
                                             </a>
                                         </td>

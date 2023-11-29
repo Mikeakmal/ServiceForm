@@ -42,7 +42,7 @@
     <body>
         <div style="width: 95%; margin: 0 auto;">
             <div style="float: left; margin-left:-17px;">
-                <h4>Daftar Peralatan Rusak</h4>
+                <h4>Daftar Service Peralatan Rusak</h4>
             </div>
             <div style="float:right;margin-top:-10px;">
                 <b>PT. SATRIA UTAMA GROUP</b>
