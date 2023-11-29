@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="{{url('dashboard')}}" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i <i class="fa fa-home me-2"></i>Home</a>
+                <a href="{{url('dashboard')}}" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i <i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-car me-2"></i>Kendaraan</a>
                     <div class="dropdown-menu bg-transparent border-0">
