@@ -50,6 +50,100 @@
     }
 </style>
 
+    
+{{--  FORM PENGERJAAN  --}}
+    <form action="{{url('/addpengerjaan')}}" method="POST" id="form-new-pengerjaan" style="display: none;" >
+        @csrf
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-20" >
+                    <div class="bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">Formulir Pengerjaan</h6>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="nopol" name="nopol" required>
+                                <option value="">Nomor Polisi</option>
+                                @foreach ($nomorpolis as $c)
+                                    <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
+                                @endforeach
+                            </select>
+                            <label for="nopol">Works with selects</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="mekanik" type="text" class="form-control" id="mekanik" placeholder="" required>
+                            <label for="mekanik">Nama Mekanik</label>
+                        </div>  
+                        <div class="form-floating mb-3">
+                            <input name="tglkerja" type="date" class="form-control" id="tglkerja" placeholder="" required>
+                            <label for="tglkerja">Tanggal Dikerjakan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="sparepart" type="text" class="form-control" id="sparepart" placeholder="" required>
+                            <label for="sparepart">Sparepart</label>
+                        </div>  
+                        <div class="form-floating mb-3">
+                            <textarea name="keterangan" class="form-control" placeholder="Keterangan Pengerjaan"
+                            id="pengerjaan" style="height: 150px;" required></textarea>
+                            <label for="pengerjaan">Keterangan Pengerjaan</label>
+                        </div>
+                        <div class=" form-floating ">
+                            <button type="submit" class="btn btn-warning btn-custom" id="close-form-new-pengerjaan">Simpan</button>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </form>
+    
+{{--  FORM EDIT PENGERJAAN  --}}
+    <form action="{{ url('/form-pengerjaan-update') }}" method="POST" id="form-edit-pengerjaan" style="display: none;">
+        @csrf
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-12">
+                    <div class="bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">Form Edit Pengerjaan</h6>
+                        <input type="hidden" id="edit-id" name="id_pengerjaan">
+                            <div class="row mb-3" >
+                                <label for="nopol" class="col-sm-2 col-form-label">Nomor Polisi</label>
+                                <div class="col-sm-10" >
+                                    <input type="text" name="kendaraan" class="form-control" id="edit-nopol" style="background-color: black"  readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="mekanik" class="col-sm-2 col-form-label">Nama Mekanik</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="val_mekanik" id="edit-mekanik" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="tglkerja" class="col-sm-2 col-form-label">Tanggal Dikerjakan</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" name="val_dikerjakan" id="edit-tglkerja" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="sparepart" class="col-sm-2 col-form-label">Sparepart</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="val_sparepart" id="edit-sparepart" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="keterangan" class="col-sm-2 col-form-label">Keterangan Pengerjaan</label>
+                                <div class="col-sm-10">
+                                    <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-3 mt-3"> 
+                                <div class="col-sm-10 offset-sm-2"> 
+                                    <button id="close-form-edit-pengerjaan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+   
 {{--  LIST PENGERJAAN  --}}
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
@@ -149,7 +243,7 @@
                                             <td>
                                                 <a href="{{ url('/editpengerjaan/' . $j->id_pengerjaan) }}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
                                                 <a href="{{ url('/deletepengerjaan/' . $j->id_pengerjaan) }}" title="Hapus" class="delete-button"
-                                                     onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"> </i></a>
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"> </i></a>
                                             </td>
                                         </tr>
                                     @endforeach 
@@ -160,100 +254,7 @@
             </div>
         </div>
     </div>
-    
-{{--  FORM PENGERJAAN  --}}
-    <form action="{{url('/addpengerjaan')}}" method="POST" id="form-new-pengerjaan" style="display: none;" >
-        @csrf
-        <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-12 col-xl-20" >
-                    <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Formulir Pengerjaan</h6>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="nopol" name="nopol" required>
-                                <option value="">Nomor Polisi</option>
-                                @foreach ($nomorpolis as $c)
-                                    <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
-                                @endforeach
-                            </select>
-                            <label for="nopol">Works with selects</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input name="mekanik" type="text" class="form-control" id="mekanik" placeholder="" required>
-                            <label for="mekanik">Nama Mekanik</label>
-                        </div>  
-                        <div class="form-floating mb-3">
-                            <input name="tglkerja" type="date" class="form-control" id="tglkerja" placeholder="" required>
-                            <label for="tglkerja">Tanggal Dikerjakan</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input name="sparepart" type="text" class="form-control" id="sparepart" placeholder="" required>
-                            <label for="sparepart">Sparepart</label>
-                        </div>  
-                        <div class="form-floating mb-3">
-                            <textarea name="keterangan" class="form-control" placeholder="Keterangan Pengerjaan"
-                            id="pengerjaan" style="height: 150px;" required></textarea>
-                            <label for="pengerjaan">Keterangan Pengerjaan</label>
-                        </div>
-                        <div class=" form-floating ">
-                            <button type="submit" class="btn btn-warning btn-custom" id="close-form-new-pengerjaan">Simpan</button>
-                        </div>
-                    </div>        
-                </div>
-            </div>
-        </div>
-    </form>
-    
-{{--  FORM EDIT PENGERJAAN  --}}
-        <form action="{{ url('/form-pengerjaan-update') }}" method="POST" id="form-edit-pengerjaan" style="display: none;">
-            @csrf
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-20" >
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Form Edit Pengerjaan</h6>
-                            <input type="hidden" id="edit-id" name="id_pengerjaan">
-                                <div class="row mb-3">
-                                    <label for="nopol" class="col-sm-2 col-form-label">Nomor Polisi</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="kendaraan" class="form-control" id="edit-nopol"  readonly>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="mekanik" class="col-sm-2 col-form-label">Nama Mekanik</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="val_mekanik" id="edit-mekanik" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="tglkerja" class="col-sm-2 col-form-label">Tanggal Dikerjakan</label>
-                                    <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="val_dikerjakan" id="edit-tglkerja" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="sparepart" class="col-sm-2 col-form-label">Sparepart</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="val_sparepart" id="edit-sparepart" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="keterangan" class="col-sm-2 col-form-label">Keterangan Pengerjaan</label>
-                                    <div class="col-sm-10">
-                                        <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 mt-3"> 
-                                    <div class="col-sm-10 offset-sm-2"> 
-                                        <button id="close-form-edit-pengerjaan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    
+
     <script>
         // search
         document.addEventListener("DOMContentLoaded", function() {

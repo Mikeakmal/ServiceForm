@@ -49,7 +49,7 @@ class peralatanController extends Controller
         $selectedInventaris = $request->inventaris;
 
         // Cek apakah nomor inventaris sudah dipilih
-        if ($selectedInventaris == 'No_inventaris_peralatan') {
+        if ($selectedInventaris === '') {
             return redirect()->back()->with('error', 'Silakan pilih nomor inventaris terlebih dahulu.');
         } else {
             // Simpan data 
@@ -173,4 +173,17 @@ class peralatanController extends Controller
     
         return $pdf->download('Data-Service-pertanggal.pdf');
     }
+
+    public function searchInventaris(Request $request)
+    {
+        $query = $request->input('q');
+
+        $results = Barang::where('No_inventaris_peralatan', 'like', '%' . $query . '%')
+            ->get(['id_barang', 'No_inventaris_peralatan']); // Ambil id_barang dan No_inventaris_peralatan
+
+        return response()->json($results);
+    }
+
+
+
 }

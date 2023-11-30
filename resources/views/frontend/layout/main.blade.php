@@ -29,6 +29,15 @@
 
     {{--  <!-- Template Stylesheet -->  --}}
     <link href="{{ asset('') }}assets/css/style.css" rel="stylesheet">
+
+    <!-- Tambahkan jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Tambahkan CSS Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- Tambahkan JavaScript Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
 
 <style>

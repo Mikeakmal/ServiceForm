@@ -84,6 +84,6 @@ Route::get('/deleteperalatan/{id_peralatan}', [peralatanController::class, 'dele
 Route::post('list-peralatan-print', [peralatanController::class, 'print']);
 Route::get('list-peralatan-search', [peralatanController::class, 'search']);
 Route::post('/peralatan/cetakPertanggal', [peralatanController::class, 'cetakPertanggal']);
-
+Route::get('/search-inventaris',[peralatanController::class,'searchInventaris']);
 
 

@@ -52,7 +52,156 @@
     #new-peralatan {
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
+
 </style>
+
+{{--  FORM PERALATAN  --}}
+    <form action="{{ url('/addperalatan') }}" method="POST" id="form-new-peralatan" style="display: none;">
+        @csrf
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-12">
+                    <div class="bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">Form Peralatan Rusak</h6>
+                        <div class="form-floating mb-3">
+                            <input name="merek" type="text" class="form-control" id="merek" placeholder="" required>
+                            <label for="merek">Merek</label>
+                        </div>
+                        <div class="form-floating mb-3" >
+                            <select  style="width: 100%;" class="form-select custom-text" id="inventaris" name="inventaris" required>
+                                <option value="" >No. Inventarsi Peralatan</option>
+                                @foreach ($inventarisNo as $c)
+                                    <option  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="karyawan" type="text" class="form-control" id="karyawan" placeholder="" required>
+                            <label for="karyawan">Nama Karyawan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="alat" type="text" class="form-control" id="alat" placeholder="" required>
+                            <label for="alat">Alat Rusak</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="tgldiperbaiki" type="date" class="form-control" id="tgldiperbaiki" placeholder="" required>
+                            <label for="tgldiperbaiki">Tanggal Diperbaiki</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="teknisi" type="text" class="form-control" id="teknisi" placeholder="" required>
+                            <label for="teknisi">Teknisi</label>
+                        </div>
+                        <div class=" form-floating ">
+                            <button type="submit" id="close-form-new-peralatan" class="btn btn-warning btn-custom">Simpan</button>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </form>  
+
+{{--  FORM EDIT PERALATAN  --}}
+    <form action="{{ url('/form-peralatan-update') }}" method="POST" id="form-edit-peralatan" style="display: none;">
+        @csrf
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-12">
+                    <div class="bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">Form Edit Peralatan</h6>
+                        <input type="hidden" id="edit-id" name="id_peralatan">
+                        <input type="hidden" id="edit-id_barang" name="id_barang">
+                        <div class="row mb-3">
+                            <label for="merek" class="col-sm-2 col-form-label">Merek</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('merek') is-invalid @enderror" name="val_merek" id="edit-merek" required>
+                            </div>
+                            @error('merek')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inventaris" class="col-sm-2 col-form-label">No. Inventaris Peralatan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('inventaris') is-invalid @enderror" name="barang" id="edit-inventaris" required>
+                            </div>
+                            @error('inventaris')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="row mb-3">
+                            <label for="karyawan" class="col-sm-2 col-form-label">Nama Karyawan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('karyawan') is-invalid @enderror" name="val_karyawan" id="edit-karyawan" required>
+                            </div>
+                            @error('karyawan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="row mb-3">
+                            <label for="alat" class="col-sm-2 col-form-label">Alat Rusak</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('alat') is-invalid @enderror" name="val_alatrusak" id="edit-alatrusak" required>
+                            </div>
+                        </div>
+                        @error('alat')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <div class="row mb-3">
+                            <label for="tgldiperbaiki" class="col-sm-2 col-form-label">Tanggal Diperbaiki</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control @error('tgldiperbaiki') is-invalid @enderror" name="val_tgldiperbaiki" id="edit-tgldiperbaiki" required>
+                            </div>
+                            @error('tgldiperbaiki')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="row mb-3">
+                            <label for="teknisi" class="col-sm-2 col-form-label">Nama Teknisi</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('teknisi') is-invalid @enderror" name="val_teknisi" id="edit-teknisi" required>
+                            </div>
+                            @error('teknisi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="row mb-3">
+                            <label for="kondisi" class="col-sm-2 col-form-label">Kondisi</label>
+                            <div class="col-sm-10">
+                                <select name="val_kondisi" class="form-select @error('kondisi') is-invalid @enderror" id="edit-kondisi"
+                                    aria-label="Floating label select example">
+                                    <option value="BAGUS">Bagus</option>
+                                    <option value="RUSAK">Rusak</option>
+                                </select>
+                            </div>
+                            @error('kondisi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="row mb-3 mt-3"> 
+                            <div class="col-sm-10 offset-sm-2"> 
+                                <button id="close-form-edit-peralatan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </form>   
+
 
 {{--  LIST HISTORY PERALATAN  --}}
 <div class="container-fluid pt-4 px-4" id="history-list" style="display: none; position: relative;" >
@@ -200,153 +349,15 @@
     </div>
 
 
-{{--  FORM PERALATAN  --}}
-    <form action="{{ url('/addperalatan') }}" method="POST" id="form-new-peralatan" style="display: none;">
-        @csrf
-        <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-12 col-xl-12">
-                    <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Form Peralatan Rusak</h6>
-                        <div class="form-floating mb-3">
-                            <input name="merek" type="text" class="form-control" id="merek" placeholder="" required>
-                            <label for="merek">Merek</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="inventaris" name="inventaris" required>
-                                <option value="">No. Inventarsi Peralatan</option>
-                                @foreach ($inventarisNo as $c)
-                                    <option value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
-                                @endforeach
-                            </select>
-                            <label for="inventaris">Works with selects</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input name="karyawan" type="text" class="form-control" id="karyawan" placeholder="" required>
-                            <label for="karyawan">Nama Karyawan</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input name="alat" type="text" class="form-control" id="alat" placeholder="" required>
-                            <label for="alat">Alat Rusak</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input name="tgldiperbaiki" type="date" class="form-control" id="tgldiperbaiki" placeholder="" required>
-                            <label for="tgldiperbaiki">Tanggal Diperbaiki</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input name="teknisi" type="text" class="form-control" id="teknisi" placeholder="" required>
-                            <label for="teknisi">Teknisi</label>
-                        </div>
-                        <div class=" form-floating ">
-                            <button type="submit" id="close-form-new-peralatan" class="btn btn-warning btn-custom">Simpan</button>
-                        </div>
-                    </div>        
-                </div>
-            </div>
-        </div>
-    </form>  
 
-{{--  FORM EDIT PERALATAN  --}}
-    <form action="{{ url('/form-peralatan-update') }}" method="POST" id="form-edit-peralatan" style="display: none;">
-        @csrf
-        <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-12 col-xl-12">
-                    <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Form Edit Peralatan</h6>
-                        <input type="hidden" id="edit-id" name="id_peralatan">
-                        <input type="hidden" id="edit-id_barang" name="id_barang">
-                        <div class="row mb-3">
-                            <label for="merek" class="col-sm-2 col-form-label">Merek</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control @error('merek') is-invalid @enderror" name="val_merek" id="edit-merek" required>
-                            </div>
-                            @error('merek')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inventaris" class="col-sm-2 col-form-label">No. Inventaris Peralatan</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control @error('inventaris') is-invalid @enderror" name="barang" id="edit-inventaris" required>
-                            </div>
-                            @error('inventaris')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row mb-3">
-                            <label for="karyawan" class="col-sm-2 col-form-label">Nama Karyawan</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control @error('karyawan') is-invalid @enderror" name="val_karyawan" id="edit-karyawan" required>
-                            </div>
-                            @error('karyawan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row mb-3">
-                            <label for="alat" class="col-sm-2 col-form-label">Alat Rusak</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control @error('alat') is-invalid @enderror" name="val_alatrusak" id="edit-alatrusak" required>
-                            </div>
-                        </div>
-                        @error('alat')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                        <div class="row mb-3">
-                            <label for="tgldiperbaiki" class="col-sm-2 col-form-label">Tanggal Diperbaiki</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control @error('tgldiperbaiki') is-invalid @enderror" name="val_tgldiperbaiki" id="edit-tgldiperbaiki" required>
-                            </div>
-                            @error('tgldiperbaiki')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row mb-3">
-                            <label for="teknisi" class="col-sm-2 col-form-label">Nama Teknisi</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control @error('teknisi') is-invalid @enderror" name="val_teknisi" id="edit-teknisi" required>
-                            </div>
-                            @error('teknisi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row mb-3">
-                            <label for="kondisi" class="col-sm-2 col-form-label">Kondisi</label>
-                            <div class="col-sm-10">
-                                <select name="val_kondisi" class="form-select @error('kondisi') is-invalid @enderror" id="edit-kondisi"
-                                    aria-label="Floating label select example">
-                                    <option value="BAGUS">Bagus</option>
-                                    <option value="RUSAK">Rusak</option>
-                                </select>
-                            </div>
-                            @error('kondisi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row mb-3 mt-3"> 
-                            <div class="col-sm-10 offset-sm-2"> 
-                                <button id="close-form-edit-peralatan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
-                            </div>
-                        </div>
-                    </div>        
-                </div>
-            </div>
-        </div>
-    </form>   
+
+    
+    <script type="text/javascript">
+
+      $("#inventaris").select2({
+            allowClear: true
+        });
+    </script>
 
     <script>
         //TAMPILAN PERTANGGAL

@@ -45,6 +45,103 @@
 
 </style>
 
+{{-- Form Tambah Barang/inventaris --}}
+<form action="{{url('/addbarang')}}" method="POST" id="form-new-barang" style="display: none;">
+    @csrf
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-12">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4">Formulir Peralatan Inventaris</h6>
+                    <div class="form-floating mb-3">
+                        <input name="barang" type="text" class="form-control" id="barang" placeholder="" required>
+                        <label for="barang">Nama Barang</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="inventaris" type="text" class="form-control @error('inventaris') is-invalid @enderror" id="inventaris" placeholder="" required>
+                        @error('inventaris')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <label for "inventaris">No. Inventaris Peralatan</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="lokasi" type="text" class="form-control" id="lokasi" placeholder="" required>
+                        <label for="lokasi">Lokasi</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select name="kondisi" class="form-select" id="kondisi" required
+                            aria-label="Floating label select example">
+                            <option value="">Kondisi</option>
+                            <option value="BAGUS">Bagus</option>
+                            <option value="RUSAK">Rusak</option>
+                        </select>
+                        <label for="kondisi">Works with selects</label>
+                    </div>
+                    <div class="form-floating">
+                        <button type="submit" id="close-form-new-barang" class="btn btn-warning btn-custom">Simpan</button>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{{-- Form Edit Barang --}}
+<form action="{{url('/form-barang-update')}}" method="POST" id="form-edit-barang" style="display: none;">
+    @csrf
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-12">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4">Formulir Edit Peralatan Inventaris</h6>
+                    <input type="hidden" id="edit-id" name="id_barang">
+
+                    <div class="row mb-3">
+                        <label for="barang" class="col-sm-2 col-form-label">Nama Barang</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="val_barang" class="form-control" id="edit-barang" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inventaris" class="col-sm-2 col-form-label">No. Inventaris Peralatan</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="val_inventaris" class="form-control" id="edit-inventaris" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="lokasi" class="col-sm-2 col-form-label">Lokasi</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="val_lokasi" class="form-control" id="edit-lokasi" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="kondisi" class="col-sm-2 col-form-label">Kondisi</label>
+                        <div class="col-sm-10">
+                            <select name="val_kondisi" class="form-select" id="edit-kondisi"
+                                aria-label="Floating label select example">
+                                <option value="BAGUS">Bagus</option>
+                                <option value="RUSAK">Rusak</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="edit-tgl-pengambilan" class="col-sm-2 col-form-label">Tanggal Pengambilan</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="val_tglpengambilan" class="form-control" id="edit-tgl-pengambilan" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mt-3"> 
+                        <div class="col-sm-10 offset-sm-2"> 
+                            <button id="close-form-edit-barang" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+</form>
+
 {{-- List Barang --}}
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -272,92 +369,6 @@
         </div>
     </div>
 </div>
-
-{{-- Form Tambah Barang/inventaris --}}
-<form action="{{url('/addbarang')}}" method="POST" id="form-new-barang" style="display: none;">
-    @csrf
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-            <div class="col-sm-12 col-xl-12">
-                <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">Formulir Peralatan Inventaris</h6>
-                    <div class="form-floating mb-3">
-                        <input name="barang" type="text" class="form-control" id="barang" placeholder="" required>
-                        <label for="barang">Nama Barang</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="inventaris" type="text" class="form-control @error('inventaris') is-invalid @enderror" id="inventaris" placeholder="" required>
-                        @error('inventaris')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        <label for "inventaris">No. Inventaris Peralatan</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="lokasi" type="text" class="form-control" id="lokasi" placeholder="" required>
-                        <label for="lokasi">Lokasi</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select name="kondisi" class="form-select" id="kondisi" required
-                            aria-label="Floating label select example">
-                            <option value="">Kondisi</option>
-                            <option value="BAGUS">Bagus</option>
-                            <option value="RUSAK">Rusak</option>
-                        </select>
-                        <label for="kondisi">Works with selects</label>
-                    </div>
-                    <div class="form-floating">
-                        <button type="submit" id="close-form-new-barang" class="btn btn-warning btn-custom">Simpan</button>
-                    </div>
-                </div>        
-            </div>
-        </div>
-    </div>
-</form>
-
-
-{{-- Form Edit Barang --}}
-<form action="{{url('/form-barang-update')}}" method="POST" id="form-edit-barang" style="display: none;">
-    @csrf
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-            <div class="col-sm-12 col-xl-12">
-                <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">Formulir Edit Peralatan Inventaris</h6>
-                    <input type="hidden" id="edit-id" name="id_barang">
-                    <div class="form-floating mb-3">
-                        <input name="val_barang" type="text" class="form-control" id="edit-barang" placeholder="" required>
-                        <label for="barang">Nama Barang</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="val_inventaris" type="text" class="form-control" id="edit-inventaris" placeholder="" required>
-                        <label for "inventaris">No. Inventaris Peralatan</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="val_lokasi" type="text" class="form-control" id="edit-lokasi" placeholder="" required>
-                        <label for="lokasi">Lokasi</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select name="val_kondisi" class="form-select" id="edit-kondisi" required
-                            aria-label="Floating label select example">
-                            <option value="">Kondisi</option>
-                            <option value="BAGUS">Bagus</option>
-                            <option value="RUSAK">Rusak</option>
-                        </select>
-                        <label for="edit-kondisi">Works with selects</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="val_tglpengambilan" type="date" class="form-control" id="edit-tgl-pengambilan" placeholder="">
-                        <label for="edit-tgl-pengambilan">Tanggal Pengambilan</label>
-                    </div>
-                    <div class="form-floating">
-                        <button type="submit" id="close-form-edit-barang" class="btn btn-warning btn-custom">Perbarui</button>
-                    </div>
-                </div>        
-            </div>
-        </div>
-    </div>
-</form>
-
 
 <script>
     {{--  capslock  --}}
