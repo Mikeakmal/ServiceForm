@@ -67,9 +67,9 @@
                             <input name="merek" type="text" class="form-control" id="merek" placeholder="" required>
                             <label for="merek">Merek</label>
                         </div>
-                        <div class="form-floating mb-3" >
-                            <select  style="width: 100%;" class="form-select custom-text" id="inventaris" name="inventaris" required>
-                                <option value="" >No. Inventarsi Peralatan</option>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" style="width: 100%; color: rgb(0, 0, 0); background-color: black;" id="inventaris" name="inventaris" required>
+                                <option></option>
                                 @foreach ($inventarisNo as $c)
                                     <option  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
                                 @endforeach
@@ -349,15 +349,15 @@
     </div>
 
 
-
-
     
     <script type="text/javascript">
-
-      $("#inventaris").select2({
-            allowClear: true
-        });
+    
+          $("#inventaris").select2({
+                placeholder: "No. Inventarsi Peralatan",
+                allowClear: true
+            });
     </script>
+    
 
     <script>
         //TAMPILAN PERTANGGAL
