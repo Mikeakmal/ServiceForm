@@ -120,7 +120,6 @@ class peralatanController extends Controller
             ->select('tbl_peralatanrusak.*')
             ->get();
         
-        // Jika tidak ada hasil pencarian yang sesuai dengan status 'RUSAK', atur dataRusak ke koleksi kosong
         if ($dataRusak->isEmpty()) {
             $dataRusak = collect();
         }
@@ -161,7 +160,7 @@ class peralatanController extends Controller
             ->whereDate('tanggal_diperbaiki', '<=', $sampai_tanggal)
             ->get();
     
-        // Sekarang, Anda hanya mengambil data yang sesuai dengan rentang tanggal yang dipilih.
+        // mengambil data yang sesuai dengan rentang tanggal yang dipilih.
         $databarang = Barang::pluck('No_inventaris_peralatan', 'id_barang');
         $kondisibarang = Barang::pluck('kondisi', 'id_barang');
     
@@ -179,7 +178,7 @@ class peralatanController extends Controller
         $query = $request->input('q');
 
         $results = Barang::where('No_inventaris_peralatan', 'like', '%' . $query . '%')
-            ->get(['id_barang', 'No_inventaris_peralatan']); // Ambil id_barang dan No_inventaris_peralatan
+            ->get(['id_barang', 'No_inventaris_peralatan']);
 
         return response()->json($results);
     }

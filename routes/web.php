@@ -4,6 +4,7 @@ use App\Http\Controllers\barangController;
 use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\kendaraanController;
+use App\Http\Controllers\KendaraanOnProgressController;
 use App\Http\Controllers\peralatanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengerjaanController;
@@ -48,6 +49,9 @@ Route::get('list-detail-print/{id}', [kendaraanController::class, 'cetak']);
 Route::get('list-kendaraan-search', [kendaraanController::class, 'search']);
 Route::get('list-pengerjaan-detail-search', [kendaraanController::class, 'search2']);
 
+//KENDARAAN ON PROGRESS
+Route::get('/kendaraan-onprogress', [KendaraanOnProgressController::class, 'index'])->middleware('auth');
+Route::get('list-onprogress-search', [KendaraanOnProgressController::class, 'search']);
 
 //pengerjaan
 Route::get('/pengerjaan', [PengerjaanController::class, 'index'])->middleware('auth');

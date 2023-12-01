@@ -53,6 +53,10 @@
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
 
+    {{--  #inventaris.custom-select2 {
+        color: black;
+        height: 2cm;
+    }  --}}
 </style>
 
 {{--  FORM PERALATAN  --}}
@@ -68,7 +72,7 @@
                             <label for="merek">Merek</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select class="form-select" style="width: 100%; color: rgb(0, 0, 0); background-color: black;" id="inventaris" name="inventaris" required>
+                            <select class="form-select custom-select2" style="width: 100%;" id="inventaris" name="inventaris" required>
                                 <option></option>
                                 @foreach ($inventarisNo as $c)
                                     <option  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
@@ -353,7 +357,7 @@
     <script type="text/javascript">
     
           $("#inventaris").select2({
-                placeholder: "No. Inventarsi Peralatan",
+                placeholder: "No. Inventaris Peralatan",
                 allowClear: true
             });
     </script>

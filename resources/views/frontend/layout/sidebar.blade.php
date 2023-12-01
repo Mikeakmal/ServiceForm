@@ -3,7 +3,7 @@
 {{--  <!-- Sidebar Start -->  --}}
     <div class="sidebar pe-6 pb-3">
         <nav class="navbar bg-secondary navbar-dark">
-            <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <a href="{{url('dashboard')}}" class="navbar-brand mx-4 mb-3">
                 <h3 class="" style="color: rgb(255, 160, 0);" >Service Form</h3>
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">

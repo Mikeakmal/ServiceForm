@@ -86,7 +86,7 @@
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-6 col-xl-3">
-            <a href="{{ url('pengerjaan') }}" style="text-decoration: none; color: inherit;">
+            <a href="{{ url('/kendaraan-onprogress') }}" style="text-decoration: none; color: inherit;">
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-car fa-3x iconblue"></i>
                     <div class="ms-3">

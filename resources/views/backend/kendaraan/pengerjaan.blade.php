@@ -60,13 +60,13 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Formulir Pengerjaan</h6>
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="nopol" name="nopol" required>
-                                <option value="">Nomor Polisi</option>
+                            <select class="form-select" id="nopol" name="nopol" style="width: 100%;" required>
+                                <option ></option>
                                 @foreach ($nomorpolis as $c)
                                     <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
                                 @endforeach
                             </select>
-                            <label for="nopol">Works with selects</label>
+                            {{--  <label for="nopol">Works with selects</label>  --}}
                         </div>
                         <div class="form-floating mb-3">
                             <input name="mekanik" type="text" class="form-control" id="mekanik" placeholder="" required>
@@ -255,6 +255,14 @@
         </div>
     </div>
 
+
+    <script type="text/javascript">
+    
+        $("#nopol").select2({
+              placeholder: "Nomor Polisi",
+              allowClear: true
+          });
+    </script>
     <script>
         // search
         document.addEventListener("DOMContentLoaded", function() {
