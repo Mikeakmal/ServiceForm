@@ -53,10 +53,145 @@
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
 
-    {{--  #inventaris.custom-select2 {
+    {{--  #inventaris.select-box {
         color: black;
         height: 2cm;
     }  --}}
+  
+    * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: "Roboto", sans-serif;
+        background: #f7f6ff;
+      }
+      
+      h2 {
+        margin: 16px;
+      }
+      
+      .container {
+        margin-top: 100px;
+        padding: 32px;
+      }
+      
+      .select-box {
+        position: relative;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+      }
+      
+      .select-box .options-container {
+        background: #2f3640;
+        color: #f5f6fa;
+        max-height: 0;
+        width: 100%;
+        opacity: 0;
+        transition: all 0.4s;
+        border-radius: 8px;
+        overflow: hidden;
+      
+        order: 1;
+      
+        position: absolute;
+        z-index: 100;
+      }
+      
+      .selected {
+        background: #000000;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        color: #f5f6fa;
+        position: relative;
+      
+        order: 0;
+      }
+      
+      .selected::after {
+        content: "";
+        background: url("img/arrow-down.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+      
+        position: absolute;
+        height: 100%;
+        width: 32px;
+        right: 10px;
+        top: 5px;
+      
+        transition: all 0.4s;
+      }
+      
+      .select-box .options-container.active {
+        max-height: 240px;
+        opacity: 1;
+        overflow-y: scroll;
+        margin-top: 104px;
+      }
+      
+      .select-box .options-container.active + .selected::after {
+        transform: rotateX(180deg);
+        top: -6px;
+      }
+      
+      .select-box .options-container::-webkit-scrollbar {
+        width: 8px;
+        background: #000000;
+        border-radius: 0 8px 8px 0;
+      }
+      
+      .select-box .options-container::-webkit-scrollbar-thumb {
+        background: #000000;
+        border-radius: 0 8px 8px 0;
+      }
+      
+      .select-box .option,
+      .selected {
+        padding: 12px 24px;
+        cursor: pointer;
+      }
+      
+      .select-box .option:hover {
+        background: #000000;
+      }
+      
+      .select-box label {
+        cursor: pointer;
+      }
+      
+      .select-box .option .radio {
+        display: none;
+      }
+      
+      /* Searchbox */
+      
+      .search-box input {
+        width: 100%;
+        padding: 12px 16px;
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+        position: absolute;
+        border-radius: 8px 8px 0 0;
+        z-index: 100;
+        border: 8px solid #000000;
+      
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s;
+      }
+      
+      .search-box input:focus {
+        outline: none;
+      }
+      
+      .select-box .options-container.active ~ .search-box input {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      
 </style>
 
 {{--  FORM PERALATAN  --}}
@@ -71,14 +206,34 @@
                             <input name="merek" type="text" class="form-control" id="merek" placeholder="" required>
                             <label for="merek">Merek</label>
                         </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select custom-select2" style="width: 100%;" id="inventaris" name="inventaris" required>
+                        {{--  <div class="form-floating mb-3 select-box">
+                            <select class="form-select options-container" style="width: 100%;" id="inventaris" name="inventaris" required>
                                 <option></option>
                                 @foreach ($inventarisNo as $c)
-                                    <option  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
+                                    <option class="option"  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
                                 @endforeach
                             </select>
+                        </div>  --}}
+                        <div class="select-box">
+                            <div class="options-container">
+                              <div class="option">
+                                <select class="form-select options-container"  id="inventaris" name="inventaris" required>
+                                    <option></option>
+                                    @foreach ($inventarisNo as $c)
+                                        <option class="option"  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+                            </div>
+                            <div class="selected">
+                              Select No. Inventaris
+                            </div>
+                    
+                            <div class="search-box">
+                              <input type="text" placeholder="Start Typing..." />
+                            </div>
                         </div>
+
                         <div class="form-floating mb-3">
                             <input name="karyawan" type="text" class="form-control" id="karyawan" placeholder="" required>
                             <label for="karyawan">Nama Karyawan</label>
@@ -354,15 +509,68 @@
 
 
     
-    <script type="text/javascript">
+    {{--  <script type="text/javascript">
     
           $("#inventaris").select2({
                 placeholder: "No. Inventaris Peralatan",
                 allowClear: true
             });
-    </script>
+    </script>  --}}
     
-
+    <script>
+        const selectedAll = document.querySelectorAll(".selected");
+    
+        selectedAll.forEach((selected) => {
+            const optionsContainer = selected.previousElementSibling;
+            const searchBox = selected.nextElementSibling;
+    
+            const optionsList = optionsContainer.querySelectorAll(".option");
+    
+            selected.addEventListener("click", () => {
+                if (optionsContainer.classList.contains("active")) {
+                    optionsContainer.classList.remove("active");
+                } else {
+                    let currentActive = document.querySelector(".options-container.active");
+    
+                    if (currentActive) {
+                        currentActive.classList.remove("active");
+                    }
+    
+                    optionsContainer.classList.add("active");
+                }
+    
+                searchBox.value = "";
+                filterList("");
+    
+                if (optionsContainer.classList.contains("active")) {
+                    searchBox.focus();
+                }
+            });
+    
+            optionsList.forEach((o) => {
+                o.addEventListener("click", () => {
+                    selected.innerHTML = o.querySelector("label").innerHTML;
+                    optionsContainer.classList.remove("active");
+                });
+            });
+    
+            searchBox.addEventListener("keyup", function (e) {
+                filterList(e.target.value);
+            });
+    
+            const filterList = (searchTerm) => {
+                searchTerm = searchTerm.toLowerCase();
+                optionsList.forEach((option) => {
+                    let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+                    if (label.indexOf(searchTerm) != -1) {
+                        option.style.display = "block";
+                    } else {
+                        option.style.display = "none";
+                    }
+                });
+            };
+        });
+    </script>
     <script>
         //TAMPILAN PERTANGGAL
             document.addEventListener("DOMContentLoaded", function() {
