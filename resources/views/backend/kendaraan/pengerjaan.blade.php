@@ -48,6 +48,39 @@
     #new-pengerjaan {
         margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
     }
+
+    .select2-selection {
+        background-color: #000000 !important;
+        text-decoration-color: rgb(241, 248, 255);
+        border: none !important;
+    }
+
+    #inventaris.select2-container {
+        height: 200px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 60px; /* Ganti dengan tinggi yang diinginkan */
+    }
+
+    .select2-container {
+        height: 30px !important;
+    }
+
+    .select2-results__option:hover {
+        background-color: #2b2929 !important;
+        color: #ffffff !important;
+    }
+
+    .select2-results__option:not(:hover) {
+        background-color: #ffffff !important; 
+        color: #000000 !important;
+    }
+
+    .form-container {
+        margin-bottom: 60px; 
+    }
+    
 </style>
 
     
@@ -59,14 +92,15 @@
                 <div class="col-sm-12 col-xl-20" >
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Formulir Pengerjaan</h6>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="nopol" name="nopol" style="width: 100%;" required>
-                                <option ></option>
-                                @foreach ($nomorpolis as $c)
-                                    <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
-                                @endforeach
-                            </select>
-                            {{--  <label for="nopol">Works with selects</label>  --}}
+                        <div class="form-container">
+                            <div class="form-floating mb-3">
+                                <select class="form-select select2" id="nopol" name="nopol" style="width: 100%;" required>
+                                    <option ></option>
+                                    @foreach ($nomorpolis as $c)
+                                        <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="form-floating mb-3">
                             <input name="mekanik" type="text" class="form-control" id="mekanik" placeholder="" required>
@@ -255,15 +289,14 @@
         </div>
     </div>
 
-
-    <script type="text/javascript">
-    
-        $("#nopol").select2({
-              placeholder: "Nomor Polisi",
-              allowClear: true
-          });
-    </script>
     <script>
+        //SELECT BOX
+        $("#nopol").select2({
+            placeholder: "Nomor Polisi",
+            allowClear: true
+        });
+
+
         // search
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.querySelector('input[name="search"]');
