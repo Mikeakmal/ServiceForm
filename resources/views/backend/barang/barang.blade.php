@@ -128,7 +128,7 @@
                     <div class="row mb-3">
                         <label for="edit-tgl-pengambilan" class="col-sm-2 col-form-label">Tanggal Pengambilan</label>
                         <div class="col-sm-10">
-                            <input type="date" name="val_tglpengambilan" class="form-control" id="edit-tgl-pengambilan" required>
+                            <input type="date" name="val_tglpengambilan" class="form-control" id="edit-tgl-pengambilan">
                         </div>
                     </div>
                     <div class="row mb-3 mt-3"> 

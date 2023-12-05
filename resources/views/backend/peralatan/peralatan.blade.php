@@ -144,7 +144,7 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input name="teknisi" type="text" class="form-control" id="teknisi" placeholder="" required>
-                            <label for="teknisi">Teknisi</label>
+                            <label for="teknisi">Nama Teknisi</label>
                         </div>
                         <div class=" form-floating ">
                             <button type="submit" id="close-form-new-peralatan" class="btn btn-warning btn-custom">Simpan</button>
@@ -271,7 +271,7 @@
                                 <div>
                                     <h6 class="mb-0">History Peralatan Rusak </h6>
                                     <br> 
-                                    <div class="row">
+                                    <div class="row dateselect">
                                         <div class="col-sm-6">
                                             <div class="row mb-3">
                                                 <label for="label">Dari Tanggal :</label>
@@ -313,7 +313,7 @@
                                 <th scope="col">Nama Karyawan</th>
                                 <th scope="col">Alat Rusak</th>
                                 <th scope="col">Tanggal Diperbaiki</th>
-                                <th scope="col">Teknisi</th>
+                                <th scope="col">Nama Teknisi</th>
                                 <th scope="col">Kondisi</th>
                                 <th scope="col">Diperbarui </th>
                             </tr>
@@ -350,16 +350,6 @@
                         <h6 class="mb-0">Daftar Peralatan Rusak </h6>                       
                         <div class="button-container">
                             <button type="submit" class="btn btn-warning btn-custom"  id="new-peralatan" ><i class="bi bi-plus"></i>  Peralatan</button>
-                            {{--  <div id="download-pdf" style="display: block;">
-                                <form action="{{ url('list-peralatan-print') }}" method="POST" id="pdf-form">
-                                    @csrf
-                                    <button type="submit" id="button-download-pdf" class="btn btn-custom">
-                                        <span class="btn-icon-left text-primary">
-                                            <i class="fa fa-download color-primary"></i>
-                                        </span>Download PDF
-                                    </button>
-                                </form>
-                            </div>  --}}
                         </div>
                     </div>
                     <div class="table-responsive tblListPeralatan">
@@ -372,7 +362,7 @@
                                     <th scope="col">Nama Karyawan</th>
                                     <th scope="col">Alat Rusak</th>
                                     <th scope="col">Tanggal Diperbaiki</th>
-                                    <th scope="col">Teknisi</th>
+                                    <th scope="col">Nama Teknisi</th>
                                     <th scope="col">Kondisi</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -410,34 +400,41 @@
         });
 
         //TAMPILAN PERTANGGAL
-            document.addEventListener("DOMContentLoaded", function() {
-                // Pilih input tanggal
-                const dariTanggalInput = document.getElementById("dari_tanggal");
-                const sampaiTanggalInput = document.getElementById("sampai_tanggal");
-            
-                // Pilih tabel
-                const historyTable = document.getElementById("tbl-History");
-                const tableRows = historyTable.querySelectorAll("tbody tr");
-            
-                // Tambahkan event listener ke input tanggal
-                dariTanggalInput.addEventListener("change", filterTable);
-                sampaiTanggalInput.addEventListener("change", filterTable);
-            
-                function filterTable() {
-                    const dariTanggal = dariTanggalInput.value;
-                    const sampaiTanggal = sampaiTanggalInput.value;
-            
-                    tableRows.forEach(function(row) {
-                        const tanggalDiperbaiki = row.querySelector(".tgldiperbaiki-selected").textContent;
-                        
-                        if (tanggalDiperbaiki >= dariTanggal && tanggalDiperbaiki <= sampaiTanggal) {
-                            row.style.display = ""; // Tampilkan baris
-                        } else {
-                            row.style.display = "none"; // Sembunyikan baris
-                        }
-                    });
-                }
-            });
+        document.addEventListener("DOMContentLoaded", function() {
+            // Pilih input tanggal
+            const dariTanggalInput = document.getElementById("dari_tanggal");
+            const sampaiTanggalInput = document.getElementById("sampai_tanggal");
+        
+            // Pilih tabel
+            const historyTable = document.getElementById("tbl-History");
+            const tableRows = historyTable.querySelectorAll("tbody tr");
+        
+            // Tambahkan event listener ke input tanggal
+            dariTanggalInput.addEventListener("change", filterTable);
+            sampaiTanggalInput.addEventListener("change", filterTable);
+        
+            function filterTable() {
+                const dariTanggal = dariTanggalInput.value;
+                const sampaiTanggal = sampaiTanggalInput.value;
+        
+                tableRows.forEach(function(row) {
+                    const tanggalDiperbaiki = row.querySelector("td:nth-child(6)").textContent;
+        
+                    // Tambahkan pernyataan console.log untuk debugging
+                    console.log("Dari Tanggal:", dariTanggal);
+                    console.log("Sampai Tanggal:", sampaiTanggal);
+                    console.log("Tanggal Diperbaiki:", tanggalDiperbaiki);
+        
+                    // Asumsikan format tanggal adalah "YYYY-MM-DD"
+                    if (tanggalDiperbaiki >= dariTanggal && tanggalDiperbaiki <= sampaiTanggal) {
+                        row.style.display = ""; // Tampilkan baris
+                    } else {
+                        row.style.display = "none"; // Sembunyikan baris
+                    }
+                });
+            }
+        });
+        
             
     
         // Mengambil referensi elemen-elemen
