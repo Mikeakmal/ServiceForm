@@ -51,24 +51,11 @@
 
     .select2-selection {
         background-color: #000000 !important;
-        text-decoration-color: rgb(241, 248, 255);
         border: none !important;
     }
 
-    #inventaris.select2-container {
-        height: 200px !important;
-    }
-
-    .select2-container .select2-selection--single {
-        height: 60px; /* Ganti dengan tinggi yang diinginkan */
-    }
-
-    .select2-container {
-        height: 30px !important;
-    }
-
     .select2-results__option:hover {
-        background-color: #2b2929 !important;
+        background-color: #000000 !important;
         color: #ffffff !important;
     }
 
@@ -78,7 +65,31 @@
     }
 
     .form-container {
-        margin-bottom: 60px; 
+        margin-bottom: 15px; //jarak antar textbox
+    }
+
+    .select2-label {
+        font-size: 15px;
+        color: #e6e0e0;
+        position: absolute;
+        top: 0%;
+        transform: translateY(-20%);
+        z-index: 1;
+    }
+
+    .select2-container {
+        position: relative;
+        height: 60px !important; 
+    }
+ 
+    .select2-container .select2-selection--single {
+        height: 60px; 
+    }
+    
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        position: absolute;
+        bottom: 5%;
+        margin-left: 5px;
     }
     
 </style>
@@ -93,9 +104,10 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Formulir Pengerjaan</h6>
                         <div class="form-container">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 position-relative">
+                                <label for="nopol" class="form-label select2-label">Nomor Polisi</label>
                                 <select class="form-select select2" id="nopol" name="nopol" style="width: 100%;" required>
-                                    <option ></option>
+                                    <option></option>
                                     @foreach ($nomorpolis as $c)
                                         <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
                                     @endforeach
@@ -289,12 +301,15 @@
         </div>
     </div>
 
+
+
     <script>
-        //SELECT BOX
-        $("#nopol").select2({
-            placeholder: "Nomor Polisi",
-            allowClear: true
+
+        //search $ select ComboBox
+        $('.select2').select2({
+            width: '100%'
         });
+        
 
 
         // search

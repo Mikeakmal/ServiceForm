@@ -50,12 +50,12 @@
     }
 
     #new-peralatan {
-        margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
+        margin-right: 1mm; 
     }
 
     .select2-selection {
         background-color: #000000 !important;
-        text-decoration-color: rgb(241, 248, 255);
+        text-decoration-color: rgb(241, 248, 255)!important;
         border: none !important;
     }
 
@@ -63,16 +63,13 @@
         height: 200px !important;
     }
 
-    .select2-container .select2-selection--single {
-        height: 60px; /* Ganti dengan tinggi yang diinginkan */
-    }
-
-    .select2-container {
-        height: 30px !important;
+    .select2-selection {
+        background-color: #000000 !important;
+        border: none !important;
     }
 
     .select2-results__option:hover {
-        background-color: #2b2929 !important;
+        background-color: #000000 !important;
         color: #ffffff !important;
     }
 
@@ -82,9 +79,32 @@
     }
 
     .form-container {
-        margin-bottom: 40px; 
+        margin-bottom: 15px; //jarak antar textbox
+    }
+
+    .select2-label {
+        font-size: 15px;
+        color: #e6e0e0;
+        position: absolute;
+        top: 0%;
+        transform: translateY(-20%);
+        z-index: 1;
+    }
+
+    .select2-container {
+        position: relative;
+        height: 60px !important; 
+    }
+ 
+    .select2-container .select2-selection--single {
+        height: 60px; 
     }
     
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        position: absolute;
+        bottom: 5%;
+        margin-left: 5px;
+    }    
 </style>
 
 {{--  FORM PERALATAN  --}}
@@ -100,11 +120,12 @@
                             <label for="merek">Merek</label>
                         </div>
                         <div class="form-container">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 position-relative">
+                                <label for="nopol" class="form-label select2-label">Nomor Inventaris</label>
                                 <select class="form-select select2"  style="width: 100%; " id="inventaris" name="inventaris" required>
                                     <option></option>
                                     @foreach ($inventarisNo as $c)
-                                        <option class="options-container"  value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
+                                        <option value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -383,10 +404,9 @@
     </div>
 
     <script>
-        $("#inventaris").select2({
-            placeholder: "No. Inventaris Peralatan",
-            allowClear: true
-            
+        //search $ select ComboBox
+        $('.select2').select2({
+            width: '100%'
         });
 
         //TAMPILAN PERTANGGAL
