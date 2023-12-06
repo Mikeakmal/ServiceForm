@@ -53,7 +53,7 @@
             </div>
         </div>
         <div>
-            <h4>Data Pengerjaan Kendaraan</h4>
+            <h4>Daftar Pengerjaan Kendaraan</h4>
         </div>
         <table class="table kendaraan">
             <tr>

@@ -2,8 +2,8 @@
 @section('content')
     {{--  <!-- Navbar Start -->  --}}
     <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-            <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+        <a href="{{url('barang')}}" class="navbar-brand d-flex d-lg-none me-4">
+            <h2 class="text-primary mb-0"><i class="fa fa-cogs me-2"></i> </h2>
         </a>
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
@@ -21,16 +21,39 @@
                     <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                <div class="dropdown-menu logout dropdown-menu-end border-0 rounded-0 rounded-bottom m-0 ">
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
-                        <button type="submit" class="dropdown-item">Log Out</button>
-                    </form>                
+                        <button type="submit" class="dropdown-item text-black">Log Out
+                            <i class="fas fa-sign-out-alt" style="margin-left: 10px;"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </nav>
     {{--  <!-- Navbar End -->  --}}
+
+
+    <style>
+        //LOGOUT DESIGN
+        .navbar-nav .dropdown-menu.logout {
+            padding: 60px; 
+        }
+        .navbar-nav .dropdown-menu.logout {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .navbar-nav .dropdown-menu.logout .dropdown-item {
+            color: rgb(0, 0, 0); 
+        }
+    
+        .navbar-nav .dropdown-menu.logout .dropdown-item:hover {
+            background-color: rgb(255, 255, 255); 
+            color: rgb(255, 160, 0); 
+        }
+    </style>
 
     {{--  LIST KENDARAAN  --}}
     <div class="container-fluid pt-4 px-4">

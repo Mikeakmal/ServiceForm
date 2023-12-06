@@ -54,12 +54,12 @@
         <table class="table table-responsive-sm" id="data-table-Pengerjaan" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th >No.</th>
-                    <th >Nomor Polisi</th>
-                    <th >Nama Mekanik</th>
-                    <th >Tanggal Dikerjakan</th>
-                    <th >Sparepart</th>
-                    <th >Keterangan Pengerjaan</th>
+                    <th>No.</th>
+                    <th>Nomor Polisi</th>
+                    <th>Nama Mekanik</th>
+                    <th>Tanggal Dikerjakan</th>
+                    <th>Sparepart</th>
+                    <th>Keterangan Pengerjaan</th>
                 </tr>
             </thead>
             <tbody>

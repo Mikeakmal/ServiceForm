@@ -66,7 +66,7 @@
                     <th>No. Polisi</th>
                     <th>Tanggal Masuk Bengkel</th>
                     <th>Tanggal Selesai</th>
-                    <th scope="col">Status</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>

@@ -57,7 +57,7 @@
                     <th>Nama Karyawan</th>
                     <th>Alat Rusak</th>
                     <th>Tanggal Digunakan</th>
-                    <th>Teknisi</th>
+                    <th>Nama Teknisi</th>
                 </tr>
             </thead>
             <tbody>

@@ -52,7 +52,7 @@ class peralatanController extends Controller
         if ($selectedInventaris === '') {
             return redirect()->back()->with('error', 'Silakan pilih nomor inventaris terlebih dahulu.');
         } else {
-            // Simpan data 
+           
             Peralatan::insert([
                 'id_barang' => $request-> inventaris,
                 'merek' => $request->merek,
@@ -146,7 +146,6 @@ class peralatanController extends Controller
 
     public function cetakPertanggal(Request $request)
     {
-        // Inisialisasi variabel $dari_tanggal dan $sampai_tanggal
         $dari_tanggal = $request->input('dari_tanggal');
         $sampai_tanggal = $request->input('sampai_tanggal');
     
@@ -182,7 +181,5 @@ class peralatanController extends Controller
 
         return response()->json($results);
     }
-
-
 
 }

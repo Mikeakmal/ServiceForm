@@ -50,26 +50,26 @@
 }
 
 .sidebar-toggler:hover i {
-    color: rgb(255, 193, 7); /* Warna saat hover */
+    color: rgb(255, 193, 7); 
 }
 
 
 .nav-item.dropdown .nav-link{
-    color: rgb(185, 178, 173); /* Warna asli */
-    transition: color 0.3s; /* Animasi perubahan warna */
+    color: rgb(185, 178, 173);
+    transition: color 0.3s; 
 
 }
 .nav-item.dropdown:hover .nav-link {
-    color: rgb(255, 160, 0); /* Warna teks saat hover */
+    color: rgb(255, 160, 0); 
 }
 
 .nav-item.btnPrint .nav-link{
-    color: rgb(212, 206, 202); /* Warna asli */
-    transition: color 0.3s; /* Animasi perubahan warna */
+    color: rgb(212, 206, 202); 
+    transition: color 0.3s; 
 }
 
 .nav-item.btnPrint:hover .nav-link {
-    color: rgb(255, 193, 7); /* Warna saat hover */
+    color: rgb(255, 193, 7); 
 
 }
 
@@ -79,7 +79,7 @@ thead {
 }
 
 th {
-    color: rgb(0, 0, 0); /* Atur warna teks menjadi putih agar terlihat jelas */
+    color: rgb(0, 0, 0); 
 }
 
 .text-black {

@@ -57,7 +57,7 @@
                     <th>Nama Karyawan</th>
                     <th>Alat Rusak</th>
                     <th>Tanggal Diperbaiki</th>
-                    <th>Teknisi</th>
+                    <th>Nama Teknisi</th>
                     <th>Kondisi</th>
                     <th>Diperbarui </th>
                 </tr>
@@ -66,14 +66,14 @@
                 @foreach($tbl_peralatan as $j) 
                     <tr data-id="{{$j->id_peralatan}}" data-id_barang="{{$j->id_barang}}">
                         <td>{{ $loop->iteration }}</td>
-                        <td >{{$j->merek}}</td>
-                        <td >{{ $noinventaris[$j->id_barang] }}</td>
-                        <td >{{$j->nama_karyawan}}</td>
-                        <td >{{$j->alat_rusak}}</td>
-                        <td >{{$j->tanggal_diperbaiki}}</td>
-                        <td >{{$j->nama_teknisi}}</td>
-                        <td >{{ $kondisi[$j->id_barang] }}</td>
-                        <td >{{$j->updated_at}}</td>
+                        <td>{{$j->merek}}</td>
+                        <td>{{ $noinventaris[$j->id_barang] }}</td>
+                        <td>{{$j->nama_karyawan}}</td>
+                        <td>{{$j->alat_rusak}}</td>
+                        <td>{{$j->tanggal_diperbaiki}}</td>
+                        <td>{{$j->nama_teknisi}}</td>
+                        <td>{{ $kondisi[$j->id_barang] }}</td>
+                        <td>{{$j->updated_at}}</td>
                     </tr>
                 @endforeach             
             </tbody>

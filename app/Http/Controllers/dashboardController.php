@@ -17,11 +17,6 @@ class dashboardController extends Controller
             'user' => Auth::user(), 
         ];
 
-        // $dashboard = '';
-        // return view('frontend.dashboard', compact('dashboard')
-             
-        // );
-
         $dataRusak = Peralatan::join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
         ->where('tbl_barang.kondisi', 'RUSAK')
         ->select('tbl_peralatanrusak.*')
@@ -36,7 +31,6 @@ class dashboardController extends Controller
         ->select('tbl_peralatanrusak.*')
         ->count();
         $countBarangRusak = Barang::where('kondisi', 'RUSAK')->count();
-
         
         return view('frontend.dashboard', [
             'dataRusak' => $dataRusak,

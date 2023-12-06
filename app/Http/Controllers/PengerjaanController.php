@@ -53,18 +53,6 @@ class PengerjaanController extends Controller
     
         return view('/backend/kendaraan/pengerjaan', compact('pengerjaan', 'nomorpolis', 'nopolis'));
     }
-    
-    // public function store(Request $request)
-    // {
-    //     Pengerjaan::insert([
-    //         'id_kendaraan' => $request -> kendaraan,
-    //         'nama_mekanik' => $request -> mekanik,
-    //         'tanggal_dikerjakan' => $request -> tglkerja,
-    //         'sparepart' => $request -> sparepart,
-    //         'keterangan_pengerjaan' => $request -> keterangan
-    //     ]);
-    //     return redirect()->back();
-    // }
 
     public function store(Request $request)
     {
@@ -130,6 +118,5 @@ class PengerjaanController extends Controller
 
         return $pdf->download('Daftar Pengerjaan.pdf');
     }
-
 
 }

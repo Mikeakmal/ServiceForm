@@ -38,26 +38,6 @@ class barangController extends Controller
         );
     }
 
-    // public function store(Request $request)
-    // {
-    //     $addInventaris = $request->inventaris;
-
-    //     // Cek apakah nomor inventaris sudah dipilih
-    //     if ($addInventaris === 'No_inventaris_peralatan') {
-    //         return redirect()->back()->with('error', 'Nomor inventaris tidak boleh sama');
-    //     } else {
-
-    //         Barang::insert([
-    //             'nama_barang'=> $request->barang,
-    //             'No_inventaris_peralatan' => $request->inventaris,
-    //             'lokasi_barang' => $request-> lokasi,
-    //             'kondisi' => $request -> kondisi,
-    //             // 'tanggal_pengambilan' => $request -> tglpengambilan,
-    //         ]);
-    //         return redirect()->back();
-    //     }
-    // }
-
     public function store(Request $request)
     {
         $addInventaris = $request->inventaris;
@@ -73,7 +53,6 @@ class barangController extends Controller
                 'No_inventaris_peralatan' => $addInventaris,
                 'lokasi_barang' => $request->lokasi,
                 'kondisi' => $request->kondisi,
-                // 'tanggal_pengambilan' => $request->tglpengambilan,
             ]);
 
             return redirect()->back()->with('success', 'Data berhasil disimpan.');
@@ -174,5 +153,6 @@ class barangController extends Controller
             'barang' => $barang,
             'barangbagus' => $barangBagus,
             'barangrusak' => $barangRusak,
-        ]);    }
+        ]);    
+    }
 }
