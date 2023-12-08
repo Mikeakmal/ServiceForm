@@ -124,7 +124,7 @@
                             <div class="form-floating mb-3 position-relative">
                                 <label for="nopol" class="form-label select2-label">Nomor Polisi</label>
                                 <select class="form-select select2" id="nopol" name="nopol" style="width: 100%;" required>
-                                    <option></option>
+                                    <option value="" disabled selected>Pilih Nomor Polisi</option>
                                     @foreach ($nomorpolis as $c)
                                         <option value="{{ $c->id_kendaraan }}" {{ old('id_kendaraan') == $c->id_kendaraan ? 'selected' : '' }}>{{ $c->no_polisi }}</option>
                                     @endforeach

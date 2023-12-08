@@ -14,7 +14,7 @@
                     @csrf
                     <div class="input-group">
                         <input type="text" name="search" class="form-control" 
-                        placeholder="Search Merek" value="{{ Request::get('search') }}">
+                        placeholder="Search..." value="{{ Request::get('search') }}">
                     </div>
                 </form>
             @endif
@@ -143,7 +143,7 @@
                             <div class="form-floating mb-3 position-relative">
                                 <label for="nopol" class="form-label select2-label">Nomor Inventaris</label>
                                 <select class="form-select select2"  style="width: 100%; " id="inventaris" name="inventaris" required>
-                                    <option></option>
+                                    <option value="" disabled selected>Pilih Nomor Inventaris</option>
                                     @foreach ($inventarisNo as $c)
                                         <option value="{{ $c->id_barang }}" {{ old('id_barang') == $c->id_barang ? 'selected' : '' }}>{{ $c->No_inventaris_peralatan }}</option>
                                     @endforeach
@@ -384,7 +384,7 @@
                                     <th scope="col">Tanggal Diperbaiki</th>
                                     <th scope="col">Nama Teknisi</th>
                                     <th scope="col">Kondisi</th>
-                                    <th scope="col">Aksi  </th>
+                                    <th scope="col">  Aksi  </th>
                                 </tr>
                             </thead>
                             <tbody>

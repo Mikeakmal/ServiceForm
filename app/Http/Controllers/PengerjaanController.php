@@ -42,6 +42,8 @@ class PengerjaanController extends Controller
         $pengerjaan = Pengerjaan::
             where('nama_mekanik', 'like', "%$search%")
             ->orWhere('sparepart', 'like', "%$search%")
+            ->orWhere('tanggal_dikerjakan', 'like', "%$search%")
+            ->orWhere('keterangan_pengerjaan', 'like', "%$search%")
             ->get();
     
         $nomorpolis = Kendaraan::all();

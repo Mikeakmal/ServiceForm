@@ -139,8 +139,11 @@ class barangController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $barang = Barang::where('nama_barang', 'like', "%$search%")->get();
-        
+        $barang = Barang::where('nama_barang', 'like', "%$search%")
+        ->orWhere('No_inventaris_peralatan', 'like', "%$search%")
+        ->orWhere('lokasi_barang', 'like', "%$search%")
+        ->get();
+
         // Mengambil semua barang yang sesuai dengan pencarian
         if ($barang->count() === 0) {
             $barang = Barang::all();

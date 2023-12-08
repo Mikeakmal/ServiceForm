@@ -118,6 +118,7 @@ class kendaraanController extends Controller
         $search = $request->input('search');
         $kendaraan = Kendaraan::
             where('no_polisi', 'like', "%$search%")
+            ->orWhere('tanggal_masuk_bengkel', 'like', "%$search%")
             ->get();
 
         if ($kendaraan->count() === 0) {

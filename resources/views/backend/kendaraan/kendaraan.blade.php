@@ -14,7 +14,7 @@
                 @csrf
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" 
-                    placeholder="Search Nomor Polisi" value="{{ Request::get('search') }}">
+                    placeholder="Search..." value="{{ Request::get('search') }}">
                 </div>
             </form>
             @endif

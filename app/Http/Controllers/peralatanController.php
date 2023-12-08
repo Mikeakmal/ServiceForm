@@ -48,9 +48,9 @@ class peralatanController extends Controller
     {
         $selectedInventaris = $request->inventaris;
 
-        // Cek apakah nomor inventaris sudah dipilih
-        if ($selectedInventaris === '') {
-            return redirect()->back()->with('error', 'Silakan pilih nomor inventaris terlebih dahulu.');
+        // Cek nomor inventaris 
+        if ($selectedInventaris === 'id_barang') {
+            return redirect()->back()->with('error', 'Silakan pilih nomor inventaris');
         } else {
            
             Peralatan::insert([
@@ -110,24 +110,36 @@ class peralatanController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        
-        $peralatan = Peralatan::where('merek', 'like', "%$search%")->get();
-        
-        // Cek apakah ada hasil pencarian yang sesuai dengan status 'RUSAK'
-        $dataRusak = Peralatan::join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
-            ->where('tbl_barang.kondisi', 'RUSAK')
-            ->where('tbl_peralatanrusak.merek', 'like', "%$search%")
+
+        $peralatan = Peralatan::where(function ($query) use ($search) {
+                $query->where('merek', 'like', "%$search%")
+                    ->orWhere('nama_karyawan', 'like', "%$search%")
+                    ->orWhere('alat_rusak', 'like', "%$search%")
+                    ->orWhere('tanggal_diperbaiki', 'like', "%$search%")
+                    ->orWhere('nama_teknisi', 'like', "%$search%");
+            })
+            ->get();
+
+        $dataRusak = Peralatan::where('tbl_barang.kondisi', 'RUSAK')
+            ->where(function ($query) use ($search) {
+                $query->where('merek', 'like', "%$search%")
+                    ->orWhere('nama_karyawan', 'like', "%$search%")
+                    ->orWhere('alat_rusak', 'like', "%$search%")
+                    ->orWhere('tanggal_diperbaiki', 'like', "%$search%")
+                    ->orWhere('nama_teknisi', 'like', "%$search%");
+            })
+            ->join('tbl_barang', 'tbl_peralatanrusak.id_barang', '=', 'tbl_barang.id_barang')
             ->select('tbl_peralatanrusak.*')
             ->get();
-        
+
         if ($dataRusak->isEmpty()) {
-            $dataRusak = collect();
+            return redirect()->back();
         }
-    
+
         $inventarisNo = Barang::all();
         $noinventaris = Barang::pluck('No_inventaris_peralatan', 'id_barang');
         $kondisibarang = Barang::pluck('kondisi', 'id_barang');
-    
+
         return view('/backend/peralatan/peralatan', compact('peralatan', 'inventarisNo', 'noinventaris', 'kondisibarang', 'dataRusak'));
     }
 

@@ -31,8 +31,8 @@ Route::post('/login-auth', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 //Register
-Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
-Route::post('/addregister', [RegisterController::class, 'store']);
+// Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+// Route::post('/addregister', [RegisterController::class, 'store']);
 
 //dashboard
 Route::get('/dashboard', [dashboardController::class, 'index'])->middleware('auth');
@@ -45,7 +45,7 @@ Route::post('/addkendaraan', [KendaraanController::class, 'store']);
 Route::get('/kendaraan/{id_kendaraan}', [KendaraanController::class, 'delete']);
 Route::get('/movekendaraan/{id_kendaraan}', [KendaraanController::class, 'move']);
 Route::post('list-kendaraan-print', [kendaraanController::class, 'print']);
-Route::get('list-detail-print/{id}', [kendaraanController::class, 'cetak']);
+Route::get('list-detail-print/{id}', [kendaraanController::class, 'cetak'])->middleware('auth');
 Route::get('list-kendaraan-search', [kendaraanController::class, 'search']);
 Route::get('list-pengerjaan-detail-search', [kendaraanController::class, 'search2']);
 
@@ -63,7 +63,6 @@ Route::get('/formpengerjaan', [PengerjaanController::class, 'create']);
 Route::post('list-pengerjaan-print', [PengerjaanController::class, 'print']);
 Route::get('list-pengerjaan-search', [PengerjaanController::class, 'search']);
 
-
 // Barang
 Route::get('/barang', [barangController::class, 'index'])->middleware('auth');
 Route::get('/tblbarang', [barangController::class, 'create']); 
@@ -75,8 +74,6 @@ Route::post('list-barang-print', [barangController::class, 'print']);
 Route::get('list-barang-search', [barangController::class, 'search']);
 Route::post('list-barang-rusak-print', [barangController::class, 'cetak']);
 Route::post('list-barang-bagus-print', [barangController::class, 'cetakbagus']);
-
-
 
 //peralatan
 Route::get('/peralatan', [peralatanController::class, 'index'])->middleware('auth');
