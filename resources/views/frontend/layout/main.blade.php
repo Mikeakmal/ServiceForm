@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <link href="{{ asset('') }}assets/img/car.ico" rel="icon">
+    <link href="{{ asset('') }}assets/img/car1.ico" rel="icon">
 
     {{--  <!-- Google Web Fonts -->  --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

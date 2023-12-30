@@ -25,7 +25,7 @@
                             Kendaraan
                         </a>
                         <a href="{{ url('pengerjaan') }}" class="dropdown-item {{ Route::currentRouteName() === 'pengerjaan' ? 'active' : '' }}">
-                            Form Service
+                            Pengerjaan Kendaraan
                         </a>
                     </div>
                 </div>                

@@ -17,7 +17,7 @@ class Pengerjaan extends Model
         'tanggal_dikerjakan',
         'sparepart',
         'keterangan_pengerjaan',
-        'id_kendaraan', // Kolom ini tidak perlu diisi secara manual jika menggunakan relasi.
+        'id_kendaraan', 
     ];
 
     public function kendaraan()

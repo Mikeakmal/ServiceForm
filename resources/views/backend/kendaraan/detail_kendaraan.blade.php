@@ -24,7 +24,7 @@
                     <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
-                <div class="dropdown-menu logout dropdown-menu-end border-0 rounded-0 rounded-bottom m-0 ">
+                <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0 ">
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item text-black">Log Out
@@ -42,23 +42,6 @@
         background-color: rgba(25, 28, 36);
     }
 
-    //LOGOUT DESIGN
-    .navbar-nav .dropdown-menu.logout {
-        padding: 60px; 
-    }
-    .navbar-nav .dropdown-menu.logout {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    .navbar-nav .dropdown-menu.logout .dropdown-item {
-        color: rgb(0, 0, 0); 
-    }
-
-    .navbar-nav .dropdown-menu.logout .dropdown-item:hover {
-        background-color: rgb(255, 255, 255); 
-        color: rgb(255, 160, 0); 
-    }
 </style>
 
 {{--  LIST PENGERJAAN BERDASARKAN KENDARAAN  --}}
@@ -71,11 +54,7 @@
                         <div id="download-pdf" style="display: block;">
                             <form action="{{ url('list-detail-print', ['id' => $kendaraan->id_kendaraan]) }}" method="GET" id="pdf-form">
                                 @csrf
-                                <button type="submit" id="button-download-pdf" class="btn btn-warning btn-custom">
-                                    <span class="btn-icon-left text-black">
-                                        <i class="fa fa-download color-primary"></i>
-                                    </span> Download PDF
-                                </button>
+                                <button type="submit" id="button-download-pdf" class="btn btn-outline-warning m-2" ><i class="fa fa-download me-2"></i>Download PDF</button>
                             </form>
                         </div>
                 </div>

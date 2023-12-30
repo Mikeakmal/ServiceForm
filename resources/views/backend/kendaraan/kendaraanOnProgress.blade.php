@@ -21,7 +21,7 @@
                     <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
-                <div class="dropdown-menu logout dropdown-menu-end border-0 rounded-0 rounded-bottom m-0 ">
+                <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0 ">
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item text-black">Log Out
@@ -36,23 +36,8 @@
 
 
     <style>
-        //LOGOUT DESIGN
-        .navbar-nav .dropdown-menu.logout {
-            padding: 60px; 
-        }
-        .navbar-nav .dropdown-menu.logout {
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .navbar-nav .dropdown-menu.logout .dropdown-item {
-            color: rgb(0, 0, 0); 
-        }
-    
-        .navbar-nav .dropdown-menu.logout .dropdown-item:hover {
-            background-color: rgb(255, 255, 255); 
-            color: rgb(255, 160, 0); 
-        }
+        //DESIGN
+        .
     </style>
 
     {{--  LIST KENDARAAN  --}}

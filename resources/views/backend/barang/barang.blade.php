@@ -25,7 +25,7 @@
                     <img class="rounded-circle me-lg-2" src="{{ asset('') }}assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                     <span class="d-none d-lg-inline-flex">{{ auth()->user()->name}}</span>
                 </a>
-                <div class="dropdown-menu logout dropdown-menu-end border-0 rounded-0 rounded-bottom m-0 ">
+                <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item text-black">Log Out                         
@@ -45,22 +45,12 @@
         align-items: center;
     }
 
-    //LOGOUT DESIGN
-    .navbar-nav .dropdown-menu.logout {
-        padding: 60px; 
+    .printbtn{
+        color: rgb(80, 80, 80);
     }
-    .navbar-nav .dropdown-menu.logout {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    .navbar-nav .dropdown-menu.logout .dropdown-item {
-        color: rgb(0, 0, 0); 
-    }
-
-    .navbar-nav .dropdown-menu.logout .dropdown-item:hover {
-        background-color: rgb(255, 255, 255); 
-        color: rgb(255, 160, 0); 
+    .printbtn:hover {
+        color: white;
+        background-color: black;
     }
 
 </style>
@@ -170,21 +160,15 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h6 class="mb-0">Daftar Peralatan Inventaris </h6> 
                     <div class="button-container">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-download"></i>
-                                <span class="d-none d-lg-inline-flex"> PDF</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end border-0 rounded-0 rounded-bottom m-0" >
-                                    <button type="submit" id="popup-all" class="dropdown-item text-black" 
-                                    data-bs-toggle="modal" data-bs-target="#PeralatanSemua">Semua</button>
-
-                                    <button type="submit" id="popup-good" class="dropdown-item text-black" 
-                                    data-bs-toggle="modal" data-bs-target="#PeralatanBagus">Bagus</button>
-                 
-                                    <button type="submit" id="popup-damage" class="dropdown-item text-black" 
-                                    data-bs-toggle="modal" data-bs-target="#PeralatanRusak">Rusak</button>
-                            </div>  
+                        <div class="btn-group">
+                                <button type="button" class="btn btn-outline-warning dropdown-toggle" style="margin-right: 2mm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-download me-2"></i>PDF
+                                </button>
+                            <div class="dropdown-menu bg-secondary ">
+                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanSemua">Semua</button>
+                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanBagus">Bagus</button>
+                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanRusak">Rusak</button>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-warning btn-custom" id="new-barang"><i class="bi bi-plus"></i>Inventaris</button>
                     </div>                                        
