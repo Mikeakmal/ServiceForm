@@ -201,7 +201,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
-                                    <th scope="col">No. Polisi</th>
+                                    <th scope="col">Nomor Polisi</th>
                                     <th scope="col">Tanggal Masuk Bengkel</th>
                                     <th scope="col">Tanggal Selesai</th>
                                     <th scope="col">Status</th>

@@ -117,7 +117,7 @@
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-12">
                     <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Form Peralatan Rusak</h6>
+                        <h6 class="mb-4">Formulir Peralatan Rusak</h6>
                         <div class="form-floating mb-3">
                             <input name="merek" type="text" class="form-control" id="merek" placeholder="" required>
                             <label for="merek">Merek</label>
@@ -165,7 +165,7 @@
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-12">
                     <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Form Edit Peralatan</h6>
+                        <h6 class="mb-4">Formulir Edit Peralatan</h6>
                         <input type="hidden" id="edit-id" name="id_peralatan">
                         <input type="hidden" id="edit-id_barang" name="id_barang">
                         <div class="row mb-3">
@@ -295,7 +295,7 @@
                                 </div>
                                 <div class="w-50 text-end" style="margin-left: 20cm; margin-top: 1.5cm;">
                                     <button type="submit" id="button-download-pdf" class="btn btn-outline-warning">
-                                      <i class="fa fa-download"></i> Download PDF
+                                      <i class="fa fa-download"></i> Unduh PDF
                                     </button>
                                 </div>
                             </div>

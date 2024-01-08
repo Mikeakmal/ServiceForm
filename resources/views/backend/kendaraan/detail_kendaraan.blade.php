@@ -54,7 +54,7 @@
                         <div id="download-pdf" style="display: block;">
                             <form action="{{ url('list-detail-print', ['id' => $kendaraan->id_kendaraan]) }}" method="GET" id="pdf-form">
                                 @csrf
-                                <button type="submit" id="button-download-pdf" class="btn btn-outline-warning m-2" ><i class="fa fa-download me-2"></i>Download PDF</button>
+                                <button type="submit" id="button-download-pdf" class="btn btn-outline-warning m-2" ><i class="fa fa-download me-2"></i>Unduh PDF</button>
                             </form>
                         </div>
                 </div>

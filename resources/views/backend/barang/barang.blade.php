@@ -165,9 +165,9 @@
                                     <i class="fa fa-download me-2"></i>PDF
                                 </button>
                             <div class="dropdown-menu bg-secondary ">
-                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanSemua">Semua</button>
-                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanBagus">Bagus</button>
-                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanRusak">Rusak</button>
+                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanBagus">BAGUS</button>
+                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanRusak">RUSAK</button>
+                                <button class="dropdown-item printbtn" data-bs-toggle="modal" data-bs-target="#PeralatanSemua">BAGUS & RUSAK</button>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-warning btn-custom" id="new-barang"><i class="bi bi-plus"></i>Inventaris</button>
@@ -216,7 +216,7 @@
                                             <div class="modal-footer">
                                                <form method="POST" action="{{ url('list-barang-print') }}" id="pdf-form">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                                    <button type="submit" class="btn btn-warning btn-custom">Unduh</button>
                                                </form>
                                             </div>        
                                         </div>
@@ -270,7 +270,7 @@
                                             <div class="modal-footer">
                                                <form method="POST" action="{{ url('list-barang-bagus-print') }}" id="pdf-form-bagus">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                                    <button type="submit" class="btn btn-warning btn-custom">Unduh</button>
                                                </form>
                                             </div>        
                                         </div>
@@ -324,7 +324,7 @@
                                             <div class="modal-footer">
                                                <form method="POST" action="{{ url('list-barang-rusak-print') }}" id="pdf-form-bagus">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-warning btn-custom">Download</button>
+                                                    <button type="submit" class="btn btn-warning btn-custom">Unduh</button>
                                                </form>
                                             </div>        
                                         </div>

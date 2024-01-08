@@ -58,7 +58,7 @@
                         <form action="{{ url('/login-auth') }}" method="POST" id="form-login">
                             @csrf
                             <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h3>Sign In</h3>
+                                <h3>Log In</h3>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" name="name" id="name" placeholder="">
@@ -68,13 +68,13 @@
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                                 <label for="floatingPassword">Password</label>
                             </div>
-                            <button type="submit" class="btn btn-warning btn-custom py-3 w-100 mb-4">Sign In</button>
+                            <button type="submit" class="btn btn-warning btn-custom py-3 w-100 mb-4">Log In</button>
                         </form>                        
                     </div>
                 </div>
             </div>
         </div>
-      {{--  //  <!-- Sign In End -->  --}}
+      {{--  //  <!-- Log In End -->  --}}
     </div>
 
   //  {{--  <!-- JavaScript Libraries -->  --}}
