@@ -39,24 +39,27 @@
 {{--  <!-- Navbar End -->  --}}
 
 <style>
-    /* CSS untuk mengatur tata letak menggunakan flexbox */
     .button-container {
         display: flex;
         align-items: center;
     }
 
     #new-kendaraan {
-        margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
+        margin-right: 1mm; 
     }
 
     .on-progress-text {
-        color: red; /* Warna teks merah untuk status "ON PROGRESS" */
+        color: red; 
     }
     
     .finish-text {
-        color: #008000; /* Warna teks hijau untuk status "Finish" */
+        color: #008000; 
     }
-    .
+    
+    .table-header th {
+        background-color: rgb(25, 28, 36); 
+        color: rgb(108, 114, 147); 
+    }
 </style>
 
 
@@ -159,7 +162,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <table class="table table-bordered">
-                                                    <thead>
+                                                    <thead class="table-header">
                                                         <tr>
                                                             <th scope="col">No.</th>
                                                             <th scope="col">No. Polisi</th>
@@ -198,7 +201,7 @@
                     {{--  LIST KENDARAAN  --}}
                     <div class="table-responsive">
                         <table class="table">
-                            <thead>
+                            <thead class="table-header">
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Nomor Polisi</th>
@@ -245,10 +248,10 @@
 
             searchInput.addEventListener("keydown", function(event) {
                 if (event.key === "Enter") {
-                    event.preventDefault(); // Mencegah submit form default
-                    // Ambil nilai input
+                    event.preventDefault(); 
+                    
                     const searchValue = searchInput.value;
-                    // Redirect ke URL pencarian dengan kata kunci
+                    
                     window.location.href = "{{ url('list-kendaraan-search') }}?search=" + searchValue;
                 }
             });

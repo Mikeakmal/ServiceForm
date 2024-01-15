@@ -16,7 +16,7 @@
             }
         
             table.kendaraan {
-                width: 30%; 
+                width: 40%; 
             }
         
             table.kendaraan td, table.kendaraan th {
@@ -28,10 +28,10 @@
             table.pengerjaan {
                 border: 1px solid #ccc; 
                 background-color: white; 
+                width: 100%;
             }
         
             table.pengerjaan th {
-                background: #e2b34c;
                 color: white;
                 font-weight: bold;
             }
@@ -41,6 +41,10 @@
                 border: 1px solid #ccc;
                 font-size: 12px;
                 color: black;
+            }
+
+            body {
+                font-family: 'Open Sans', sans-serif;
             }
         </style>        
         

@@ -36,8 +36,10 @@
 
 
     <style>
-        //DESIGN
-        .
+        .table-header th {
+            background-color: rgb(25, 28, 36); 
+            color: rgb(108, 114, 147);
+        }
     </style>
 
     {{--  LIST KENDARAAN  --}}
@@ -50,37 +52,42 @@
                     </div>
                     {{--  LIST KENDARAAN  --}}
                     <div class="table-responsive">
-                        @if ($kendaraan !== null && count($kendaraan) > 0)
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No.</th>
-                                        <th scope="col">No. Polisi</th>
-                                        <th scope="col">Tanggal Masuk Bengkel</th>
-                                        <th scope="col">Tanggal Selesai</th>
-                                        <th scope="col">Status</th>
+                        <table class="table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Nomor Polisi</th>
+                                    <th scope="col">Tanggal Masuk Bengkel</th>
+                                    <th scope="col">Tanggal Selesai</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($kendaraan as $j)
+                                    <tr data-id="{{$j->id_kendaraan}}">
+                                        <th>{{ $loop->iteration }}</th>
+                                        <td class="nopol-selected">{{$j->no_polisi}}</td>
+                                        <td class="tgl-kerja-selected">{{$j->tanggal_masuk_bengkel}}</td>
+                                        <td class="tgl-selesai-selected">{{$j->tanggal_selesai}}</td>
+                                        <td>
+                                            <a href="{{ url('movekendaraan', ['id_kendaraan' => Crypt::encrypt($j->id_kendaraan)]) }}" 
+                                                class="detail-button" id="detail-button" title="Lihat Detail"><i class="bi bi-eye-fill"></i>
+                                            </a>
+                                            <a href="/editkendaraan/{{$j->id_kendaraan}}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
+                                            </a>
+                                            <a href="{{ url('/kendaraan/' . $j->id_kendaraan) }}" class="delete-button" 
+                                                onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($kendaraan as $j)
-                                        <tr data-id="{{$j->id_kendaraan}}">
-                                            <th>{{ $loop->iteration }}</th>
-                                            <td>{{$j->no_polisi}}</td>
-                                            <td>{{$j->tanggal_masuk_bengkel}}</td>
-                                            <td>{{$j->tanggal_selesai}}</td>
-                                            <td class="{{ $j->tanggal_selesai === null ? 'on-progress-text' : 'finish-text' }}">
-                                                {{ $j->tanggal_selesai === null ? 'ON PROGRESS' : 'FINISH' }}
-                                            </td>
-                                        </tr>
-                                    @endforeach 
-                                </tbody>
-                            </table>
-                        @else
-                            <p>No data available.</p>
-                        @endif
-                    </div>                    
+                                @endforeach 
+                            </tbody>
+                        </table>
+                    </div>                  
                 </div>
             </div>
         </div>
     </div>
+
+
 @endsection

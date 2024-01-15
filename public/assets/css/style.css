@@ -36,7 +36,6 @@
     top: 0;
     width: 100%; 
     z-index: 999; 
-    background-color: rgb(255, 171, 2);  
 }
 
 .navbar-brand {
@@ -73,22 +72,14 @@
 
 }
 
-
-thead {
-    background-color: rgb(199, 136, 8);
-}
-
+/* 
 th {
-    color: rgb(0, 0, 0); 
-}
+    color: rgb(255, 255, 255); 
+} */
 
-.text-black {
-    color: black;
-}
-
-
-
-
+/* .text-black {
+    color: rgb(255, 255, 255);
+} */
 
 
 

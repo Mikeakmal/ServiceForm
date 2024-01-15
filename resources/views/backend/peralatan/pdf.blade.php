@@ -34,7 +34,7 @@
             }
 
             th, td {
-                color: black; /* Warna teks hitam */
+                color: black; 
             }
         </style>
     </head>

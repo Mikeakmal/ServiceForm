@@ -28,34 +28,6 @@ class PengerjaanController extends Controller
         ]);
     }
     
-    public function create()
-    {
-        $pengerjaan = '';
-        $nomorpolis = Kendaraan::all();
-        return view('backend.kendaraan.pengerjaan', compact('pengerjaan','nomorpolis')          
-        );
-    }
-    
-    public function search(Request $request)
-    {
-        $search = $request->input('search');
-        $pengerjaan = Pengerjaan::
-            where('nama_mekanik', 'like', "%$search%")
-            ->orWhere('sparepart', 'like', "%$search%")
-            ->orWhere('tanggal_dikerjakan', 'like', "%$search%")
-            ->orWhere('keterangan_pengerjaan', 'like', "%$search%")
-            ->get();
-    
-        $nomorpolis = Kendaraan::all();
-        $nopolis = Kendaraan::pluck('no_polisi', 'id_kendaraan');
-    
-        if ($pengerjaan->count() === 0) {
-            $pengerjaan = Pengerjaan::all();
-        }
-    
-        return view('/backend/kendaraan/pengerjaan', compact('pengerjaan', 'nomorpolis', 'nopolis'));
-    }
-
     public function store(Request $request)
     {
         $selectedNopol = $request->nopol;
@@ -77,7 +49,14 @@ class PengerjaanController extends Controller
             return redirect()->back()->with('success', 'Data pengerjaan berhasil disimpan.');
         }
     }
-    
+
+    public function create()
+    {
+        $pengerjaan = '';
+        $nomorpolis = Kendaraan::all();
+        return view('backend.kendaraan.pengerjaan', compact('pengerjaan','nomorpolis')          
+        );
+    }
 
     public function update(Request $request)
     {
@@ -90,22 +69,22 @@ class PengerjaanController extends Controller
         return redirect()->back();
     }
 
-    public function delete($id_pengerjaan)
-    {
-        Pengerjaan::where('id_pengerjaan', $id_pengerjaan)->delete();
-        return redirect('/pengerjaan');
-    }
-
     public function edit($id_tbl)
     {
         // Dekripsi ID
         $id = Crypt::decrypt($id_tbl);
 
-        // mengambil data asset berdasarkan ID
+        // mengambil data kendaraan berdasarkan ID
         $kendaraan = Kendaraan::where('id_kendaraan', $id)->first();
         $logErrors = '';
         $pengerjaan = Pengerjaan::all();
         return view('/backend/kendaraan/pengerjaan', compact('pengerjaan','kendaraan', 'logErrors'));
+    }
+
+    public function delete($id_pengerjaan)
+    {
+        Pengerjaan::where('id_pengerjaan', $id_pengerjaan)->delete();
+        return redirect('/pengerjaan');
     }
 
     public function print(Request $request)
@@ -120,5 +99,29 @@ class PengerjaanController extends Controller
 
         return $pdf->download('Daftar Pengerjaan.pdf');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $pengerjaan = Pengerjaan::
+            where('nama_mekanik', 'like', "%$search%")
+            ->orWhere('sparepart', 'like', "%$search%")
+            ->orWhere('tanggal_dikerjakan', 'like', "%$search%")
+            ->orWhere('keterangan_pengerjaan', 'like', "%$search%")
+            ->get();
+    
+        $nomorpolis = Kendaraan::all();
+        $nopolis = Kendaraan::pluck('no_polisi', 'id_kendaraan');
+    
+        if ($pengerjaan->count() === 0) {
+            $pengerjaan = Pengerjaan::all();
+        }
+    
+        return view('/backend/kendaraan/pengerjaan', compact('pengerjaan', 'nomorpolis', 'nopolis'));
+    }
+
+
+
+
 
 }

@@ -81,7 +81,7 @@
     }
 
     .form-container {
-        margin-bottom: 15px; //jarak antar textbox
+        margin-bottom: 15px; 
     }
 
     .select2-label {
@@ -108,6 +108,10 @@
         margin-left: 5px;
     } 
        
+    .table-header th {
+        background-color: rgb(25, 28, 36); 
+        color: rgb(108, 114, 147); 
+    }
 </style>
 
 {{--  FORM PERALATAN  --}}
@@ -124,7 +128,7 @@
                         </div>
                         <div class="form-container">
                             <div class="form-floating mb-3 position-relative">
-                                <label for="nopol" class="form-label select2-label">Nomor Inventaris</label>
+                                <label for="inventaris" class="form-label select2-label">Nomor Inventaris</label>
                                 <select class="form-select select2"  style="width: 100%; " id="inventaris" name="inventaris" required>
                                     <option value="" disabled selected>Pilih Nomor Inventaris</option>
                                     @foreach ($inventarisNo as $c)
@@ -306,7 +310,7 @@
 
                 <div class="table-responsive">
                     <table class="table tblHistory" id="tbl-History">
-                        <thead>
+                        <thead class="table-header">
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Merek</th>
@@ -355,7 +359,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table">
-                            <thead>
+                            <thead class="table-header">
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Merek</th>

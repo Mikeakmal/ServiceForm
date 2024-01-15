@@ -46,7 +46,7 @@
     }
 
     #new-pengerjaan {
-        margin-right: 1mm; /* Atur jarak ke kanan sekitar 1mm */
+        margin-right: 1mm; 
     }
 
     .select2-selection {
@@ -65,7 +65,7 @@
     }
 
     .form-container {
-        margin-bottom: 15px; //jarak antar textbox
+        margin-bottom: 15px; 
     }
 
     .select2-label {
@@ -90,6 +90,11 @@
         position: absolute;
         bottom: 5%;
         margin-left: 5px;
+    }
+
+    .table-header th {
+        background-color: rgb(25, 28, 36);
+        color: rgb(108, 114, 147); 
     }
     
 </style>
@@ -149,41 +154,41 @@
                     <div class="bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Formulir Edit Pengerjaan</h6>
                         <input type="hidden" id="edit-id" name="id_pengerjaan">
-                            <div class="row mb-3" >
-                                <label for="nopol" class="col-sm-2 col-form-label">Nomor Polisi</label>
-                                <div class="col-sm-10" >
-                                    <input type="text" name="kendaraan" class="form-control" id="edit-nopol" style="background-color: black"  readonly>
-                                </div>
+                        <div class="row mb-3" >
+                            <label for="nopol" class="col-sm-2 col-form-label">Nomor Polisi</label>
+                            <div class="col-sm-10" >
+                                <input type="text" name="kendaraan" class="form-control" id="edit-nopol" style="background-color: black"  readonly>
                             </div>
-                            <div class="row mb-3">
-                                <label for="mekanik" class="col-sm-2 col-form-label">Nama Mekanik</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="val_mekanik" id="edit-mekanik" required>
-                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="mekanik" class="col-sm-2 col-form-label">Nama Mekanik</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="val_mekanik" id="edit-mekanik" required>
                             </div>
-                            <div class="row mb-3">
-                                <label for="tglkerja" class="col-sm-2 col-form-label">Tanggal Dikerjakan</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control" name="val_dikerjakan" id="edit-tglkerja" required>
-                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="tglkerja" class="col-sm-2 col-form-label">Tanggal Dikerjakan</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" name="val_dikerjakan" id="edit-tglkerja" required>
                             </div>
-                            <div class="row mb-3">
-                                <label for="sparepart" class="col-sm-2 col-form-label">Sparepart</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="val_sparepart" id="edit-sparepart" required>
-                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="sparepart" class="col-sm-2 col-form-label">Sparepart</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="val_sparepart" id="edit-sparepart" required>
                             </div>
-                            <div class="row mb-3">
-                                <label for="keterangan" class="col-sm-2 col-form-label">Keterangan Pengerjaan</label>
-                                <div class="col-sm-10">
-                                    <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;" required></textarea>
-                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="keterangan" class="col-sm-2 col-form-label">Keterangan Pengerjaan</label>
+                            <div class="col-sm-10">
+                                <textarea name="val_keterangan" class="form-control" id="edit-keterangan" style="height: 150px;" required></textarea>
                             </div>
-                            <div class="row mb-3 mt-3"> 
-                                <div class="col-sm-10 offset-sm-2"> 
-                                    <button id="close-form-edit-pengerjaan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
-                                </div>
+                        </div>
+                        <div class="row mb-3 mt-3"> 
+                            <div class="col-sm-10 offset-sm-2"> 
+                                <button id="close-form-edit-pengerjaan" type="submit" class="btn btn-warning btn-custom">Perbarui</button>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,7 +230,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <table class="table table-bordered">
-                                                    <thead>
+                                                    <thead class="table-header">
                                                         <tr>
                                                             <th >No.</th>
                                                             <th >Nomor Polisi</th>
@@ -265,7 +270,7 @@
                     {{--  LIST PENGERJAAN  --}}
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="table-header">
                                     <tr>
                                         <th scope="col">No.</th>
                                         <th scope="col">Nomor Polisi</th>
@@ -300,17 +305,12 @@
         </div>
     </div>
 
-
-
     <script>
-
-        //search $ select ComboBox
+        //select2
         $('.select2').select2({
             width: '100%'
         });
         
-
-
         // search
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.querySelector('input[name="search"]');

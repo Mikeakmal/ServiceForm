@@ -38,8 +38,10 @@
 {{--  <!-- Navbar End -->  --}}
 
 <style>
-    .tbl-thead {
-        background-color: rgba(25, 28, 36);
+    
+    .table-header th {
+        background-color: rgb(25, 28, 36); 
+        color: rgb(108, 114, 147); 
     }
 
 </style>
@@ -63,8 +65,8 @@
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-secondary rounded h-100 p-4">
                         <table class="table table-borderless" style="width: 70%">
-                            <thead class="tbl-thead">
-                                <tr>
+                            <thead>                                
+                                <tr style="background-color: rgb(25, 28, 36)">
                                     <td>Nomor Polisi</td>
                                     <td>: {{ $kendaraan->no_polisi }}</td>
                                 </tr>
@@ -85,7 +87,7 @@
                 {{-- List Pengerjaan   --}}
                 <div class="table-responsive">
                     <table class="table">
-                        <thead>
+                        <thead class="table-header">
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Nama Mekanik</th>
@@ -117,14 +119,14 @@
     {{--  search  --}}
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.querySelector('input[name="search"]');
-        if (searchInput) { // Pastikan elemen input tersedia
+        if (searchInput) { 
 
             searchInput.addEventListener("keydown", function(event) {
                 if (event.key === "Enter") {
-                    event.preventDefault(); // Mencegah submit form default
-                    // Ambil nilai input
+                    event.preventDefault(); 
+                    
                     const searchValue = searchInput.value;
-                    // Redirect ke URL pencarian dengan kata kunci
+                    
                     window.location.href = "{{ url('list-pengerjaan-search') }}?search2=" + searchValue;
                 }
             });

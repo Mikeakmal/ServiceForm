@@ -31,23 +31,21 @@
 <style>
 
     .label {
-        color: rgb(255, 160, 0); /* Warna asli */
-        transition: color 0.3s; /* Animasi perubahan warna */
+        color: rgb(255, 160, 0); 
+        transition: color 0.3s; 
     
     }
     
     .label:hover {
-        color: rgb(255, 193, 7); /* Warna saat hover */
+        color: rgb(255, 193, 7);
     }
     
-        /* Gaya untuk mengubah warna ikon */
     .icon {
-        color: rgb(255, 170, 22); /* Warna yang diinginkan */
+        color: rgb(255, 170, 22); 
     }
 
-    /* Gaya untuk mengubah warna ikon saat dihover */
     .icon:hover {
-        color: rgb(173, 142, 51); /* Ganti dengan warna yang diinginkan saat dihover */
+        color: rgb(173, 142, 51); 
     }
 
     .iconblue {

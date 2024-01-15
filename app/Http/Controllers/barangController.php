@@ -132,7 +132,7 @@ class barangController extends Controller
             'barangbagus' => $barangBagus,
         ]);
     
-        return $pdf->download('DaftarPeralatanInventaris(RUSAK).pdf');
+        return $pdf->download('DaftarPeralatanInventaris(BAGUS).pdf');
     }
 
 

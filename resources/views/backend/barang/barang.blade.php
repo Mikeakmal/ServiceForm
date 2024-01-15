@@ -39,7 +39,6 @@
 {{--  <!-- Navbar End -->  --}}
 
 <style>
-    /* CSS untuk mengatur tata letak menggunakan flexbox */
     .button-container {
         display: flex;
         align-items: center;
@@ -48,9 +47,20 @@
     .printbtn{
         color: rgb(80, 80, 80);
     }
+    
     .printbtn:hover {
         color: white;
         background-color: black;
+    }
+
+    .table-header th {
+        background-color: rgb(25, 28, 36); 
+        color: rgb(108, 114, 147); 
+    }
+
+    .table-header2 th {
+        background-color: rgb(255, 255, 255); 
+        color: rgb(0, 0, 0); 
     }
 
 </style>
@@ -190,7 +200,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <table class="table table-bordered">
-                                                <thead>
+                                                <thead class="table-header2">
                                                     <tr>
                                                         <th>Nomor</th>
                                                         <th>Nama Barang</th>
@@ -244,7 +254,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <table class="table table-bordered">
-                                                <thead>
+                                                <thead class="table-header2">
                                                     <tr>
                                                         <th>Nomor</th>
                                                         <th>Nama Barang</th>
@@ -298,7 +308,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <table class="table table-bordered">
-                                                <thead>
+                                                <thead class="table-header2">
                                                     <tr>
                                                         <th>Nomor</th>
                                                         <th>Nama Barang</th>
@@ -339,7 +349,7 @@
                 {{--  TABLE PERALATAN INVENTARIS  --}}
                 <div class="table-responsive">
                     <table class="table">
-                        <thead>
+                        <thead class="table-header">
                             <tr>
                                 <th scope="col">Nomor</th>
                                 <th scope="col">Nama Barang</th>
@@ -375,11 +385,6 @@
 </div>
 
 <script>
-    {{--  capslock  --}}
-    var nopolInput = document.getElementById('edit-kondisi');
-    nopolInput.addEventListener('input', function() {
-        this.value = this.value.toUpperCase(); 
-    });
 
      {{--  search  --}}
     document.addEventListener("DOMContentLoaded", function() {

@@ -16,11 +16,10 @@
 
             /* Zebra striping */
             tr:nth-of-type(odd) {
-                background: #eee;
+                background: #ffffff;
             }
 
             th {
-                background:  #e2b34c;
                 color: white;
                 font-weight: bold;
             }
@@ -34,15 +33,19 @@
             }
 
             th, td {
-                color: black; /* Warna teks hitam */
+                color: black; 
             }
 
             .on-progress-text {
-                color: red; /* Warna teks merah untuk status "ON PROGRESS" */
+                color: red; 
             }
             
             .finish-text {
-                color: #008000; /* Warna teks hijau untuk status "Finish" */
+                color: #008000; 
+            }
+
+            body {
+                font-family: 'Open Sans', sans-serif;
             }
         </style>
 
