@@ -18,10 +18,12 @@ class PengerjaanController extends Controller
         ];
         
         $pengerjaan = Pengerjaan::all();
+        $pg = Pengerjaan::paginate(10);
         $kendaraaan = Kendaraan::all();
         $datakendaraan = Kendaraan::pluck('no_polisi', 'id_kendaraan');
 
         return view('/backend/kendaraan/pengerjaan', [
+            'pg'=>$pg,
             'pengerjaan' =>  $pengerjaan,
             'nomorpolis' => $kendaraaan,
             'nopolis' => $datakendaraan

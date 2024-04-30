@@ -20,7 +20,7 @@ class kendaraanController extends Controller
             'user' => Auth::user(), 
         ];
 
-        $kendaraan = DB::table('tbl_kendaraan')->get();
+        $kendaraan = Kendaraan::paginate(10);
         
         return view('/backend/kendaraan/kendaraan', [
             'kendaraan' => $kendaraan, 

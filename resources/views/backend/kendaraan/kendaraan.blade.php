@@ -235,6 +235,15 @@
                                 @endforeach 
                             </tbody>
                         </table>
+                        <nav aria-label="...">
+                            <ul class="pagination pagination-sm justify-content-end">
+                              @for ($i = 1; $i <= $kendaraan->lastPage(); $i++)
+                                  <li class="page-item {{ ($kendaraan->currentPage() == $i) ? 'active' : '' }}">
+                                      <a class="page-link" href="{{ $kendaraan->url($i) }}">{{ $i }}</a>
+                                  </li>
+                              @endfor
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

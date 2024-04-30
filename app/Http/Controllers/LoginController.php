@@ -25,6 +25,7 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt($credentials)) {
+            //activity()->causedBy(auth::user())->log('user login');
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }

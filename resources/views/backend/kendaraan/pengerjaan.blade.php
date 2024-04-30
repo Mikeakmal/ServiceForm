@@ -8,7 +8,7 @@
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
+       <div class="d-none d-md-flex ms-4">
             @if (count($pengerjaan) > 0)
                 <form action="{{ url('list-pengerjaan-search') }}" method="GET">
                     @csrf
@@ -18,7 +18,7 @@
                     </div>
                 </form>
             @endif
-        </form>
+       </div>
         <div class="navbar-nav align-items-center ms-auto">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -97,6 +97,8 @@
         color: rgb(108, 114, 147); 
     }
     
+
+
 </style>
 
     
@@ -266,40 +268,49 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     {{--  LIST PENGERJAAN  --}}
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="table-header">
-                                    <tr>
-                                        <th scope="col">No.</th>
-                                        <th scope="col">Nomor Polisi</th>
-                                        <th scope="col">Nama Mekanik</th>
-                                        <th scope="col">Tanggal Dikerjakan</th>
-                                        <th scope="col">Sparepart</th>
-                                        <th scope="col">Keterangan Pengerjaan</th>
-                                        <th scope="col">Perbarui</th>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Nomor Polisi</th>
+                                    <th scope="col">Nama Mekanik</th>
+                                    <th scope="col">Tanggal Dikerjakan</th>
+                                    <th scope="col">Sparepart</th>
+                                    <th scope="col">Keterangan Pengerjaan</th>
+                                    <th scope="col">Perbarui</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($pg as $j)
+                                    <tr data-id="{{$j->id_pengerjaan}}">
+                                        <th>{{ $loop->iteration }}</th>
+                                        <td class="nopol-selected">{{ $nopolis[$j->id_kendaraan] }}</td>
+                                        <td class="mekanik-name-selected">{{$j->nama_mekanik}}</td>
+                                        <td class="tgl-kerja-selected">{{$j->tanggal_dikerjakan}}</td>
+                                        <td class="sparepart-selected">{{$j->sparepart}}</td>
+                                        <td class="keterangan-selected">{{$j->keterangan_pengerjaan}}</td>
+                                        <td>
+                                            <a href="{{ url('/editpengerjaan/' . $j->id_pengerjaan) }}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ url('/deletepengerjaan/' . $j->id_pengerjaan) }}" title="Hapus" class="delete-button"
+                                                onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"> </i></a>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pengerjaan as $j)
-                                        <tr data-id="{{$j->id_pengerjaan}}">
-                                            <th>{{ $loop->iteration }}</th>
-                                            <td class="nopol-selected">{{ $nopolis[$j->id_kendaraan] }}</td>
-                                            <td class="mekanik-name-selected">{{$j->nama_mekanik}}</td>
-                                            <td class="tgl-kerja-selected">{{$j->tanggal_dikerjakan}}</td>
-                                            <td class="sparepart-selected">{{$j->sparepart}}</td>
-                                            <td class="keterangan-selected">{{$j->keterangan_pengerjaan}}</td>
-                                            <td>
-                                                <a href="{{ url('/editpengerjaan/' . $j->id_pengerjaan) }}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
-                                                <a href="{{ url('/deletepengerjaan/' . $j->id_pengerjaan) }}" title="Hapus" class="delete-button"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"> </i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach 
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach 
+                            </tbody>
+                        </table>
+                        <nav aria-label="...">
+                            <ul class="pagination pagination-sm justify-content-end">
+                              @for ($i = 1; $i <= $pg->lastPage(); $i++)
+                                  <li class="page-item {{ ($pg->currentPage() == $i) ? 'active' : '' }}">
+                                      <a class="page-link" href="{{ $pg->url($i) }}">{{ $i }}</a>
+                                  </li>
+                              @endfor
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

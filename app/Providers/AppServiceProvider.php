@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Peralatan;
+use App\Observers\PeralatanObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,8 +23,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
-        //
+        // Peralatan::observe(PeralatanObserver::class);
     }
 }

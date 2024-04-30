@@ -51,43 +51,59 @@
                         <h6 class="mb-0">Daftar Kendaraan On Progress </h6> 
                     </div>
                     {{--  LIST KENDARAAN  --}}
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="table-header">
-                                <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Nomor Polisi</th>
-                                    <th scope="col">Tanggal Masuk Bengkel</th>
-                                    <th scope="col">Tanggal Selesai</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($kendaraan as $j)
-                                    <tr data-id="{{$j->id_kendaraan}}">
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td class="nopol-selected">{{$j->no_polisi}}</td>
-                                        <td class="tgl-kerja-selected">{{$j->tanggal_masuk_bengkel}}</td>
-                                        <td class="tgl-selesai-selected">{{$j->tanggal_selesai}}</td>
-                                        <td>
-                                            <a href="{{ url('movekendaraan', ['id_kendaraan' => Crypt::encrypt($j->id_kendaraan)]) }}" 
-                                                class="detail-button" id="detail-button" title="Lihat Detail"><i class="bi bi-eye-fill"></i>
-                                            </a>
-                                            <a href="/editkendaraan/{{$j->id_kendaraan}}" id="edit-button" class="edit-button" title="Perbarui"><i class="fa fa-edit"></i></a>
-                                            </a>
-                                            <a href="{{ url('/kendaraan/' . $j->id_kendaraan) }}" class="delete-button" 
-                                                onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"></i>
-                                            </a>
-                                        </td>
+                    <form action="{{ route('kendaraan.update') }}" method="POST">
+                        @csrf
+                        <div class="table-responsive">
+                            <table id="example" class="table display" cellspacing="0" width="100%">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th></th>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Nomor Polisi</th>
+                                        <th scope="col">Tanggal Masuk Bengkel</th>
+                                        <th scope="col">Tanggal Selesai</th>
+                                        <th scope="col">Aksi</th>
                                     </tr>
-                                @endforeach 
-                            </tbody>
-                        </table>
-                    </div>                  
+                                </thead>
+                                <tbody>
+                                    @foreach($kendaraan as $j)
+                                        <tr data-id="{{$j->id_kendaraan}}">
+                                            <th></th>
+                                            <th>{{ $loop->iteration }}</th>
+                                            <td class="no_polisi" >{{$j->no_polisi}}</td>
+                                            <td class="tanggal_masuk_bengkel" width="18%" >{{$j->tanggal_masuk_bengkel}}</td>
+                                            <td class="tanggal_selesai" width="18%" >{{$j->tanggal_selesai}}</td>
+                                            <td>
+                                                <a href="#"data-id="{{$j->id_kendaraan}}" title="Perbarui">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="{{ url('/kendaraan/' . $j->id_kendaraan) }}" class="delete-button" 
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ini?');"><i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach 
+                                </tbody>
+                            </table>
+                            <nav aria-label="...">
+                                <ul class="pagination pagination-sm justify-content-end">
+                                  @for ($i = 1; $i <= $kendaraan->lastPage(); $i++)
+                                      <li class="page-item {{ ($kendaraan->currentPage() == $i) ? 'active' : '' }}">
+                                          <a class="page-link" href="{{ $kendaraan->url($i) }}">{{ $i }}</a>
+                                      </li>
+                                  @endfor
+                                </ul>
+                            </nav>
+                        </div>                  
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <script>
+        $(document).ready(function() {
+            $('#example .no_polisi, #example .tanggal_masuk_bengkel, #example .tanggal_selesai').editable();
+        });
+    </script>
 @endsection

@@ -63,6 +63,12 @@
         color: rgb(0, 0, 0); 
     }
 
+    .pagination {
+        {{--  background-color: rgb(18, 18, 18);  --}}
+        color:rgb(8, 8, 8);     
+    }
+
+ 
 </style>
 
 {{-- Form Tambah Barang/inventaris --}}
@@ -378,6 +384,15 @@
                             @endforeach 
                         </tbody>
                     </table>
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-sm justify-content-end ">
+                          @for ($i = 1; $i <= $pg->lastPage(); $i++)
+                              <li class="page-item {{ ($pg->currentPage() == $i) ? 'active' : '' }}">
+                                  <a class="page-link" href="{{ $pg->url($i) }}">{{ $i }}</a>
+                              </li>
+                          @endfor
+                        </ul>
+                    </nav>
                 </div>  
             </div>
         </div>

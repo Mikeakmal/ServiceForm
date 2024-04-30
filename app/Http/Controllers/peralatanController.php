@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use PDF;
 
+
 class peralatanController extends Controller
 {
     public function index(Request $request)
@@ -22,9 +23,11 @@ class peralatanController extends Controller
             ->where('tbl_barang.kondisi', 'RUSAK')
             ->select('tbl_peralatanrusak.*')
             ->get();
-            
+         
         // MENGATUR PILIHAN PADA COMBOBOX
-        $peralatan = Peralatan::all();
+        $pg = Peralatan::all();
+        $peralatan = Peralatan::paginate(10);
+
         $barang = Barang::where('kondisi', 'RUSAK')
             ->whereNotIn('id_barang', function ($query) {
                 $query->select('id_barang')
@@ -36,6 +39,7 @@ class peralatanController extends Controller
         $kondisibarang = Barang::pluck('kondisi', 'id_barang');
 
         return view('backend.peralatan.peralatan', [
+            'pg'=>$pg,
             'peralatan' => $peralatan,
             'inventarisNo' => $barang,
             'noinventaris' => $databarang,
@@ -44,6 +48,31 @@ class peralatanController extends Controller
         ]);
     }
 
+    // public function store(Request $request)
+    // {
+    //     $selectedInventaris = $request->inventaris;
+
+    //     // Cek nomor inventaris 
+    //     if ($selectedInventaris === 'id_barang') {
+    //         return redirect()->back()->with('error', 'Silakan pilih nomor inventaris');
+    //     } else {
+           
+    //         Peralatan::insert([
+    //             'id_barang' => $request-> inventaris,
+    //             'merek' => $request->merek,
+    //             'nama_karyawan' => $request->karyawan,
+    //             'alat_rusak' => $request->alat,
+    //             'tanggal_diperbaiki' => $request->tgldiperbaiki,
+    //             'nama_teknisi' => $request->teknisi,
+    //         ]);
+
+    //         // Catat aktivitas menggunakan Activity Log
+    //         activity()->causedBy(auth()->user())->log('Create');
+
+    //         return redirect()->back()->with('success', 'Data peralatan berhasil disimpan.');
+    //     }
+
+    // }
     public function store(Request $request)
     {
         $selectedInventaris = $request->inventaris;
@@ -52,28 +81,34 @@ class peralatanController extends Controller
         if ($selectedInventaris === 'id_barang') {
             return redirect()->back()->with('error', 'Silakan pilih nomor inventaris');
         } else {
-           
-            Peralatan::insert([
-                'id_barang' => $request-> inventaris,
+            $peralatan = Peralatan::create([
+                'id_barang' => $request->inventaris,
                 'merek' => $request->merek,
                 'nama_karyawan' => $request->karyawan,
                 'alat_rusak' => $request->alat,
                 'tanggal_diperbaiki' => $request->tgldiperbaiki,
                 'nama_teknisi' => $request->teknisi,
             ]);
-
+    
+            // Catat aktivitas menggunakan Activity Log
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($peralatan)
+                ->withProperties(['id_barang' => $peralatan->id_barang, 'merek' => $peralatan->merek]) // Properti yang ingin Anda sertakan
+                ->log('Peralatan dengan ID ' . $peralatan->id_barang . ' ditambahkan'); // Deskripsi aktivitas
+    
             return redirect()->back()->with('success', 'Data peralatan berhasil disimpan.');
         }
     }
 
 
-    public function create()
-    {
-        $peralatan = '';
-        $inventarisNo = Barang::all();
-        return view('backend.peralatan.peralatan', compact('peralatan','inventarisNo')          
-        );
-    }
+    // public function create()
+    // {
+    //     $peralatan = '';
+    //     $inventarisNo = Barang::all();
+    //     return view('backend.peralatan.peralatan', compact('peralatan','inventarisNo')          
+    //     );
+    // }
 
     public function edit($id_tbl)
     {   
@@ -91,6 +126,13 @@ class peralatanController extends Controller
         Barang::where('id_barang', $request->id_barang)->update([
             'kondisi' => $request->val_kondisi
         ]);
+
+        // Temukan peralatan berdasarkan ID 
+        $peralatan = Peralatan::findOrFail($request->id_peralatan);
+
+        //Simpan old data sebelum melakukan update
+        $oldData = $peralatan->toArray();
+
         Peralatan::where('id_peralatan', $request->id_peralatan)->update([
             'merek' => $request->val_merek,
             'nama_karyawan' => $request->val_karyawan,
@@ -98,13 +140,41 @@ class peralatanController extends Controller
             'tanggal_diperbaiki' => $request->val_tgldiperbaiki,
             'nama_teknisi' => $request->val_teknisi,
           ]);
+
+        // Temukan kembali peralatan setelah melakukan update
+        $peralatan = Peralatan::findOrFail($request->id_peralatan);
+
+        // Simpan new data setelah melakukan update
+         $newData = $peralatan->getAttributes();
+
+        activity()
+            ->causedBy(auth()->user()) 
+            ->performedOn($peralatan) 
+            ->withProperties(['old_data' => $oldData, 'new_data' => $newData])
+            ->log('update'); 
+
         return redirect()->back();
     }
     
     public function delete($id_peralatan)
     {
+
+        // Temukan peralatan yang akan dihapus
+        $peralatan = Peralatan::findOrFail($id_peralatan);
+
+        // Simpan data sebelum penghapusan
+        $oldData = $peralatan->toArray();
+
         Peralatan::where('id_peralatan', $id_peralatan)->delete();
+
+        activity()
+            ->causedBy(auth()->user()) 
+            ->performedOn($peralatan) 
+            ->withProperties(['deleted_data' => $oldData]) 
+            ->log('delete'); 
+
         return redirect()->back();
+
     }
    
     public function search(Request $request)

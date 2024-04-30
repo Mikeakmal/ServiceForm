@@ -52,6 +52,7 @@ Route::get('list-pengerjaan-detail-search', [kendaraanController::class, 'search
 //KENDARAAN ON PROGRESS
 Route::get('/kendaraan-onprogress', [KendaraanOnProgressController::class, 'index'])->middleware('auth');
 Route::get('list-onprogress-search', [KendaraanOnProgressController::class, 'search']);
+Route::post('/update-kendaraan', [KendaraanOnProgressController::class, 'update'])->name('updateKendaraan');
 
 //pengerjaan
 Route::get('/pengerjaan', [PengerjaanController::class, 'index'])->middleware('auth');
@@ -59,13 +60,11 @@ Route::post('/addpengerjaan', [PengerjaanController::class, 'store']);
 Route::get('/editpengerjaan/{id_pengerjaan}', [PengerjaanController::class, 'edit']);
 Route::post('/form-pengerjaan-update', [PengerjaanController::class, 'update']);
 Route::get('/deletepengerjaan/{id_pengerjaan}', [PengerjaanController::class, 'delete']);
-Route::get('/formpengerjaan', [PengerjaanController::class, 'create']);
 Route::post('list-pengerjaan-print', [PengerjaanController::class, 'print']);
 Route::get('list-pengerjaan-search', [PengerjaanController::class, 'search']);
 
 // Barang
 Route::get('/barang', [barangController::class, 'index'])->middleware('auth');
-Route::get('/tblbarang', [barangController::class, 'create']); 
 Route::post('/addbarang', [barangController::class, 'store']);
 Route::post('/form-barang-update', [barangController::class, 'update']);
 Route::get('/editbarang/{id_barang}', [barangController::class, 'edit']); 

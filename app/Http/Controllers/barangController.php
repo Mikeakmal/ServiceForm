@@ -19,24 +19,27 @@ class barangController extends Controller
             'user' => Auth::user(), 
         ];
 
+        $pg = Barang::paginate(10);
         $barang = DB::table('tbl_barang')->get();
+
         $barangBagus = Barang::where('kondisi', 'BAGUS')->get();
         $barangRusak = Barang::where('kondisi', 'RUSAK')->get();
 
         
         return view('/backend/barang/barang', [
+            'pg'=>$pg,
             'barang' => $barang, 
             'barangbagus' => $barangBagus,
             'barangrusak' => $barangRusak,
         ]);
     }
 
-    public function create()
-    {
-        $barang = '';
-        return view('backend.barang.barang', compact('barang')          
-        );
-    }
+    // public function create()
+    // {
+    //     $barang = '';
+    //     return view('backend.barang.barang', compact('barang')          
+    //     );
+    // }
 
     public function store(Request $request)
     {
